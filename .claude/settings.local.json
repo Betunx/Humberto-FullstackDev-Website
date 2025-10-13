@@ -3,7 +3,10 @@
     "allow": [
       "Bash(test:*)",
       "Bash(npm run build)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git log:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nRefactor: Optimize codebase and unify typography\n\n- Remove ~150 lines of duplicate CSS code across components\n- Unify typography to ''Courier New'' monospace font for professional appearance\n- Extract common styles (.container, .section, .section-title) to global styles.scss\n- Remove unnecessary CommonModule imports from components\n- Delete unused app.spec.ts test file\n- Add SEO meta description to index.html\n- Clean up font-family declarations across all components\n\nThis refactoring improves maintainability, consistency, and reduces bundle size.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
