@@ -52,36 +52,6 @@ interface Project {
   styles: [`
     .projects {
       background-color: var(--bg-primary);
-      padding: 3rem 0;
-    }
-
-    @media (min-width: 768px) {
-      .projects { padding: 4rem 0; }
-    }
-
-    @media (min-width: 1024px) {
-      .projects { padding: 6rem 0; }
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    @media (min-width: 768px) {
-      .container { padding: 0 2rem; }
-    }
-
-    @media (min-width: 1024px) {
-      .container { padding: 0 3rem; }
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 4rem;
-      color: var(--text-primary);
     }
 
     .projects-grid {
@@ -129,7 +99,6 @@ interface Project {
       background: linear-gradient(135deg, var(--accent) 0%, var(--text-primary) 100%);
       color: white;
       font-size: 3rem;
-      font-family: 'Playfair Display', serif;
       font-weight: 700;
     }
 

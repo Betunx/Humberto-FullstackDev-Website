@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule],
   template: `
     <section id="hero" class="hero">
       <div class="container">

@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   template: `
     <section id="contact" class="contact section">
       <div class="container">
@@ -17,7 +16,7 @@ import { FormsModule } from '@angular/forms';
             <div class="contact-items">
               <a href="mailto:humberto@ejemplo.com" class="contact-item">
                 <span class="icon">📧</span>
-                <span>humberto@ejemplo.com</span>
+                <span>humbertolpzc@gmail.com</span>
               </a>
               
               <a href="https://linkedin.com" target="_blank" class="contact-item">
@@ -74,36 +73,6 @@ import { FormsModule } from '@angular/forms';
   styles: [`
     .contact {
       background-color: var(--bg-secondary);
-      padding: 3rem 0;
-    }
-
-    @media (min-width: 768px) {
-      .contact { padding: 4rem 0; }
-    }
-
-    @media (min-width: 1024px) {
-      .contact { padding: 6rem 0; }
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    @media (min-width: 768px) {
-      .container { padding: 0 2rem; }
-    }
-
-    @media (min-width: 1024px) {
-      .container { padding: 0 3rem; }
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 4rem;
-      color: var(--text-primary);
     }
 
     .contact-content {
@@ -176,7 +145,6 @@ import { FormsModule } from '@angular/forms';
     }
 
     .form-group label {
-      font-family: 'Merriweather', serif;
       font-size: 0.875rem;
       font-weight: 500;
       color: var(--text-primary);
@@ -185,7 +153,6 @@ import { FormsModule } from '@angular/forms';
     .form-group input,
     .form-group textarea {
       padding: 1rem;
-      font-family: 'Merriweather', serif;
       font-size: 1rem;
       color: var(--text-primary);
       background-color: var(--bg-secondary);

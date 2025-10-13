@@ -53,21 +53,6 @@ import { ThemeService } from '../../../core/services/theme.service';
       transition: background-color 0.3s ease;
     }
 
-    .container {
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    @media (min-width: 768px) {
-      .container { padding: 0 2rem; }
-    }
-
-    @media (min-width: 1024px) {
-      .container { padding: 0 3rem; }
-    }
-
     .navbar-content {
       display: flex;
       justify-content: space-between;
@@ -80,7 +65,6 @@ import { ThemeService } from '../../../core/services/theme.service';
     }
 
     .navbar-logo {
-      font-family: 'Georgia', 'Times New Roman', serif;
       font-size: 1.5rem;
       font-weight: 700;
       color: var(--text-primary);
@@ -109,7 +93,6 @@ import { ThemeService } from '../../../core/services/theme.service';
     }
 
     .navbar-menu a {
-      font-family: 'Georgia', serif;
       font-size: 1rem;
       color: var(--text-secondary);
       text-decoration: none;

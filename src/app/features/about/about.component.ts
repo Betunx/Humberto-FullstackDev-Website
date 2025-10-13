@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule],
   template: `
     <section id="about" class="about section">
       <div class="container">
@@ -60,45 +58,11 @@ import { CommonModule } from '@angular/common';
   styles: [`
     .about {
       background-color: var(--bg-secondary);
-      padding: 3rem 0;
-    }
-
-    @media (min-width: 768px) {
-      .about { padding: 4rem 0; }
-    }
-
-    @media (min-width: 1024px) {
-      .about { padding: 6rem 0; }
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    @media (min-width: 768px) {
-      .container { padding: 0 2rem; }
-    }
-
-    @media (min-width: 1024px) {
-      .container { padding: 0 3rem; }
     }
 
     .about-content {
       max-width: 800px;
       margin: 0 auto;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 3rem;
-      color: var(--text-primary);
-    }
-
-    @media (min-width: 768px) {
-      .section-title { margin-bottom: 4rem; }
     }
 
     .about-text {
@@ -159,7 +123,6 @@ import { CommonModule } from '@angular/common';
       background-color: var(--bg-primary);
       border: 1px solid var(--border);
       border-radius: 0.375rem;
-      font-family: 'Georgia', serif;
       font-size: 0.875rem;
       color: var(--text-primary);
       transition: all 0.3s ease;
