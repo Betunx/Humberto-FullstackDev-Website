@@ -17,7 +17,9 @@ import { RouterModule } from '@angular/router';
       <div class="container">
         <div class="hero-content fade-in">
           <h1 class="hero-title">Humberto López</h1>
-          <h2 class="hero-subtitle">Full Stack Developer</h2>
+          <h2 class="hero-subtitle">
+            <span class="hero-subtitle-styled">Full Stack Developer</span>
+          </h2>
           <p class="hero-tagline">"Transformando ideas en soluciones digitales"</p>
 
           <div class="hero-actions">
@@ -64,8 +66,12 @@ import { RouterModule } from '@angular/router';
     }
 
     .wave-top {
-      top: 0;
+      top: 60px;
       transform: rotate(180deg);
+    }
+
+    @media (min-width: 768px) {
+      .wave-top { top: 70px; }
     }
 
     .wave-bottom {
@@ -90,8 +96,9 @@ import { RouterModule } from '@angular/router';
 
     .hero-title {
       margin-bottom: 1rem;
-      color: #ffffff;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      color: #000000;
+      text-shadow: none;
+      font-weight: 700;
     }
 
     .hero-subtitle {
@@ -102,12 +109,24 @@ import { RouterModule } from '@angular/router';
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
+    .hero-subtitle-styled {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background-color: #0a0f1a;
+      color: #ffffff;
+      position: relative;
+      clip-path: polygon(2% 0%, 100% 0%, 98% 100%, 0% 100%);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    }
+
     @media (min-width: 768px) {
       .hero-subtitle { font-size: 1.5rem; }
+      .hero-subtitle-styled { padding: 0.75rem 2rem; }
     }
 
     @media (min-width: 1024px) {
       .hero-subtitle { font-size: 2rem; }
+      .hero-subtitle-styled { padding: 1rem 2.5rem; }
     }
 
     .hero-tagline {
