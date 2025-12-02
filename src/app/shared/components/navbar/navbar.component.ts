@@ -1,22 +1,24 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { ThemeService } from '../../../core/services/theme.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   template: `
     <nav class="navbar">
       <div class="container">
         <div class="navbar-content">
-          <a href="#hero" class="navbar-logo">HL</a>
+          <a routerLink="/" class="navbar-logo">HL</a>
           
           <div class="navbar-menu" [class.active]="menuOpen">
-            <a href="#hero" (click)="closeMenu()">Inicio</a>
-            <a href="#about" (click)="closeMenu()">Sobre Mí</a>
-            <a href="#projects" (click)="closeMenu()">Proyectos</a>
-            <a href="#contact" (click)="closeMenu()">Contacto</a>
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">Home</a>
+            <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a>
+            <a routerLink="/projects" routerLinkActive="active" (click)="closeMenu()">Projects</a>
+            <a routerLink="/resume" routerLinkActive="active" (click)="closeMenu()">My Resume</a>
+            <a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a>
           </div>
           
           <div class="navbar-actions">
@@ -116,6 +118,14 @@ import { ThemeService } from '../../../core/services/theme.service';
     }
 
     .navbar-menu a:hover::after {
+      width: 100%;
+    }
+
+    .navbar-menu a.active {
+      color: var(--accent);
+    }
+
+    .navbar-menu a.active::after {
       width: 100%;
     }
 

@@ -1,0 +1,357 @@
+.resume-section {
+  min-height: 100vh;
+  padding: 6rem 0 4rem;
+  background-color: var(--bg-secondary);
+}
+
+.cv-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.cv {
+  max-width: 8.5in;
+  margin: 0 auto;
+  background: white;
+  padding: 0.35in 0.45in;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Header */
+.header {
+  margin-bottom: 14px;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+
+.name {
+  font-size: 22pt;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.credentials {
+  text-align: right;
+  font-size: 9pt;
+  color: #555;
+
+  strong {
+    color: #333;
+  }
+}
+
+.title {
+  font-size: 12pt;
+  color: #2563eb;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-size: 9pt;
+  color: #444;
+
+  a {
+    color: #2563eb;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Sections */
+.section {
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1.5px solid #ddd;
+  padding-bottom: 3px;
+  margin-bottom: 8px;
+}
+
+/* Summary */
+.summary {
+  text-align: justify;
+  color: #444;
+  font-size: 9.5pt;
+  line-height: 1.4;
+
+  strong {
+    color: #1a1a1a;
+  }
+}
+
+/* Skills */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 20px;
+  font-size: 9.5pt;
+}
+
+.skill-row {
+  margin-bottom: 3px;
+}
+
+.skill-label {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.skill-items {
+  color: #444;
+}
+
+/* Experience */
+.job {
+  margin-bottom: 12px;
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1px;
+}
+
+.job-company {
+  font-weight: 700;
+  color: #1a1a1a;
+  font-size: 10.5pt;
+}
+
+.job-date {
+  font-size: 9pt;
+  color: #666;
+}
+
+.job-title {
+  font-weight: 500;
+  color: #2563eb;
+  font-size: 10pt;
+  margin-bottom: 4px;
+}
+
+.job-duties {
+  padding-left: 14px;
+  color: #444;
+  font-size: 9.5pt;
+  list-style-type: disc;
+
+  li {
+    margin-bottom: 2px;
+    line-height: 1.4;
+  }
+}
+
+.job-tech {
+  font-size: 9pt;
+  color: #666;
+  margin-top: 4px;
+  font-style: italic;
+
+  strong {
+    color: #1a1a1a;
+  }
+}
+
+/* Projects */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.project {
+  padding: 6px 8px;
+  background: #f8f9fa;
+  border-left: 3px solid #2563eb;
+}
+
+.project-name {
+  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 9.5pt;
+}
+
+.project-tech {
+  font-size: 8.5pt;
+  color: #666;
+}
+
+.project-link {
+  font-size: 8pt;
+
+  a {
+    color: #2563eb;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Education */
+.edu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.edu-school {
+  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 9.5pt;
+}
+
+.edu-degree {
+  color: #2563eb;
+  font-weight: 500;
+  font-size: 9.5pt;
+}
+
+.edu-date {
+  font-size: 9pt;
+  color: #666;
+}
+
+.edu-details {
+  font-size: 8.5pt;
+  color: #555;
+  font-style: italic;
+}
+
+/* Bottom */
+.bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.cert-item,
+.lang-item {
+  color: #444;
+  margin-bottom: 2px;
+  font-size: 9.5pt;
+}
+
+/* Download Section */
+.download-section {
+  margin-top: 20px;
+  text-align: center;
+  padding: 16px;
+  background: #f0f7ff;
+  border-radius: 8px;
+}
+
+.download-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 11pt;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #1d4ed8;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.download-hint {
+  margin-top: 8px;
+  font-size: 9pt;
+  color: #666;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .resume-section {
+    padding: 5rem 0 3rem;
+  }
+
+  .cv {
+    padding: 0.25in 0.35in;
+  }
+
+  .header-top {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .credentials {
+    text-align: left;
+  }
+
+  .name {
+    font-size: 18pt;
+  }
+
+  .skills-grid,
+  .projects-grid,
+  .edu-grid,
+  .bottom-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .resume-section {
+    background: white;
+    padding: 0;
+  }
+
+  .cv-wrapper {
+    padding: 0;
+  }
+
+  .cv {
+    box-shadow: none;
+    padding: 0.25in 0.35in;
+    border-radius: 0;
+  }
+
+  .download-section {
+    display: none;
+  }
+
+  @page {
+    margin: 0;
+  }
+}
