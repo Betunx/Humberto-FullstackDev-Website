@@ -1,7 +1,7 @@
 .resume-section {
   min-height: 100vh;
-  padding: 6rem 0 4rem;
-  background-color: var(--bg-secondary);
+  padding: 6rem 0 0;
+  background-color: #f5f5f5;
 }
 
 .cv-wrapper {
@@ -11,63 +11,69 @@
 }
 
 .cv {
-  max-width: 8.5in;
+  max-width: 850px;
   margin: 0 auto;
   background: white;
-  padding: 0.35in 0.45in;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 40px 50px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
 /* Header */
 .header {
-  margin-bottom: 14px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
 }
 
 .header-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .name {
-  font-size: 22pt;
-  font-weight: 700;
-  color: #1a1a1a;
+  font-size: 32px;
+  font-weight: 300;
+  color: #2c3e50;
+  margin: 0;
 }
 
 .credentials {
   text-align: right;
-  font-size: 9pt;
+  font-size: 13px;
   color: #555;
 
   strong {
-    color: #333;
+    color: #2c3e50;
+    font-weight: 600;
   }
 }
 
 .title {
-  font-size: 12pt;
-  color: #2563eb;
-  font-weight: 500;
-  margin-bottom: 8px;
+  font-size: 16px;
+  color: #3498db;
+  font-weight: 600;
+  margin-bottom: 12px;
 }
 
 .contact {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 18px;
-  font-size: 9pt;
-  color: #444;
+  gap: 8px 20px;
+  font-size: 13px;
+  color: #555;
 
   a {
-    color: #2563eb;
+    color: #3498db;
     text-decoration: none;
     transition: color 0.15s ease;
 
     &:hover {
-      color: #1d4ed8;
+      color: #2c3e50;
       text-decoration: underline;
     }
   }
@@ -75,29 +81,29 @@
 
 /* Sections */
 .section {
-  margin-bottom: 12px;
+  margin-bottom: 24px;
+  padding: 0;
 }
 
 .section-title {
-  font-size: 10.5pt;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   color: #1a1a1a;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 1.5px solid #ddd;
-  padding-bottom: 3px;
-  margin-bottom: 8px;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
 }
 
 /* Summary */
 .summary {
   text-align: justify;
   color: #444;
-  font-size: 9.5pt;
-  line-height: 1.4;
+  font-size: 14px;
+  line-height: 1.5;
 
   strong {
-    color: #1a1a1a;
+    color: #2c3e50;
+    font-weight: 600;
   }
 }
 
@@ -105,73 +111,78 @@
 .skills-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4px 20px;
-  font-size: 9.5pt;
+  gap: 12px 30px;
+  font-size: 13px;
 }
 
 .skill-row {
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 
 .skill-label {
   font-weight: 600;
-  color: #1a1a1a;
+  color: #2c3e50;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .skill-items {
-  color: #444;
+  color: #555;
+  line-height: 1.4;
 }
 
 /* Experience */
 .job {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .job-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 1px;
-}
-
-.job-company {
-  font-weight: 700;
-  color: #1a1a1a;
-  font-size: 10.5pt;
-}
-
-.job-date {
-  font-size: 9pt;
-  color: #666;
-}
-
-.job-title {
-  font-weight: 500;
-  color: #2563eb;
-  font-size: 10pt;
   margin-bottom: 4px;
 }
 
+.job-company {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 15px;
+}
+
+.job-date {
+  font-size: 13px;
+  color: #7f8c8d;
+}
+
+.job-title {
+  font-weight: 600;
+  color: #3498db;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
 .job-duties {
-  padding-left: 14px;
+  padding-left: 18px;
   color: #444;
-  font-size: 9.5pt;
+  font-size: 13px;
   list-style-type: disc;
 
   li {
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     line-height: 1.4;
   }
 }
 
 .job-tech {
-  font-size: 9pt;
-  color: #666;
-  margin-top: 4px;
+  font-size: 12px;
+  color: #7f8c8d;
+  margin-top: 8px;
   font-style: italic;
 
   strong {
-    color: #1a1a1a;
+    color: #2c3e50;
+    font-weight: 600;
   }
 }
 
@@ -179,36 +190,39 @@
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 14px;
 }
 
 .project {
-  padding: 6px 8px;
+  padding: 12px;
   background: #f8f9fa;
-  border-left: 3px solid #2563eb;
+  border-left: 3px solid #3498db;
+  border-radius: 4px;
 }
 
 .project-name {
   font-weight: 600;
-  color: #1a1a1a;
-  font-size: 9.5pt;
+  color: #2c3e50;
+  font-size: 13px;
+  margin-bottom: 4px;
 }
 
 .project-tech {
-  font-size: 8.5pt;
-  color: #666;
+  font-size: 12px;
+  color: #7f8c8d;
+  margin-bottom: 4px;
 }
 
 .project-link {
-  font-size: 8pt;
+  font-size: 12px;
 
   a {
-    color: #2563eb;
+    color: #3498db;
     text-decoration: none;
     transition: color 0.15s ease;
 
     &:hover {
-      color: #1d4ed8;
+      color: #2c3e50;
       text-decoration: underline;
     }
   }
@@ -218,29 +232,32 @@
 .edu-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 20px;
 }
 
 .edu-school {
   font-weight: 600;
-  color: #1a1a1a;
-  font-size: 9.5pt;
+  color: #2c3e50;
+  font-size: 14px;
+  margin-bottom: 2px;
 }
 
 .edu-degree {
-  color: #2563eb;
+  color: #3498db;
   font-weight: 500;
-  font-size: 9.5pt;
+  font-size: 13px;
+  margin-bottom: 4px;
 }
 
 .edu-date {
-  font-size: 9pt;
-  color: #666;
+  font-size: 12px;
+  color: #7f8c8d;
+  margin-bottom: 4px;
 }
 
 .edu-details {
-  font-size: 8.5pt;
-  color: #555;
+  font-size: 12px;
+  color: #666;
   font-style: italic;
 }
 
@@ -249,48 +266,52 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+
+  .section-title {
+    margin-bottom: 8px;
+  }
 }
 
 .cert-item,
 .lang-item {
   color: #444;
-  margin-bottom: 2px;
-  font-size: 9.5pt;
+  margin-bottom: 4px;
+  font-size: 13px;
 }
 
 /* Download Section */
 .download-section {
-  margin-top: 20px;
+  margin-top: 16px;
   text-align: center;
-  padding: 16px;
-  background: #f0f7ff;
-  border-radius: 8px;
 }
 
 .download-btn {
-  background: #2563eb;
+  background: #3498db;
   color: white;
   border: none;
-  padding: 12px 24px;
-  font-size: 11pt;
+  padding: 12px 28px;
+  font-size: 14px;
   font-weight: 600;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
 
   &:hover {
-    background: #1d4ed8;
+    background: #2c3e50;
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+    transform: translateY(-2px);
   }
 
   &:active {
-    transform: translateY(1px);
+    transform: translateY(0);
   }
 }
 
 .download-hint {
-  margin-top: 8px;
-  font-size: 9pt;
-  color: #666;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #7f8c8d;
   font-style: italic;
 }
 
@@ -301,7 +322,7 @@
   }
 
   .cv {
-    padding: 0.25in 0.35in;
+    padding: 30px 25px;
   }
 
   .header-top {
@@ -314,7 +335,7 @@
   }
 
   .name {
-    font-size: 18pt;
+    font-size: 26px;
   }
 
   .skills-grid,
@@ -326,32 +347,94 @@
 
   .contact {
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
   }
 }
 
 /* Print Styles */
 @media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html,
+  body {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+  }
+
+  /* Ocultar navbar en impresión */
+  app-navbar,
+  .navbar,
+  nav {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
   .resume-section {
     background: white;
-    padding: 0;
+    padding: 0 !important;
+    min-height: auto;
+    margin: 0 !important;
   }
 
   .cv-wrapper {
     padding: 0;
+    max-width: 100%;
   }
 
   .cv {
     box-shadow: none;
-    padding: 0.25in 0.35in;
+    padding: 40px 50px;
     border-radius: 0;
+    max-width: 100%;
+    margin: 0;
   }
 
   .download-section {
     display: none;
   }
 
+  .header {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    page-break-after: avoid;
+  }
+
+  .section {
+    margin-bottom: 24px;
+    padding: 0;
+  }
+
+  .section-title {
+    page-break-after: avoid;
+  }
+
+  .job {
+    margin-bottom: 16px;
+    page-break-inside: avoid;
+  }
+
+  .edu-grid > div,
+  .bottom-row > div {
+    page-break-inside: avoid;
+  }
+
   @page {
-    margin: 0;
+    margin: 0.5in;
+    size: letter;
   }
 }
