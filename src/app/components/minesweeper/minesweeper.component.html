@@ -1,0 +1,93 @@
+<section class="minesweeper-section">
+  <div class="section-header">
+    <h3 class="section-title">🎮 Interactive Demo</h3>
+    <p class="section-subtitle">
+      Un clásico Buscaminas construido con Canvas API y Angular Signals.
+      <span class="hint">Click para revelar • Click derecho para bandera • Doble click para chord</span>
+    </p>
+  </div>
+
+  <div class="game-container">
+    <!-- Controls -->
+    <div class="game-controls">
+      <div class="difficulty-selector">
+        @for (diff of getDifficultyKeys(); track diff) {
+          <button
+            class="difficulty-btn"
+            [class.active]="gameService.difficulty() === diff"
+            (click)="selectDifficulty(diff)"
+          >
+            {{ gameService.getDifficultyConfigs()[diff].label }}
+          </button>
+        }
+      </div>
+
+      <div class="game-stats">
+        <div class="stat">
+          <span class="stat-icon">💣</span>
+          <span class="stat-value">{{ gameService.minesRemaining() }}</span>
+        </div>
+
+        <button class="restart-btn" (click)="restartGame()">
+          {{ getStatusEmoji() }}
+        </button>
+
+        <div class="stat">
+          <span class="stat-icon">⏱️</span>
+          <span class="stat-value">{{ formatTime(gameService.elapsedTime()) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Board -->
+    <div class="canvas-wrapper" [class.game-over]="gameService.gameStatus() === 'lost'" [class.game-won]="gameService.gameStatus() === 'won'">
+      <canvas
+        #gameCanvas
+        [width]="canvasWidth()"
+        [height]="canvasHeight()"
+        (click)="onCanvasClick($event)"
+        (contextmenu)="onCanvasRightClick($event)"
+        (dblclick)="onCanvasDoubleClick($event)"
+        (touchstart)="onTouchStartCanvas($event)"
+        (touchend)="onTouchEndCanvas($event)"
+        (touchmove)="onTouchMoveCanvas($event)"
+      ></canvas>
+
+      @if (gameService.gameStatus() === 'won') {
+        <div class="game-overlay win">
+          <span class="overlay-emoji">🎉</span>
+          <span class="overlay-text">¡Victoria!</span>
+          <span class="overlay-time">Tiempo: {{ formatTime(gameService.elapsedTime()) }}</span>
+        </div>
+      }
+
+      @if (gameService.gameStatus() === 'lost') {
+        <div class="game-overlay lose">
+          <span class="overlay-emoji">💥</span>
+          <span class="overlay-text">Game Over</span>
+          <button class="retry-btn" (click)="restartGame()">Reintentar</button>
+        </div>
+      }
+    </div>
+
+    <!-- Instructions -->
+    <div class="game-instructions">
+      <div class="instruction">
+        <span class="key">Click</span>
+        <span class="action">Revelar celda</span>
+      </div>
+      <div class="instruction">
+        <span class="key">Click Derecho</span>
+        <span class="action">Poner bandera</span>
+      </div>
+      <div class="instruction">
+        <span class="key">Doble Click</span>
+        <span class="action">Revelar adyacentes</span>
+      </div>
+      <div class="instruction mobile-hint">
+        <span class="key">📱 Mobile</span>
+        <span class="action">Mantén presionado para bandera</span>
+      </div>
+    </div>
+  </div>
+</section>

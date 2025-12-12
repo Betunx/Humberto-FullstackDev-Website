@@ -1,0 +1,377 @@
+.minesweeper-section {
+  padding: 3rem 0;
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  margin: 2rem 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.75rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.section-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.6;
+
+  .hint {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    opacity: 0.7;
+  }
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 1rem;
+}
+
+// Controls
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+.difficulty-selector {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--bg-tertiary);
+  padding: 0.25rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.difficulty-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+  }
+
+  &.active {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+}
+
+.game-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--bg-tertiary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .stat-icon {
+    font-size: 1.1rem;
+  }
+
+  .stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent);
+    min-width: 45px;
+    text-align: center;
+  }
+}
+
+.restart-btn {
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--border);
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transform: scale(1.1);
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--glow);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// Canvas
+.canvas-wrapper {
+  position: relative;
+  background: var(--bg-tertiary);
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  box-shadow: 0 4px 20px var(--shadow);
+  transition: all 0.3s ease;
+  max-width: 100%;
+  overflow-x: auto;
+
+  &:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 25px var(--glow);
+  }
+
+  &.game-over {
+    border-color: #ef4444;
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.3);
+    animation: shake 0.5s ease-in-out;
+  }
+
+  &.game-won {
+    border-color: var(--accent);
+    box-shadow: 0 0 30px var(--glow);
+    animation: pulse-glow 1s ease-in-out infinite;
+  }
+
+  canvas {
+    display: block;
+    cursor: pointer;
+    touch-action: manipulation;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+// Overlays
+.game-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-out;
+
+  &.win {
+    background: rgba(0, 212, 170, 0.9);
+  }
+
+  &.lose {
+    background: rgba(239, 68, 68, 0.9);
+  }
+
+  .overlay-emoji {
+    font-size: 3rem;
+    animation: bounce 0.6s ease-out;
+  }
+
+  .overlay-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .overlay-time {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .retry-btn {
+    margin-top: 0.5rem;
+    padding: 0.6rem 1.5rem;
+    background: white;
+    color: #ef4444;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+// Instructions
+.game-instructions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.instruction {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+
+  .key {
+    background: var(--bg-tertiary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+  }
+
+  .action {
+    color: var(--text-secondary);
+  }
+
+  &.mobile-hint {
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+// Animations
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--glow);
+  }
+  50% {
+    box-shadow: 0 0 40px var(--glow), 0 0 60px var(--glow);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+// Responsive
+@media (max-width: 600px) {
+  .minesweeper-section {
+    padding: 2rem 0;
+    margin: 1rem 0;
+    border-radius: 12px;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+  }
+
+  .game-stats {
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .stat .stat-value {
+    font-size: 1rem;
+    min-width: 40px;
+  }
+
+  .restart-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
+
+  .canvas-wrapper {
+    padding: 8px;
+
+    canvas {
+      // Allow horizontal scroll for larger difficulties on mobile
+      min-width: 288px; // 9 * 32px for easy mode
+    }
+  }
+
+  .game-instructions {
+    gap: 0.75rem;
+  }
+
+  .instruction {
+    font-size: 0.75rem;
+  }
+}
+
+// Dark mode enhancements
+:host-context(body.dark-mode) {
+  .section-title {
+    text-shadow: 0 0 20px var(--glow);
+  }
+
+  .canvas-wrapper {
+    background: linear-gradient(
+      135deg,
+      var(--bg-tertiary) 0%,
+      rgba(0, 212, 170, 0.05) 100%
+    );
+  }
+
+  .difficulty-btn.active {
+    box-shadow: 0 2px 15px var(--glow);
+  }
+
+  .game-stats {
+    background: linear-gradient(
+      135deg,
+      var(--bg-tertiary) 0%,
+      rgba(0, 212, 170, 0.03) 100%
+    );
+  }
+}

@@ -8,29 +8,29 @@ import { Component } from '@angular/core';
       <div class="container">
         <div class="about-content">
           <h2 class="section-title">Desarrollador. Músico. Solucionador de problemas.</h2>
-          
+
           <div class="about-text">
             <p>
-              Siempre he sido alguien que busca patrones: ya sea en una melodía, 
-              en una estrategia deportiva o en miles de líneas de código. Esta 
-              habilidad me permite encontrar soluciones creativas donde otros ven 
+              Siempre he sido alguien que busca patrones: ya sea en una melodía,
+              en una estrategia deportiva o en miles de líneas de código. Esta
+              habilidad me permite encontrar soluciones creativas donde otros ven
               solo complejidad.
             </p>
-            
+
             <p>
-              Como desarrollador Full Stack, combino pensamiento analítico con 
-              creatividad práctica. Disfruto tanto los desafíos individuales como 
-              la colaboración en equipo, siempre manteniendo la calma y la comunicación 
+              Como desarrollador Full Stack, combino pensamiento analítico con
+              creatividad práctica. Disfruto tanto los desafíos individuales como
+              la colaboración en equipo, siempre manteniendo la calma y la comunicación
               clara incluso bajo presión.
             </p>
-            
+
             <p>
-              Mi filosofía es simple: código limpio, soluciones elegantes y equilibrio 
-              entre mente y cuerpo. Los mejores resultados vienen de estar en tu mejor 
+              Mi filosofía es simple: código limpio, soluciones elegantes y equilibrio
+              entre mente y cuerpo. Los mejores resultados vienen de estar en tu mejor
               versión, dentro y fuera de la pantalla.
             </p>
           </div>
-          
+
           <div class="tech-stack">
             <h3>Stack Tecnológico</h3>
             <div class="tech-grid">
