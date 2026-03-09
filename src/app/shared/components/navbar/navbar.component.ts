@@ -1,230 +1,115 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { ThemeService } from '@core/services/theme.service';
+
+const NAV_LINKS = [
+  { label: 'Inicio', href: '#hero' },
+  { label: 'Sobre Mí', href: '#about' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Experiencia', href: '#experience' },
+  { label: 'Proyectos', href: '#projects' },
+  { label: 'Contacto', href: '#contact' },
+];
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule],
   template: `
-    <nav class="navbar">
-      <div class="container">
-        <div class="navbar-content">
-          <a routerLink="/" class="navbar-logo">HL</a>
-          
-          <div class="navbar-menu" [class.active]="menuOpen">
-            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">Home</a>
-            <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a>
-            <a routerLink="/projects" routerLinkActive="active" (click)="closeMenu()">Projects</a>
-            <a routerLink="/resume" routerLinkActive="active" (click)="closeMenu()">My Resume</a>
-            <a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a>
-          </div>
-          
-          <div class="navbar-actions">
-            <button 
-              class="theme-toggle" 
-              (click)="toggleTheme()"
-              [attr.aria-label]="(themeService.darkMode$ | async) ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'">
-              <span class="theme-icon">{{ (themeService.darkMode$ | async) ? '☀️' : '🌙' }}</span>
+    <nav
+      class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      [class]="scrolled
+        ? 'bg-[#0a0a0a]/90 backdrop-blur-md border-b border-[#00ff41]/20 shadow-[0_0_20px_rgba(0,255,65,0.1)]'
+        : 'bg-transparent'"
+      style="animation: slideDown 0.6s ease-out both;"
+    >
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+        <!-- Logo -->
+        <button (click)="scrollTo('#hero')" class="flex items-center gap-2 group cursor-pointer border-none bg-transparent">
+          <svg class="w-6 h-6 text-[#00ff41] group-hover:drop-shadow-[0_0_8px_rgba(0,255,65,0.8)] transition-all"
+               fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+          <span class="text-[#00ff41] tracking-wider font-bold" style="font-family:'Orbitron',sans-serif; font-size:1.1rem;">
+            HL<span class="text-[#00e5ff]">_</span>DEV
+          </span>
+        </button>
+
+        <!-- Desktop links -->
+        <div class="hidden md:flex items-center gap-8">
+          @for (link of navLinks; track link.href) {
+            <button
+              (click)="scrollTo(link.href)"
+              class="text-[#8b949e] hover:text-[#00ff41] transition-colors cursor-pointer relative group border-none bg-transparent"
+              style="font-family:'JetBrains Mono',monospace; font-size:0.85rem; font-weight:500; letter-spacing:0.05em;"
+            >
+              {{ link.label }}
+              <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#00ff41] group-hover:w-full transition-all duration-300 shadow-[0_0_4px_#00ff41]"></span>
             </button>
-            
-            <button 
-              class="hamburger" 
-              (click)="toggleMenu()"
-              [class.active]="menuOpen"
-              aria-label="Toggle menu">
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
+          }
+        </div>
+
+        <!-- Mobile toggle -->
+        <button (click)="toggleMenu()" class="md:hidden text-[#00ff41] cursor-pointer border-none bg-transparent">
+          @if (mobileOpen) {
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          } @else {
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          }
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      @if (mobileOpen) {
+        <div class="md:hidden bg-[#0a0a0a]/95 backdrop-blur-md border-b border-[#00ff41]/20">
+          <div class="flex flex-col px-6 py-4 gap-4">
+            @for (link of navLinks; track link.href) {
+              <button
+                (click)="scrollTo(link.href)"
+                class="text-[#8b949e] hover:text-[#00ff41] text-left cursor-pointer border-none bg-transparent"
+                style="font-family:'JetBrains Mono',monospace; font-size:0.9rem;"
+              >
+                <span class="text-[#00ff41] mr-2">&gt;</span>{{ link.label }}
+              </button>
+            }
           </div>
         </div>
-      </div>
+      }
     </nav>
   `,
   styles: [`
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background-color: var(--bg-primary);
-      border-bottom: 1px solid var(--border);
-      z-index: 1000;
-      transition: background-color 0.3s ease;
-    }
-
-    .navbar-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 0;
-    }
-
-    @media (min-width: 768px) {
-      .navbar-content { padding: 1.5rem 0; }
-    }
-
-    .navbar-logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      text-decoration: none;
-      transition: color 0.15s ease;
-    }
-
-    .navbar-logo:hover {
-      color: var(--accent);
-    }
-
-    @media (min-width: 768px) {
-      .navbar-logo { font-size: 2rem; }
-    }
-
-    .navbar-menu {
-      display: none;
-    }
-
-    @media (min-width: 1024px) {
-      .navbar-menu {
-        display: flex;
-        gap: 2rem;
-        align-items: center;
-      }
-    }
-
-    .navbar-menu a {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: color 0.15s ease;
-      position: relative;
-    }
-
-    .navbar-menu a:hover {
-      color: var(--accent);
-    }
-
-    .navbar-menu a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background-color: var(--accent);
-      transition: width 0.3s ease;
-    }
-
-    .navbar-menu a:hover::after {
-      width: 100%;
-    }
-
-    .navbar-menu a.active {
-      color: var(--accent);
-    }
-
-    .navbar-menu a.active::after {
-      width: 100%;
-    }
-
-    @media (max-width: 1023px) {
-      .navbar-menu {
-        position: fixed;
-        top: 60px;
-        left: 0;
-        right: 0;
-        background-color: var(--bg-primary);
-        flex-direction: column;
-        padding: 2rem;
-        gap: 1.5rem;
-        border-bottom: 1px solid var(--border);
-        transform: translateY(-100%);
-        opacity: 0;
-        transition: transform 0.3s ease, opacity 0.3s ease;
-      }
-
-      .navbar-menu.active {
-        display: flex;
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .navbar-actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .theme-toggle {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.15s ease;
-    }
-
-    .theme-toggle:hover {
-      transform: scale(1.1);
-    }
-
-    .theme-icon {
-      font-size: 1.25rem;
-    }
-
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0.5rem;
-    }
-
-    @media (min-width: 1024px) {
-      .hamburger { display: none; }
-    }
-
-    .hamburger span {
-      width: 24px;
-      height: 2px;
-      background-color: var(--text-primary);
-      transition: all 0.3s ease;
-    }
-
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
+    @keyframes slideDown {
+      from { transform: translateY(-80px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
   `]
 })
 export class NavbarComponent {
-  menuOpen = false;
+  scrolled = false;
+  mobileOpen = false;
+  navLinks = NAV_LINKS;
 
-  constructor(public themeService: ThemeService) {}
+  @HostListener('window:scroll')
+  onScroll(): void {
+    this.scrolled = window.scrollY > 50;
+  }
 
-  toggleTheme(): void {
-    this.themeService.toggleDarkMode();
+  scrollTo(href: string): void {
+    this.mobileOpen = false;
+    const el = document.querySelector(href);
+    el?.scrollIntoView({ behavior: 'smooth' });
   }
 
   toggleMenu(): void {
-    this.menuOpen = !this.menuOpen;
-  }
-
-  closeMenu(): void {
-    this.menuOpen = false;
+    this.mobileOpen = !this.mobileOpen;
   }
 }

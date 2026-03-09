@@ -1,207 +1,334 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { InViewDirective } from '@core/directives/in-view.directive';
+
+interface FormState {
+  name: string;
+  email: string;
+  message: string;
+}
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-contact',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule, InViewDirective],
   template: `
-    <section id="contact" class="contact section">
-      <div class="container">
-        <h2 class="section-title">¿Tienes un proyecto en mente?</h2>
-        
-        <div class="contact-content">
-          <div class="contact-info">
-            <h3>Contacto</h3>
-            <div class="contact-items">
-              <a href="mailto:humberto@ejemplo.com" class="contact-item">
-                <span class="icon">📧</span>
-                <span>humbertolpzc@gmail.com</span>
+    <section id="contact" class="py-32 px-6" style="background-color: #0a0a0a;">
+      <div class="max-w-4xl mx-auto">
+
+        <!-- Header (centered) -->
+        <div
+          appInView
+          [inViewThreshold]="0.1"
+          class="fade-up text-center mb-16"
+        >
+          <p
+            class="text-sm tracking-widest mb-3"
+            style="font-family: 'JetBrains Mono', monospace; color: #00ff41;"
+          >05. // CONTACTO</p>
+          <h2
+            class="text-3xl sm:text-4xl font-bold mb-4"
+            style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
+          >Conectemos</h2>
+          <p
+            class="max-w-md mx-auto text-sm leading-relaxed"
+            style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
+          >¿Tienes un proyecto en mente? Me encantaría escucharlo. Envíame un mensaje y te respondo lo antes posible.</p>
+          <div class="mt-6 h-px w-24 mx-auto" style="background: linear-gradient(90deg, transparent, #00ff41, transparent);"></div>
+        </div>
+
+        <!-- Main grid: info (2) + form (3) -->
+        <div class="grid lg:grid-cols-5 gap-10">
+
+          <!-- LEFT: Contact info -->
+          <div
+            appInView
+            [inViewThreshold]="0.1"
+            [inViewDelay]="100"
+            class="fade-left lg:col-span-2 flex flex-col gap-6"
+          >
+            <!-- Email -->
+            <div class="flex items-start gap-4">
+              <div
+                class="p-2.5 rounded-lg flex-shrink-0"
+                style="background: rgba(0,255,65,0.08); border: 1px solid rgba(0,255,65,0.2);"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <div>
+                <p
+                  class="text-xs font-bold mb-1 tracking-widest"
+                  style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
+                >EMAIL</p>
+                <a
+                  href="mailto:contact@humbertolpz.dev"
+                  class="text-sm transition-colors duration-200"
+                  style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
+                  onmouseenter="this.style.color='#00ff41'"
+                  onmouseleave="this.style.color='#8b949e'"
+                >contact&#64;humbertolpz.dev</a>
+              </div>
+            </div>
+
+            <!-- Location -->
+            <div class="flex items-start gap-4">
+              <div
+                class="p-2.5 rounded-lg flex-shrink-0"
+                style="background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.2);"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div>
+                <p
+                  class="text-xs font-bold mb-1 tracking-widest"
+                  style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
+                >UBICACIÓN</p>
+                <p
+                  class="text-sm"
+                  style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
+                >México</p>
+              </div>
+            </div>
+
+            <!-- Availability -->
+            <div class="flex items-start gap-4">
+              <div
+                class="p-2.5 rounded-lg flex-shrink-0"
+                style="background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.2);"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.77a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .84h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.14a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                </svg>
+              </div>
+              <div>
+                <p
+                  class="text-xs font-bold mb-1 tracking-widest"
+                  style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
+                >DISPONIBILIDAD</p>
+                <p
+                  class="text-sm"
+                  style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
+                >Lun - Vie, 9am - 6pm</p>
+              </div>
+            </div>
+
+            <!-- Social buttons -->
+            <div class="flex gap-3 pt-2">
+              <a
+                href="https://github.com/Betunx"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-2 px-4 py-2 rounded text-xs font-bold tracking-wider transition-all duration-200"
+                style="
+                  font-family: 'JetBrains Mono', monospace;
+                  border: 1px solid rgba(0,255,65,0.25);
+                  color: #00ff41;
+                  background: rgba(0,255,65,0.05);
+                "
+                onmouseenter="this.style.background='rgba(0,255,65,0.12)'; this.style.borderColor='rgba(0,255,65,0.5)'"
+                onmouseleave="this.style.background='rgba(0,255,65,0.05)'; this.style.borderColor='rgba(0,255,65,0.25)'"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
               </a>
-              
-              <a href="https://linkedin.com" target="_blank" class="contact-item">
-                <span class="icon">💼</span>
-                <span>LinkedIn</span>
-              </a>
-              
-              <a href="https://github.com" target="_blank" class="contact-item">
-                <span class="icon">🐙</span>
-                <span>GitHub</span>
+              <a
+                href="https://linkedin.com/in/humbertolpz"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-2 px-4 py-2 rounded text-xs font-bold tracking-wider transition-all duration-200"
+                style="
+                  font-family: 'JetBrains Mono', monospace;
+                  border: 1px solid rgba(0,229,255,0.25);
+                  color: #00e5ff;
+                  background: rgba(0,229,255,0.05);
+                "
+                onmouseenter="this.style.background='rgba(0,229,255,0.12)'; this.style.borderColor='rgba(0,229,255,0.5)'"
+                onmouseleave="this.style.background='rgba(0,229,255,0.05)'; this.style.borderColor='rgba(0,229,255,0.25)'"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                LinkedIn
               </a>
             </div>
           </div>
-          
-          <div class="contact-form-wrapper">
-            <form class="contact-form" (ngSubmit)="onSubmit()">
-              <div class="form-group">
-                <label for="name">Nombre</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name"
-                  [(ngModel)]="formData.name"
-                  required>
-              </div>
-              
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email"
-                  [(ngModel)]="formData.email"
-                  required>
-              </div>
-              
-              <div class="form-group">
-                <label for="message">Mensaje</label>
-                <textarea 
-                  id="message" 
-                  name="message"
-                  [(ngModel)]="formData.message"
-                  rows="5"
-                  required></textarea>
-              </div>
-              
-              <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
-            </form>
+
+          <!-- RIGHT: Form -->
+          <div
+            appInView
+            [inViewThreshold]="0.1"
+            [inViewDelay]="200"
+            class="fade-right lg:col-span-3"
+          >
+            <div
+              class="p-8 rounded-lg border"
+              style="background-color: #0d1117; border-color: rgba(0,255,65,0.12);"
+            >
+              @if (!sent) {
+                <form (ngSubmit)="handleSubmit()" #contactForm="ngForm">
+                  <!-- Name & Email row -->
+                  <div class="grid sm:grid-cols-2 gap-4 mb-4">
+                    <!-- Name -->
+                    <div>
+                      <label
+                        for="name"
+                        class="block text-xs font-bold mb-2 tracking-widest"
+                        style="font-family: 'Orbitron', sans-serif; color: #8b949e;"
+                      >NOMBRE</label>
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        [(ngModel)]="formState.name"
+                        required
+                        placeholder="Tu nombre"
+                        class="w-full px-4 py-3 rounded text-sm outline-none transition-all duration-200"
+                        style="
+                          font-family: 'JetBrains Mono', monospace;
+                          background-color: #0a0a0a;
+                          color: #c9d1d9;
+                          border: 1px solid rgba(0,255,65,0.15);
+                        "
+                        onfocus="this.style.borderColor='rgba(0,255,65,0.5)'; this.style.boxShadow='0 0 12px rgba(0,255,65,0.08)'"
+                        onblur="this.style.borderColor='rgba(0,255,65,0.15)'; this.style.boxShadow='none'"
+                      />
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                      <label
+                        for="email"
+                        class="block text-xs font-bold mb-2 tracking-widest"
+                        style="font-family: 'Orbitron', sans-serif; color: #8b949e;"
+                      >EMAIL</label>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        [(ngModel)]="formState.email"
+                        required
+                        placeholder="tu@email.com"
+                        class="w-full px-4 py-3 rounded text-sm outline-none transition-all duration-200"
+                        style="
+                          font-family: 'JetBrains Mono', monospace;
+                          background-color: #0a0a0a;
+                          color: #c9d1d9;
+                          border: 1px solid rgba(0,255,65,0.15);
+                        "
+                        onfocus="this.style.borderColor='rgba(0,255,65,0.5)'; this.style.boxShadow='0 0 12px rgba(0,255,65,0.08)'"
+                        onblur="this.style.borderColor='rgba(0,255,65,0.15)'; this.style.boxShadow='none'"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Message -->
+                  <div class="mb-6">
+                    <label
+                      for="message"
+                      class="block text-xs font-bold mb-2 tracking-widest"
+                      style="font-family: 'Orbitron', sans-serif; color: #8b949e;"
+                    >MENSAJE</label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows="5"
+                      [(ngModel)]="formState.message"
+                      required
+                      placeholder="Cuéntame sobre tu proyecto..."
+                      class="w-full px-4 py-3 rounded text-sm outline-none resize-none transition-all duration-200"
+                      style="
+                        font-family: 'JetBrains Mono', monospace;
+                        background-color: #0a0a0a;
+                        color: #c9d1d9;
+                        border: 1px solid rgba(0,255,65,0.15);
+                      "
+                      onfocus="this.style.borderColor='rgba(0,255,65,0.5)'; this.style.boxShadow='0 0 12px rgba(0,255,65,0.08)'"
+                      onblur="this.style.borderColor='rgba(0,255,65,0.15)'; this.style.boxShadow='none'"
+                    ></textarea>
+                  </div>
+
+                  <!-- Submit -->
+                  <button
+                    type="submit"
+                    [disabled]="contactForm.invalid"
+                    class="flex items-center gap-2 px-8 py-3 text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    style="
+                      font-family: 'Orbitron', sans-serif;
+                      background-color: #00ff41;
+                      color: #0a0a0a;
+                      border: 2px solid #00ff41;
+                      box-shadow: 0 0 20px rgba(0,255,65,0.3);
+                    "
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="22" y1="2" x2="11" y2="13"/>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                    ENVIAR
+                  </button>
+                </form>
+              }
+
+              @if (sent) {
+                <!-- Success message -->
+                <div class="py-8 text-center">
+                  <div
+                    class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
+                    style="background: rgba(0,255,65,0.1); border: 1px solid rgba(0,255,65,0.4);"
+                  >
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                  </div>
+                  <p
+                    class="text-sm"
+                    style="font-family: 'JetBrains Mono', monospace; color: #00ff41;"
+                  >&gt; Mensaje enviado correctamente...</p>
+                  <p
+                    class="text-xs mt-2"
+                    style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
+                  >Te responderé a la brevedad posible.</p>
+                  <button
+                    (click)="resetForm()"
+                    class="mt-6 text-xs underline transition-colors duration-200"
+                    style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
+                    onmouseenter="this.style.color='#00ff41'"
+                    onmouseleave="this.style.color='#8b949e'"
+                  >Enviar otro mensaje</button>
+                </div>
+              }
+            </div>
           </div>
+
         </div>
       </div>
     </section>
   `,
-  styles: [`
-    .contact {
-      background-color: var(--bg-secondary);
-    }
-
-    .contact-content {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 3rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    @media (min-width: 1024px) {
-      .contact-content {
-        grid-template-columns: 1fr 2fr;
-      }
-    }
-
-    .contact-info h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-      color: var(--text-primary);
-    }
-
-    .contact-items {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      background-color: var(--bg-primary);
-      border: 1px solid var(--border);
-      border-radius: 0.375rem;
-      color: var(--text-primary);
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .contact-item:hover {
-      background-color: var(--accent);
-      color: white;
-      border-color: var(--accent);
-      transform: translateX(4px);
-    }
-
-    .contact-item .icon {
-      font-size: 1.25rem;
-    }
-
-    .contact-form-wrapper {
-      background-color: var(--bg-primary);
-      padding: 2rem;
-      border-radius: 0.5rem;
-      border: 1px solid var(--border);
-    }
-
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .form-group label {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-
-    .form-group input,
-    .form-group textarea {
-      padding: 1rem;
-      font-size: 1rem;
-      color: var(--text-primary);
-      background-color: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 0.375rem;
-      transition: border-color 0.15s ease;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-
-    .form-group textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    button[type="submit"] {
-      width: 100%;
-    }
-
-    @media (min-width: 768px) {
-      button[type="submit"] {
-        width: auto;
-        align-self: flex-start;
-      }
-    }
-  `]
+  styles: []
 })
 export class ContactComponent {
-  formData = {
-    name: '',
-    email: '',
-    message: ''
-  };
+  formState: FormState = { name: '', email: '', message: '' };
+  sent = false;
 
-  onSubmit(): void {
-    console.log('Form submitted:', this.formData);
-    alert('Mensaje enviado! (Funcionalidad pendiente)');
-    this.resetForm();
+  handleSubmit(): void {
+    if (!this.formState.name || !this.formState.email || !this.formState.message) return;
+    // In production: call an API or email service here
+    console.log('Contact form submitted:', this.formState);
+    this.sent = true;
   }
 
   resetForm(): void {
-    this.formData = {
-      name: '',
-      email: '',
-      message: ''
-    };
+    this.formState = { name: '', email: '', message: '' };
+    this.sent = false;
   }
 }

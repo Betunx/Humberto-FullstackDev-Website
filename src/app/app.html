@@ -1,7 +1,38 @@
-<app-navbar></app-navbar>
-<main>
-  <router-outlet></router-outlet>
-</main>
-@if (showFooter) {
-  <app-footer></app-footer>
-}
+<div class="min-h-screen bg-[#0a0a0a] text-[#e0e0e0] overflow-x-hidden">
+  <app-matrix-rain />
+  <app-navbar />
+
+  <app-hero />
+
+  <!-- Divider -->
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="h-px bg-gradient-to-r from-transparent via-[#00ff41]/30 to-transparent"></div>
+  </div>
+
+  <app-about />
+
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="h-px bg-gradient-to-r from-transparent via-[#00ff41]/30 to-transparent"></div>
+  </div>
+
+  <app-skills />
+
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="h-px bg-gradient-to-r from-transparent via-[#00ff41]/30 to-transparent"></div>
+  </div>
+
+  <app-experience />
+
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="h-px bg-gradient-to-r from-transparent via-[#00ff41]/30 to-transparent"></div>
+  </div>
+
+  <app-projects />
+
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="h-px bg-gradient-to-r from-transparent via-[#00ff41]/30 to-transparent"></div>
+  </div>
+
+  <app-contact />
+  <app-footer />
+</div>

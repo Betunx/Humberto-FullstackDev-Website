@@ -1,191 +1,247 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-hero',
   standalone: true,
-  imports: [RouterModule],
+  imports: [CommonModule],
   template: `
-    <section id="hero" class="hero">
-      <!-- Top Wave -->
-      <div class="wave wave-top">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
-          <path fill="var(--accent)" fill-opacity="0.15" d="M0,192L0,96L55.4,96L55.4,224L110.8,224L110.8,288L166.2,288L166.2,32L221.5,32L221.5,128L276.9,128L276.9,32L332.3,32L332.3,64L387.7,64L387.7,256L443.1,256L443.1,32L498.5,32L498.5,256L553.8,256L553.8,320L609.2,320L609.2,192L664.6,192L664.6,320L720,320L720,96L775.4,96L775.4,256L830.8,256L830.8,0L886.2,0L886.2,224L941.5,224L941.5,288L996.9,288L996.9,96L1052.3,96L1052.3,224L1107.7,224L1107.7,96L1163.1,96L1163.1,32L1218.5,32L1218.5,0L1273.8,0L1273.8,192L1329.2,192L1329.2,256L1384.6,256L1384.6,32L1440,32L1440,0L1384.6,0L1384.6,0L1329.2,0L1329.2,0L1273.8,0L1273.8,0L1218.5,0L1218.5,0L1163.1,0L1163.1,0L1107.7,0L1107.7,0L1052.3,0L1052.3,0L996.9,0L996.9,0L941.5,0L941.5,0L886.2,0L886.2,0L830.8,0L830.8,0L775.4,0L775.4,0L720,0L720,0L664.6,0L664.6,0L609.2,0L609.2,0L553.8,0L553.8,0L498.5,0L498.5,0L443.1,0L443.1,0L387.7,0L387.7,0L332.3,0L332.3,0L276.9,0L276.9,0L221.5,0L221.5,0L166.2,0L166.2,0L110.8,0L110.8,0L55.4,0L55.4,0L0,0L0,0Z"></path>
-        </svg>
-      </div>
+    <section
+      id="hero"
+      class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+      style="background-color: #0a0a0a;"
+    >
+      <!-- Tron grid floor -->
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="
+          background-image:
+            linear-gradient(rgba(0,255,65,0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,255,65,0.06) 1px, transparent 1px);
+          background-size: 60px 60px;
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+          -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+        "
+      ></div>
 
-      <div class="container">
-        <div class="hero-content fade-in">
-          <h1 class="hero-title">Humberto López</h1>
-          <h2 class="hero-subtitle">
-            <span class="hero-subtitle-styled">Full Stack Developer</span>
-          </h2>
-          <p class="hero-tagline">"Transformando ideas en soluciones digitales"</p>
+      <!-- Radial ambient glow -->
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="background: radial-gradient(ellipse 80% 50% at 50% 40%, rgba(0,255,65,0.04) 0%, transparent 70%);"
+      ></div>
 
-          <div class="hero-actions">
-            <a routerLink="/projects" class="btn btn-primary">Ver Proyectos</a>
-            <a routerLink="/contact" class="btn btn-outline">Contactar</a>
-          </div>
+      <!-- Main content -->
+      <div class="relative z-10 text-center px-6 max-w-4xl mx-auto w-full">
+
+        <!-- System init label -->
+        <p
+          class="mb-4 text-sm tracking-widest"
+          style="font-family: 'JetBrains Mono', monospace; color: #00ff41;"
+        >
+          &gt; system.init()
+        </p>
+
+        <!-- Heading -->
+        <h1
+          class="text-5xl sm:text-6xl md:text-7xl font-black tracking-wider mb-6 uppercase leading-tight"
+          style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
+        >
+          HUMBERTO
+          <span
+            style="
+              color: #00ff41;
+              text-shadow: 0 0 20px rgba(0,255,65,0.5), 0 0 40px rgba(0,255,65,0.2);
+              display: inline-block;
+            "
+          >LÓPEZ</span>
+        </h1>
+
+        <!-- Typewriter row -->
+        <div
+          class="h-10 flex items-center justify-center mb-8 gap-0"
+          aria-live="polite"
+        >
+          <span
+            class="text-xl sm:text-2xl"
+            style="font-family: 'JetBrains Mono', monospace; color: #00e5ff;"
+          >{{ displayText }}</span>
+          <span
+            class="inline-block w-0.5 h-6 ml-0.5 align-middle"
+            style="background-color: #00e5ff; animation: blink 1s step-end infinite;"
+          ></span>
+        </div>
+
+        <!-- Description -->
+        <p
+          class="max-w-xl mx-auto text-base sm:text-lg leading-relaxed mb-10"
+          style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
+        >
+          Construyendo experiencias digitales de alta performance con tecnologías modernas.
+          Apasionado por el código limpio, la arquitectura escalable y el diseño elegante.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
+          <button
+            (click)="scrollTo('contact')"
+            class="px-8 py-3 text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 active:scale-95"
+            style="
+              font-family: 'Orbitron', sans-serif;
+              background-color: #00ff41;
+              color: #0a0a0a;
+              border: 2px solid #00ff41;
+              box-shadow: 0 0 20px rgba(0,255,65,0.3);
+            "
+            onmouseenter="this.style.boxShadow='0 0 35px rgba(0,255,65,0.6)'"
+            onmouseleave="this.style.boxShadow='0 0 20px rgba(0,255,65,0.3)'"
+          >
+            CONTACTAR
+          </button>
+          <button
+            (click)="scrollTo('projects')"
+            class="px-8 py-3 text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 active:scale-95"
+            style="
+              font-family: 'Orbitron', sans-serif;
+              color: #00ff41;
+              border: 2px solid #00ff41;
+              background: transparent;
+            "
+            onmouseenter="this.style.backgroundColor='rgba(0,255,65,0.08)'"
+            onmouseleave="this.style.backgroundColor='transparent'"
+          >
+            PROYECTOS
+          </button>
+        </div>
+
+        <!-- Social icons -->
+        <div class="flex items-center justify-center gap-8">
+
+          <!-- GitHub -->
+          <a
+            href="https://github.com/Betunx"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="transition-all duration-300 hover:scale-125"
+            style="color: #8b949e;"
+            onmouseenter="this.style.color='#00ff41'"
+            onmouseleave="this.style.color='#8b949e'"
+            aria-label="GitHub"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+
+          <!-- LinkedIn -->
+          <a
+            href="https://linkedin.com/in/humbertolpz"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="transition-all duration-300 hover:scale-125"
+            style="color: #8b949e;"
+            onmouseenter="this.style.color='#00e5ff'"
+            onmouseleave="this.style.color='#8b949e'"
+            aria-label="LinkedIn"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+
+          <!-- Email -->
+          <a
+            href="mailto:contact@humbertolpz.dev"
+            class="transition-all duration-300 hover:scale-125"
+            style="color: #8b949e;"
+            onmouseenter="this.style.color='#00e5ff'"
+            onmouseleave="this.style.color='#8b949e'"
+            aria-label="Email"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </a>
         </div>
       </div>
 
-      <!-- Bottom Wave -->
-      <div class="wave wave-bottom">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
-          <path fill="var(--accent)" fill-opacity="0.15" d="M0,192L0,96L55.4,96L55.4,224L110.8,224L110.8,288L166.2,288L166.2,32L221.5,32L221.5,128L276.9,128L276.9,32L332.3,32L332.3,64L387.7,64L387.7,256L443.1,256L443.1,32L498.5,32L498.5,256L553.8,256L553.8,320L609.2,320L609.2,192L664.6,192L664.6,320L720,320L720,96L775.4,96L775.4,256L830.8,256L830.8,0L886.2,0L886.2,224L941.5,224L941.5,288L996.9,288L996.9,96L1052.3,96L1052.3,224L1107.7,224L1107.7,96L1163.1,96L1163.1,32L1218.5,32L1218.5,0L1273.8,0L1273.8,192L1329.2,192L1329.2,256L1384.6,256L1384.6,32L1440,32L1440,320L1384.6,320L1384.6,320L1329.2,320L1329.2,320L1273.8,320L1273.8,320L1218.5,320L1218.5,320L1163.1,320L1163.1,320L1107.7,320L1107.7,320L1052.3,320L1052.3,320L996.9,320L996.9,320L941.5,320L941.5,320L886.2,320L886.2,320L830.8,320L830.8,320L775.4,320L775.4,320L720,320L720,320L664.6,320L664.6,320L609.2,320L609.2,320L553.8,320L553.8,320L498.5,320L498.5,320L443.1,320L443.1,320L387.7,320L387.7,320L332.3,320L332.3,320L276.9,320L276.9,320L221.5,320L221.5,320L166.2,320L166.2,320L110.8,320L110.8,320L55.4,320L55.4,320L0,320L0,320Z"></path>
+      <!-- Scroll chevron -->
+      <div
+        class="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer"
+        (click)="scrollTo('about')"
+        style="color: #00ff41; opacity: 0.7; animation: bounce 2s ease-in-out infinite;"
+        title="Scroll down"
+      >
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
         </svg>
       </div>
     </section>
   `,
   styles: [`
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-top: 60px;
-      background: linear-gradient(135deg, #00a896 0%, #008c7a 100%);
-      position: relative;
-      overflow: hidden;
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
-
-    .wave {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      overflow: hidden;
-      line-height: 0;
-      z-index: 0;
-    }
-
-    .wave svg {
-      position: relative;
-      display: block;
-      width: calc(100% + 1.3px);
-      height: 150px;
-    }
-
-    .wave-top {
-      top: 60px;
-      transform: rotate(180deg);
-    }
-
-    @media (min-width: 768px) {
-      .wave-top { top: 70px; }
-    }
-
-    .wave-bottom {
-      bottom: 0;
-    }
-
-    .container {
-      position: relative;
-      z-index: 1;
-    }
-    
-    @media (min-width: 768px) {
-      .hero { padding-top: 80px; }
-    }
-
-    .hero-content {
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    .hero-title {
-      margin-bottom: 1rem;
-      color: #000000;
-      text-shadow: none;
-      font-weight: 700;
-    }
-
-    .hero-subtitle {
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: #ffffff;
-      margin-bottom: 1.5rem;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .hero-subtitle-styled {
-      display: inline-block;
-      padding: 0.5rem 1.5rem;
-      background-color: #0a0f1a;
-      color: #ffffff;
-      position: relative;
-      clip-path: polygon(2% 0%, 100% 0%, 98% 100%, 0% 100%);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-    }
-
-    @media (min-width: 768px) {
-      .hero-subtitle { font-size: 1.5rem; }
-      .hero-subtitle-styled { padding: 0.75rem 2rem; }
-    }
-
-    @media (min-width: 1024px) {
-      .hero-subtitle { font-size: 2rem; }
-      .hero-subtitle-styled { padding: 1rem 2.5rem; }
-    }
-
-    .hero-tagline {
-      font-size: 1.125rem;
-      font-style: italic;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 3rem;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    @media (min-width: 768px) {
-      .hero-tagline { font-size: 1.25rem; }
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    @media (min-width: 768px) {
-      .hero-actions {
-        flex-direction: row;
-        justify-content: center;
-        gap: 1.5rem;
-      }
-    }
-
-    /* Custom button styles for Hero */
-    .hero .btn-primary {
-      background-color: #ffffff;
-      color: #00a896;
-      border-color: #ffffff;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .hero .btn-primary:hover {
-      background-color: #f0f0f0;
-      border-color: #f0f0f0;
-      color: #008c7a;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .hero .btn-outline {
-      background-color: #000000;
-      color: #ffffff;
-      border-color: #000000;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    .hero .btn-outline:hover {
-      background-color: #1a1a1a;
-      border-color: #1a1a1a;
-      color: #ffffff;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
     }
   `]
 })
-export class HeroComponent {}
+export class HeroComponent implements OnInit, OnDestroy {
+  readonly roles = [
+    'Full Stack Developer',
+    'Angular Specialist',
+    'React Engineer',
+    'Node.js Developer',
+    'Cloud Architect',
+  ];
+
+  displayText = '';
+
+  private roleIndex = 0;
+  private charIndex = 0;
+  private isDeleting = false;
+  private typewriterTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  ngOnInit(): void {
+    this.tick();
+  }
+
+  ngOnDestroy(): void {
+    if (this.typewriterTimeout) clearTimeout(this.typewriterTimeout);
+  }
+
+  private tick(): void {
+    const current = this.roles[this.roleIndex];
+
+    if (!this.isDeleting) {
+      this.displayText = current.substring(0, this.charIndex + 1);
+      this.charIndex++;
+
+      if (this.charIndex === current.length) {
+        this.isDeleting = true;
+        this.typewriterTimeout = setTimeout(() => this.tick(), 1800);
+        return;
+      }
+    } else {
+      this.displayText = current.substring(0, this.charIndex - 1);
+      this.charIndex--;
+
+      if (this.charIndex === 0) {
+        this.isDeleting = false;
+        this.roleIndex = (this.roleIndex + 1) % this.roles.length;
+        this.typewriterTimeout = setTimeout(() => this.tick(), 400);
+        return;
+      }
+    }
+
+    this.typewriterTimeout = setTimeout(() => this.tick(), this.isDeleting ? 50 : 100);
+  }
+
+  scrollTo(id: string): void {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  }
+}
