@@ -66,12 +66,12 @@ interface FormState {
                   style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
                 >EMAIL</p>
                 <a
-                  href="mailto:contact@humbertolpz.dev"
+                  href="mailto:humbertolpzc.work@gmail.com"
                   class="text-sm transition-colors duration-200"
                   style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
                   onmouseenter="this.style.color='#00ff41'"
                   onmouseleave="this.style.color='#8b949e'"
-                >contact&#64;humbertolpz.dev</a>
+                >humbertolpzc.work&#64;gmail.com</a>
               </div>
             </div>
 
@@ -94,11 +94,11 @@ interface FormState {
                 <p
                   class="text-sm"
                   style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
-                >México</p>
+                >Hermosillo, Sonora, MX</p>
               </div>
             </div>
 
-            <!-- Availability -->
+            <!-- Phone -->
             <div class="flex items-start gap-4">
               <div
                 class="p-2.5 rounded-lg flex-shrink-0"
@@ -112,18 +112,18 @@ interface FormState {
                 <p
                   class="text-xs font-bold mb-1 tracking-widest"
                   style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
-                >DISPONIBILIDAD</p>
+                >TELÉFONO</p>
                 <p
                   class="text-sm"
                   style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
-                >Lun - Vie, 9am - 6pm</p>
+                >+52 662 360 6250</p>
               </div>
             </div>
 
             <!-- Social buttons -->
             <div class="flex gap-3 pt-2">
               <a
-                href="https://github.com/Betunx"
+                href="https://github.com/humbertolopez"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="flex items-center gap-2 px-4 py-2 rounded text-xs font-bold tracking-wider transition-all duration-200"

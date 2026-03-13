@@ -1,28 +1,24 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { InViewDirective } from '@core/directives/in-view.directive';
 
-interface FeaturedProject {
+interface Project {
   title: string;
   description: string;
   tech: string[];
-  githubUrl: string;
-  liveUrl: string;
-  reverse: boolean;
-}
-
-interface OtherProject {
-  title: string;
-  description: string;
-  tech: string[];
-  githubUrl: string;
-  liveUrl: string;
+  githubUrl?: string;
+  liveUrl?: string;
+  image?: string;
+  status: 'active' | 'completed';
+  statusLabel: string;
+  featured?: boolean;
 }
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-projects',
   standalone: true,
-  imports: [InViewDirective],
+  imports: [InViewDirective, NgTemplateOutlet],
   template: `
     <section id="projects" class="py-32 px-6" style="background-color: #0a0a0a;">
       <div class="max-w-6xl mx-auto">
@@ -31,285 +27,367 @@ interface OtherProject {
         <div
           appInView
           [inViewThreshold]="0.1"
-          class="fade-up mb-16"
+          class="fade-up mb-4"
         >
           <p
             class="text-sm tracking-widest mb-3"
             style="font-family: 'JetBrains Mono', monospace; color: #00ff41;"
           >04. // PROYECTOS</p>
           <h2
-            class="text-3xl sm:text-4xl font-bold"
+            class="text-3xl sm:text-4xl font-bold mb-4"
             style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
           >Lo que he construido</h2>
-          <div class="mt-4 h-px w-24" style="background: linear-gradient(90deg, #00ff41, transparent);"></div>
+          <p
+            class="text-sm mb-16"
+            style="font-family: 'JetBrains Mono', monospace; color: #8b949e; line-height: 1.7; max-width: 36rem;"
+          >Proyectos reales en los que trabajo activamente y otros ya entregados en producción.</p>
+          <div class="h-px w-24" style="background: linear-gradient(90deg, #00ff41, transparent);"></div>
         </div>
 
-        <!-- Featured projects -->
-        <div class="space-y-20 mb-24">
-          @for (project of featuredProjects; track project.title; let i = $index) {
-            <div
-              appInView
-              [inViewThreshold]="0.1"
-              [inViewDelay]="100"
-              [class]="project.reverse ? 'fade-right' : 'fade-left'"
-            >
-              <div
-                class="grid lg:grid-cols-2 gap-0 rounded-lg overflow-hidden border"
-                [class.lg:flex-row-reverse]="project.reverse"
-                style="background-color: #0d1117; border-color: rgba(0,255,65,0.12);"
-              >
-                <!-- Image side -->
-                <div
-                  [class]="project.reverse ? 'lg:order-2' : 'lg:order-1'"
-                  class="relative aspect-video lg:aspect-auto"
-                  style="background-color: #0d1117; min-height: 220px;"
-                >
-                  <!-- Grid pattern placeholder -->
-                  <div
-                    class="absolute inset-0"
-                    style="
-                      background-image:
-                        linear-gradient(rgba(0,255,65,0.04) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(0,255,65,0.04) 1px, transparent 1px);
-                      background-size: 30px 30px;
-                    "
-                  ></div>
-                  <!-- Green gradient overlay -->
-                  <div
-                    class="absolute inset-0"
-                    style="background: linear-gradient(135deg, rgba(0,255,65,0.08) 0%, rgba(0,229,255,0.05) 100%);"
-                  ></div>
-                  <!-- Center icon -->
-                  <div class="absolute inset-0 flex items-center justify-center">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(0,255,65,0.3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="16 18 22 12 16 6"/>
-                      <polyline points="8 6 2 12 8 18"/>
-                    </svg>
-                  </div>
-                </div>
-
-                <!-- Description side -->
-                <div
-                  [class]="project.reverse ? 'lg:order-1' : 'lg:order-2'"
-                  class="p-8 flex flex-col justify-center"
-                >
-                  <p
-                    class="text-xs tracking-widest mb-2"
-                    style="font-family: 'JetBrains Mono', monospace; color: #00ff41;"
-                  >Proyecto Destacado</p>
-                  <h3
-                    class="text-xl font-bold mb-4"
-                    style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
-                  >{{ project.title }}</h3>
-                  <p
-                    class="text-sm leading-relaxed mb-6"
-                    style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
-                  >{{ project.description }}</p>
-
-                  <!-- Tech list -->
-                  <div class="flex flex-wrap gap-2 mb-6">
-                    @for (tag of project.tech; track tag) {
-                      <span
-                        class="text-xs px-2 py-1"
-                        style="
-                          font-family: 'JetBrains Mono', monospace;
-                          color: #00e5ff;
-                          background: rgba(0,229,255,0.07);
-                          border: 1px solid rgba(0,229,255,0.18);
-                          border-radius: 3px;
-                        "
-                      >{{ tag }}</span>
-                    }
-                  </div>
-
-                  <!-- Icon links -->
-                  <div class="flex items-center gap-4">
-                    <a
-                      [href]="project.githubUrl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="transition-all duration-200 hover:scale-110"
-                      style="color: #8b949e;"
-                      onmouseenter="this.style.color='#00ff41'"
-                      onmouseleave="this.style.color='#8b949e'"
-                      aria-label="GitHub"
-                    >
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-                      </svg>
-                    </a>
-                    <a
-                      [href]="project.liveUrl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="transition-all duration-200 hover:scale-110"
-                      style="color: #8b949e;"
-                      onmouseenter="this.style.color='#00e5ff'"
-                      onmouseleave="this.style.color='#8b949e'"
-                      aria-label="Live demo"
-                    >
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-                        <polyline points="15 3 21 3 21 9"/>
-                        <line x1="10" y1="14" x2="21" y2="3"/>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          }
-        </div>
-
-        <!-- Other projects -->
+        <!-- ── ACTIVE PROJECTS header ── -->
         <div
           appInView
           [inViewThreshold]="0.1"
-          class="fade-up mb-8"
+          class="fade-up flex items-center gap-3 mb-10 mt-10"
         >
+          <div class="relative flex items-center justify-center w-3 h-3">
+            <span
+              class="absolute w-full h-full rounded-full"
+              style="background-color: #00ff41; opacity: 0.4; animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"
+            ></span>
+            <span
+              class="relative w-2 h-2 rounded-full"
+              style="background-color: #00ff41; box-shadow: 0 0 8px #00ff41;"
+            ></span>
+          </div>
           <h3
-            class="text-xl font-bold"
+            class="font-bold tracking-widest text-base"
             style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
-          >Otros Proyectos</h3>
-          <div class="mt-2 h-px w-16" style="background: linear-gradient(90deg, #00ff41, transparent);"></div>
+          >PROYECTOS ACTIVOS</h3>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          @for (project of otherProjects; track project.title; let i = $index) {
+        <!-- ── Featured: BS Tabs ── -->
+        <div
+          appInView
+          [inViewThreshold]="0.1"
+          [inViewDelay]="100"
+          class="fade-up mb-8"
+        >
+          <div
+            class="grid lg:grid-cols-2 gap-8 items-center rounded-lg overflow-hidden"
+          >
+            <!-- Image -->
+            <a
+              href="https://www.bstabs.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="relative group overflow-hidden rounded-lg border transition-all duration-500 block"
+              style="border-color: rgba(0,255,65,0.2);"
+              onmouseenter="this.style.borderColor='rgba(0,255,65,0.5)'"
+              onmouseleave="this.style.borderColor='rgba(0,255,65,0.2)'"
+            >
+              <div class="relative overflow-hidden" style="aspect-ratio: 16/9; background-color: #0d1117; min-height: 200px;">
+                <img
+                  src="https://images.unsplash.com/photo-1602821485286-4a6520cca299?w=800&q=70"
+                  alt="BS Tabs"
+                  class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                  style="opacity: 0.5;"
+                  onmouseenter="this.style.opacity='0.75'"
+                  onmouseleave="this.style.opacity='0.5'"
+                />
+                <div class="absolute inset-0" style="background: linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.3) 50%, transparent 100%);"></div>
+                <div class="absolute inset-0" style="background-color: #00ff41; mix-blend-mode: color; opacity: 0.3;"></div>
+                <!-- Live badge -->
+                <div
+                  class="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full border"
+                  style="background-color: rgba(10,10,10,0.8); border-color: rgba(0,255,65,0.3);"
+                >
+                  <span class="relative flex" style="width: 8px; height: 8px;">
+                    <span
+                      class="absolute w-full h-full rounded-full"
+                      style="background-color: #00ff41; opacity: 0.75; animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"
+                    ></span>
+                    <span class="relative w-full h-full rounded-full" style="background-color: #00ff41;"></span>
+                  </span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #00ff41; letter-spacing: 0.1em;">EN DESARROLLO</span>
+                </div>
+                <!-- URL overlay -->
+                <div
+                  class="absolute bottom-4 left-4 flex items-center gap-2 transition-opacity duration-300"
+                  style="opacity: 0;"
+                  onmouseenter="this.style.opacity='1'"
+                  onmouseleave="this.style.opacity='0'"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #00ff41;">bstabs.com</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Info -->
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px rgba(0,255,65,0.5));">
+                  <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+                </svg>
+                <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #00e5ff;">Proyecto Destacado &bull; En desarrollo activo</p>
+              </div>
+              <h3
+                class="text-2xl font-bold mb-4"
+                style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
+              >BS Tabs</h3>
+              <div
+                class="p-5 rounded-lg border mb-5"
+                style="background-color: #0d1117; border-color: rgba(0,255,65,0.1);"
+              >
+                <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: #c9d1d9; line-height: 1.8;">
+                  Plataforma web de tablaturas musicales donde los usuarios pueden explorar, buscar y aprender canciones con tabs interactivos para guitarra y bajo. Incluye un reproductor visual de tablatura en tiempo real, sistema de favoritos, filtros por artista/género y una experiencia diseñada para músicos de todos los niveles.
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-2 mb-5">
+                @for (tag of bsTabs.tech; track tag) {
+                  <span
+                    class="px-2.5 py-1 rounded text-xs"
+                    style="font-family: 'JetBrains Mono', monospace; background-color: rgba(0,255,65,0.08); border: 1px solid rgba(0,255,65,0.2); color: #00ff41;"
+                  >{{ tag }}</span>
+                }
+              </div>
+              <a
+                href="https://www.bstabs.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 transition-colors duration-200"
+                style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #00ff41;"
+                onmouseenter="this.style.color='#c9d1d9'"
+                onmouseleave="this.style.color='#00ff41'"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                Visitar sitio
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other active projects grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-20">
+          @for (project of otherActive; track project.title; let i = $index) {
             <div
               appInView
               [inViewThreshold]="0.1"
               [inViewDelay]="i * 80"
               class="fade-up"
             >
-              <div
-                class="p-6 rounded-lg border h-full flex flex-col transition-all duration-300"
-                style="background-color: #0d1117; border-color: rgba(0,255,65,0.1);"
-                onmouseenter="this.style.borderColor='rgba(0,255,65,0.35)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 30px rgba(0,0,0,0.3)'"
-                onmouseleave="this.style.borderColor='rgba(0,255,65,0.1)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'"
-              >
-                <!-- Top row: folder + links -->
-                <div class="flex items-center justify-between mb-5">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
-                  </svg>
-                  <div class="flex items-center gap-3">
-                    <a
-                      [href]="project.githubUrl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="transition-colors duration-200"
-                      style="color: #8b949e;"
-                      onmouseenter="this.style.color='#00ff41'"
-                      onmouseleave="this.style.color='#8b949e'"
-                      aria-label="GitHub"
-                    >
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-                      </svg>
-                    </a>
-                    <a
-                      [href]="project.liveUrl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="transition-colors duration-200"
-                      style="color: #8b949e;"
-                      onmouseenter="this.style.color='#00e5ff'"
-                      onmouseleave="this.style.color='#8b949e'"
-                      aria-label="Live demo"
-                    >
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-                        <polyline points="15 3 21 3 21 9"/>
-                        <line x1="10" y1="14" x2="21" y2="3"/>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
+              <ng-container *ngTemplateOutlet="projectCard; context: { project: project }"></ng-container>
+            </div>
+          }
+        </div>
 
-                <!-- Title & description -->
-                <h4
-                  class="font-bold mb-2"
-                  style="font-family: 'Orbitron', sans-serif; color: #c9d1d9; font-size: 0.95rem;"
-                >{{ project.title }}</h4>
-                <p
-                  class="text-xs leading-relaxed mb-5 flex-1"
-                  style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
-                >{{ project.description }}</p>
+        <!-- ── COMPLETED header ── -->
+        <div
+          appInView
+          [inViewThreshold]="0.1"
+          class="fade-up flex items-center gap-3 mb-10"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <h3
+            class="font-bold tracking-widest text-base"
+            style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
+          >COMPLETADOS & ENTREGADOS</h3>
+        </div>
 
-                <!-- Tech tags -->
-                <div class="flex flex-wrap gap-2 mt-auto">
-                  @for (tag of project.tech; track tag) {
-                    <span
-                      class="text-xs"
-                      style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
-                    >{{ tag }}</span>
-                  }
-                </div>
-              </div>
+        <!-- Completed projects grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          @for (project of completed; track project.title; let i = $index) {
+            <div
+              appInView
+              [inViewThreshold]="0.1"
+              [inViewDelay]="i * 80"
+              class="fade-up"
+            >
+              <ng-container *ngTemplateOutlet="projectCard; context: { project: project }"></ng-container>
             </div>
           }
         </div>
 
       </div>
     </section>
+
+    <!-- Reusable project card template -->
+    <ng-template #projectCard let-project="project">
+      <div
+        class="p-6 rounded-lg border h-full flex flex-col transition-all duration-300"
+        [style.borderColor]="project.status === 'active' ? 'rgba(0,255,65,0.15)' : 'rgba(0,229,255,0.15)'"
+        (mouseenter)="onCardEnter($event, project.status)"
+        (mouseleave)="onCardLeave($event, project.status)"
+        style="background-color: #0d1117;"
+      >
+        <!-- Top row: icon + status + links -->
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <!-- Status pill -->
+            <span
+              class="flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-xs"
+              [style.color]="project.status === 'active' ? '#00ff41' : '#00e5ff'"
+              [style.borderColor]="project.status === 'active' ? 'rgba(0,255,65,0.3)' : 'rgba(0,229,255,0.3)'"
+              [style.backgroundColor]="project.status === 'active' ? 'rgba(0,255,65,0.08)' : 'rgba(0,229,255,0.08)'"
+              style="font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.05em;"
+            >
+              @if (project.status === 'active') {
+                <span class="relative flex" style="width: 6px; height: 6px;">
+                  <span class="absolute w-full h-full rounded-full" style="background-color: #00ff41; opacity: 0.75; animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></span>
+                  <span class="relative w-full h-full rounded-full" style="background-color: #00ff41;"></span>
+                </span>
+              }
+              {{ project.statusLabel }}
+            </span>
+          </div>
+          <div class="flex gap-3">
+            @if (project.githubUrl) {
+              <a
+                [href]="project.githubUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="transition-colors duration-200"
+                style="color: #8b949e;"
+                onmouseenter="this.style.color='#00ff41'"
+                onmouseleave="this.style.color='#8b949e'"
+                aria-label="GitHub"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+            }
+            @if (project.liveUrl) {
+              <a
+                [href]="project.liveUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="transition-colors duration-200"
+                style="color: #8b949e;"
+                onmouseenter="this.style.color='#00ff41'"
+                onmouseleave="this.style.color='#8b949e'"
+                aria-label="Live demo"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+            }
+          </div>
+        </div>
+
+        <!-- Image thumbnail (if available) -->
+        @if (project.image) {
+          <div class="relative overflow-hidden rounded mb-4 border border-[#00ff41]/10" style="aspect-ratio: 16/9;">
+            <img
+              [src]="project.image"
+              [alt]="project.title"
+              class="w-full h-full object-cover transition-all duration-500"
+              style="opacity: 0.5;"
+            />
+            <div
+              class="absolute inset-0"
+              [style.backgroundColor]="project.status === 'active' ? '#00ff41' : '#00e5ff'"
+              style="mix-blend-mode: color; opacity: 0.25;"
+            ></div>
+          </div>
+        }
+
+        <!-- Title & description -->
+        <h4
+          class="font-bold mb-3 transition-colors duration-200"
+          style="font-family: 'Orbitron', sans-serif; color: #c9d1d9; font-size: 0.95rem;"
+        >{{ project.title }}</h4>
+        <p
+          class="text-xs leading-relaxed mb-4 flex-1"
+          style="font-family: 'JetBrains Mono', monospace; color: #8b949e; line-height: 1.75;"
+        >{{ project.description }}</p>
+
+        <!-- Tech tags -->
+        <div class="flex flex-wrap gap-2 mt-auto pt-3 border-t" style="border-color: rgba(255,255,255,0.05);">
+          @for (tag of project.tech; track tag) {
+            <span
+              class="text-xs"
+              style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
+            >{{ tag }}</span>
+          }
+        </div>
+      </div>
+    </ng-template>
   `,
-  styles: []
+  styles: [`
+    @keyframes ping {
+      75%, 100% { transform: scale(2); opacity: 0; }
+    }
+  `]
 })
 export class ProjectsComponent {
-  readonly featuredProjects: FeaturedProject[] = [
+  readonly bsTabs: Project = {
+    title: 'BS Tabs',
+    description: 'Plataforma web de tablaturas musicales donde los usuarios pueden explorar, buscar y aprender canciones con tabs interactivos para guitarra y bajo.',
+    tech: ['Angular', 'TypeScript', 'Tailwind CSS', 'Node.js', 'MongoDB', 'Vercel'],
+    liveUrl: 'https://www.bstabs.com/',
+    status: 'active',
+    statusLabel: 'En desarrollo activo',
+    featured: true,
+    image: 'https://images.unsplash.com/photo-1602821485286-4a6520cca299?w=800&q=70',
+  };
+
+  readonly otherActive: Project[] = [
     {
-      title: 'E-Commerce Platform',
-      description:
-        'Plataforma de comercio electrónico completa con carrito de compras, procesamiento de pagos, panel de administración y gestión de inventario. Arquitectura escalable desplegada en AWS con CI/CD automatizado.',
-      tech: ['Angular', 'Node.js', 'PostgreSQL', 'Stripe', 'Docker'],
-      githubUrl: 'https://github.com/Betunx',
-      liveUrl: '#',
-      reverse: false,
+      title: 'Hirably — Landing Page',
+      description: 'Landing page corporativa construida desde cero para startup de HR-tech. Integración de chatbot HubSpot con Claude AI para automatizar interacciones con clientes potenciales.',
+      tech: ['Angular', 'TypeScript', 'Tailwind CSS', 'HubSpot', 'Claude AI', 'Vercel'],
+      image: 'https://images.unsplash.com/photo-1758873268663-5a362616b5a7?w=800&q=70',
+      status: 'active',
+      statusLabel: 'Producción',
     },
     {
-      title: 'Task Management App',
-      description:
-        'Aplicación de gestión de tareas en tiempo real con drag & drop, notificaciones push y colaboración en equipo. WebSockets para sincronización instantánea entre usuarios.',
-      tech: ['React', 'NestJS', 'MongoDB', 'Socket.io', 'Redis'],
-      githubUrl: 'https://github.com/Betunx',
-      liveUrl: '#',
-      reverse: true,
+      title: 'Portfolio Personal',
+      description: 'Este mismo sitio web con temática Matrix/Tron. Diseño inmersivo con lluvia de código, animaciones, CV interactivo descargable y arquitectura por componentes.',
+      tech: ['Angular', 'TypeScript', 'Tailwind CSS', 'Vercel'],
+      liveUrl: 'https://humberto-fullstack-dev-website.vercel.app',
+      githubUrl: 'https://github.com/humbertolopez',
+      status: 'active',
+      statusLabel: 'Iterando',
     },
   ];
 
-  readonly otherProjects: OtherProject[] = [
+  readonly completed: Project[] = [
     {
-      title: 'API Gateway Service',
-      description:
-        'Servicio centralizado de gestión de APIs con rate limiting, autenticación JWT y monitoreo de métricas en tiempo real.',
-      tech: ['Node.js', 'Express', 'Redis', 'Docker', 'AWS'],
-      githubUrl: 'https://github.com/Betunx',
-      liveUrl: '#',
+      title: 'GeriaCare',
+      description: 'Plataforma de gestión de salud geriátrica desarrollada como proyecto capstone del Máster en Full-Stack. Sistema de monitoreo de pacientes, historiales clínicos y dashboard para personal médico.',
+      tech: ['Angular', 'TypeScript', 'Node.js', 'Docker', 'Jest', 'MongoDB'],
+      status: 'completed',
+      statusLabel: 'Proyecto académico',
     },
     {
-      title: 'Portfolio Website',
-      description:
-        'Este mismo sitio. Diseño futurista Matrix/Tron con Angular 20, animaciones CSS y componentes standalone.',
-      tech: ['Angular', 'Tailwind CSS', 'TypeScript', 'Vercel'],
-      githubUrl: 'https://github.com/Betunx',
-      liveUrl: '#',
-    },
-    {
-      title: 'Weather Dashboard',
-      description:
-        'Dashboard meteorológico con gráficas interactivas, pronóstico extendido y geolocalización automática.',
-      tech: ['React', 'TypeScript', 'Chart.js', 'OpenWeather API'],
-      githubUrl: 'https://github.com/Betunx',
-      liveUrl: '#',
-    },
-    {
-      title: 'Chat Application',
-      description:
-        'Aplicación de mensajería en tiempo real con salas, mensajes privados e historial persistente en base de datos.',
-      tech: ['Angular', 'Node.js', 'Socket.io', 'MongoDB'],
-      githubUrl: 'https://github.com/Betunx',
-      liveUrl: '#',
+      title: 'Icatson — Sitio Oficial',
+      description: 'Mantenimiento y optimización del sitio web oficial del gobierno del estado de Sonora. Mejoras de UX, nuevas rutas, optimización de rendimiento y eliminación de boilerplate.',
+      tech: ['JavaScript', 'Joomla', 'HTML/CSS', 'Git'],
+      status: 'completed',
+      statusLabel: 'Entregado',
     },
   ];
+
+  onCardEnter(event: MouseEvent, status: string): void {
+    const el = event.currentTarget as HTMLElement;
+    el.style.borderColor = status === 'active' ? 'rgba(0,255,65,0.4)' : 'rgba(0,229,255,0.4)';
+    el.style.transform = 'translateY(-4px)';
+    el.style.boxShadow = '0 12px 30px rgba(0,0,0,0.3)';
+  }
+
+  onCardLeave(event: MouseEvent, status: string): void {
+    const el = event.currentTarget as HTMLElement;
+    el.style.borderColor = status === 'active' ? 'rgba(0,255,65,0.15)' : 'rgba(0,229,255,0.15)';
+    el.style.transform = 'translateY(0)';
+    el.style.boxShadow = 'none';
+  }
 }

@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -72,19 +73,28 @@ import { CommonModule } from '@angular/common';
           ></span>
         </div>
 
+        <!-- Subtitle -->
+        <p
+          class="mb-3 text-sm"
+          style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
+        >
+          Ing. Mecatrónico &bull; Hermosillo, Sonora, MX
+        </p>
+
         <!-- Description -->
         <p
           class="max-w-xl mx-auto text-base sm:text-lg leading-relaxed mb-10"
           style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
         >
-          Construyendo experiencias digitales de alta performance con tecnologías modernas.
-          Apasionado por el código limpio, la arquitectura escalable y el diseño elegante.
+          Full Stack Developer con +4 años de experiencia en Angular, TypeScript,
+          Node.js y Express. Creando dashboards interactivos, APIs robustas e
+          integraciones con IA.
         </p>
 
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
           <button
-            (click)="scrollTo('contact')"
+            (click)="goToCV()"
             class="px-8 py-3 text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 active:scale-95"
             style="
               font-family: 'Orbitron', sans-serif;
@@ -96,7 +106,7 @@ import { CommonModule } from '@angular/common';
             onmouseenter="this.style.boxShadow='0 0 35px rgba(0,255,65,0.6)'"
             onmouseleave="this.style.boxShadow='0 0 20px rgba(0,255,65,0.3)'"
           >
-            CONTACTAR
+            VER CV
           </button>
           <button
             (click)="scrollTo('projects')"
@@ -119,7 +129,7 @@ import { CommonModule } from '@angular/common';
 
           <!-- GitHub -->
           <a
-            href="https://github.com/Betunx"
+            href="https://github.com/humbertolopez"
             target="_blank"
             rel="noopener noreferrer"
             class="transition-all duration-300 hover:scale-125"
@@ -151,7 +161,7 @@ import { CommonModule } from '@angular/common';
 
           <!-- Email -->
           <a
-            href="mailto:contact@humbertolpz.dev"
+            href="mailto:humbertolpzc.work@gmail.com"
             class="transition-all duration-300 hover:scale-125"
             style="color: #8b949e;"
             onmouseenter="this.style.color='#00e5ff'"
@@ -191,12 +201,14 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class HeroComponent implements OnInit, OnDestroy {
+  private readonly router = inject(Router);
+
   readonly roles = [
     'Full Stack Developer',
     'Angular Specialist',
-    'React Engineer',
-    'Node.js Developer',
-    'Cloud Architect',
+    'AI Integrations',
+    'Node.js & Express',
+    'Cloud & DevOps',
   ];
 
   displayText = '';
@@ -239,6 +251,10 @@ export class HeroComponent implements OnInit, OnDestroy {
     }
 
     this.typewriterTimeout = setTimeout(() => this.tick(), this.isDeleting ? 50 : 100);
+  }
+
+  goToCV(): void {
+    this.router.navigate(['/cv']);
   }
 
   scrollTo(id: string): void {

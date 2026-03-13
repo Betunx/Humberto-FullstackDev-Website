@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 const NAV_LINKS = [
   { label: 'Inicio', href: '#hero' },
@@ -49,6 +50,13 @@ const NAV_LINKS = [
               <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#00ff41] group-hover:w-full transition-all duration-300 shadow-[0_0_4px_#00ff41]"></span>
             </button>
           }
+          <button
+            (click)="goToCV()"
+            class="px-4 py-1.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 cursor-pointer border-none"
+            style="font-family:'Orbitron',sans-serif; background-color:#00ff41; color:#0a0a0a; box-shadow:0 0 12px rgba(0,255,65,0.3);"
+            onmouseenter="this.style.boxShadow='0 0 24px rgba(0,255,65,0.6)'"
+            onmouseleave="this.style.boxShadow='0 0 12px rgba(0,255,65,0.3)'"
+          >CV</button>
         </div>
 
         <!-- Mobile toggle -->
@@ -81,6 +89,13 @@ const NAV_LINKS = [
                 <span class="text-[#00ff41] mr-2">&gt;</span>{{ link.label }}
               </button>
             }
+            <button
+              (click)="goToCV()"
+              class="text-left cursor-pointer border-none bg-transparent font-bold"
+              style="font-family:'Orbitron',sans-serif; font-size:0.85rem; color:#00ff41;"
+            >
+              <span style="color:#00e5ff;" class="mr-2">&gt;</span>CV
+            </button>
           </div>
         </div>
       }
@@ -94,6 +109,8 @@ const NAV_LINKS = [
   `]
 })
 export class NavbarComponent {
+  private readonly router = inject(Router);
+
   scrolled = false;
   mobileOpen = false;
   navLinks = NAV_LINKS;
@@ -103,10 +120,21 @@ export class NavbarComponent {
     this.scrolled = window.scrollY > 50;
   }
 
+  goToCV(): void {
+    this.mobileOpen = false;
+    this.router.navigate(['/cv']);
+  }
+
   scrollTo(href: string): void {
     this.mobileOpen = false;
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: 'smooth' });
+    // If on CV page, navigate home first then scroll
+    if (this.router.url !== '/') {
+      this.router.navigate(['/']).then(() => {
+        setTimeout(() => document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' }), 100);
+      });
+      return;
+    }
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   }
 
   toggleMenu(): void {

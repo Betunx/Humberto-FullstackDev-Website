@@ -84,7 +84,7 @@ import { InViewDirective } from '@core/directives/in-view.directive';
             </div>
           </div>
 
-          <!-- RIGHT: 2x2 highlight cards -->
+          <!-- RIGHT: 2x3 highlight cards -->
           <div
             appInView
             [inViewThreshold]="0.15"
@@ -188,7 +188,56 @@ import { InViewDirective } from '@core/directives/in-view.directive';
                 <p
                   class="text-xs leading-relaxed"
                   style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
-                >AWS, Docker, CI/CD</p>
+                >AWS, Docker, Vercel</p>
+              </div>
+
+              <!-- Testing & QA -->
+              <div
+                class="p-5 rounded-lg border transition-all duration-300"
+                style="background-color: #0d1117; border-color: rgba(0,229,255,0.1);"
+                onmouseenter="this.style.borderColor='rgba(0,229,255,0.4)'; this.style.boxShadow='0 0 20px rgba(0,229,255,0.08)'"
+                onmouseleave="this.style.borderColor='rgba(0,229,255,0.1)'; this.style.boxShadow='none'"
+              >
+                <!-- Test tube icon -->
+                <div class="mb-3">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5s-2.5-1.1-2.5-2.5V2"/>
+                    <path d="M8.5 2h7"/>
+                    <path d="M14.5 16h-5"/>
+                  </svg>
+                </div>
+                <h3
+                  class="font-bold mb-1 text-sm"
+                  style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
+                >Testing & QA</h3>
+                <p
+                  class="text-xs leading-relaxed"
+                  style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
+                >Jest, Jasmine, Postman</p>
+              </div>
+
+              <!-- AI & Herramientas -->
+              <div
+                class="p-5 rounded-lg border transition-all duration-300"
+                style="background-color: #0d1117; border-color: rgba(168,85,247,0.1);"
+                onmouseenter="this.style.borderColor='rgba(168,85,247,0.4)'; this.style.boxShadow='0 0 20px rgba(168,85,247,0.08)'"
+                onmouseleave="this.style.borderColor='rgba(168,85,247,0.1)'; this.style.boxShadow='none'"
+              >
+                <!-- Brain/AI icon -->
+                <div class="mb-3">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 01-4.96-.46 2.5 2.5 0 01-1.07-3.43A3 3 0 016 12a2.5 2.5 0 01-.5-4.96V7a2.5 2.5 0 013-2.5z"/>
+                    <path d="M14.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 004.96-.46 2.5 2.5 0 001.07-3.43A3 3 0 0118 12a2.5 2.5 0 00.5-4.96V7a2.5 2.5 0 00-3-2.5z"/>
+                  </svg>
+                </div>
+                <h3
+                  class="font-bold mb-1 text-sm"
+                  style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
+                >AI & Herramientas</h3>
+                <p
+                  class="text-xs leading-relaxed"
+                  style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
+                >Claude AI, HubSpot, Figma</p>
               </div>
 
             </div>

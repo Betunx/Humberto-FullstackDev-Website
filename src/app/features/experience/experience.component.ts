@@ -135,27 +135,27 @@ export class ExperienceComponent {
   readonly experiences: Experience[] = [
     {
       role: 'Full Stack Developer',
-      company: 'Freelance / Proyectos Propios',
-      period: '2023 - Presente',
+      company: 'Hirably',
+      period: '2025 - Presente',
       description:
-        'Desarrollo de aplicaciones web completas usando Angular, React, Node.js y servicios cloud. Entrega de soluciones end-to-end desde la arquitectura hasta el despliegue.',
-      tech: ['Angular', 'React', 'Node.js', 'TypeScript', 'AWS', 'PostgreSQL'],
+        'Construcción completa de la landing page corporativa con Angular y Tailwind CSS. Integración de chatbot HubSpot con Claude AI para interacciones automatizadas con clientes. Configuración de scaffolding, arquitectura de routing y pipelines de build. Despliegue y mantenimiento del entorno de producción en Vercel.',
+      tech: ['Angular', 'TypeScript', 'Tailwind CSS', 'HubSpot', 'Claude AI', 'Vercel'],
     },
     {
-      role: 'Frontend Developer',
-      company: 'Desarrollo Web',
-      period: '2022 - 2023',
+      role: 'Web Developer',
+      company: 'Icatson — Gobierno del Estado de Sonora',
+      period: '2023 - 2024',
       description:
-        'Creación de interfaces de usuario modernas y responsivas. Trabajo cercano con diseñadores UX/UI para transformar mockups en componentes reutilizables y accesibles.',
-      tech: ['Angular', 'TypeScript', 'Tailwind CSS', 'RxJS', 'Git'],
+        'Mantenimiento y optimización del sitio web oficial del gobierno, mejorando el rendimiento para miles de usuarios. Desarrollo de módulos front-end con Joomla, HTML, CSS y JavaScript. Propuesta e integración de mejoras UX, creando nuevas rutas y páginas. Optimización del codebase eliminando boilerplate y mejorando uso de memoria.',
+      tech: ['JavaScript', 'Joomla', 'HTML/CSS', 'Git', 'Trello'],
     },
     {
-      role: 'Junior Developer',
-      company: 'Inicio de Carrera',
+      role: 'CNC Engineer',
+      company: 'Martinrea Automotive Structures',
       period: '2021 - 2022',
       description:
-        'Primeros pasos en desarrollo profesional. Implementación de funcionalidades en proyectos existentes, resolución de bugs y aprendizaje de buenas prácticas de equipo.',
-      tech: ['JavaScript', 'HTML/CSS', 'Node.js', 'MongoDB', 'Git'],
+        'Operación y optimización de maquinaria CNC en líneas de producción automatizadas. Mantenimiento y troubleshooting, fortaleciendo habilidades de resolución de problemas y trabajo en equipo.',
+      tech: ['Automatización', 'CNC', 'Manufactura', 'Problem Solving'],
     },
   ];
 }
