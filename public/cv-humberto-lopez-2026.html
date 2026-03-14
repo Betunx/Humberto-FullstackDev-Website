@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Humberto López Coronado - Full Stack Developer</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.35;
+    color: #2c2c2c;
+    background: #e0e0e0;
+    padding: 12px;
+  }
+
+  .page {
+    max-width: 8.5in;
+    margin: 0 auto;
+    background: #fff;
+    padding: 0.4in 0.5in;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+  }
+
+  /* ── HEADER ── */
+  .header { margin-bottom: 14px; border-bottom: 2px solid #1a1a1a; padding-bottom: 10px; }
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .name { font-size: 20pt; font-weight: 700; color: #111; letter-spacing: -0.5px; }
+  .subtitle { font-size: 10.5pt; color: #2563eb; font-weight: 500; margin-top: 1px; }
+  
+  .credentials {
+    text-align: right;
+    font-size: 8.5pt;
+    color: #555;
+    line-height: 1.4;
+  }
+  .credentials strong { color: #333; }
+
+  .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    margin-top: 7px;
+    font-size: 8.5pt;
+    color: #444;
+  }
+  .contact-row a { color: #2563eb; text-decoration: none; }
+
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 13px; }
+  .section-title {
+    font-size: 9pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #1a1a1a;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 3px;
+    margin-bottom: 8px;
+  }
+
+  /* ── SUMMARY ── */
+  .summary { font-size: 9.5pt; color: #333; line-height: 1.45; }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 30px;
+    font-size: 9pt;
+  }
+  .skill-row { display: flex; gap: 6px; }
+  .skill-label { font-weight: 600; color: #1a1a1a; white-space: nowrap; min-width: 110px; }
+  .skill-value { color: #444; }
+
+  /* ── EXPERIENCE ── */
+  .job { margin-bottom: 11px; }
+  .job-header { display: flex; justify-content: space-between; align-items: baseline; }
+  .job-company { font-weight: 700; font-size: 10pt; color: #111; }
+  .job-date { font-size: 8.5pt; color: #666; font-style: italic; }
+  .job-title { font-size: 9pt; color: #2563eb; font-weight: 500; margin: 1px 0 4px; }
+  .job-duties { margin-left: 16px; font-size: 9pt; color: #333; }
+  .job-duties li { margin-bottom: 2px; }
+  .job-stack { font-size: 8pt; color: #666; font-style: italic; margin-top: 3px; }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+  }
+  .project { font-size: 9pt; }
+  .project-name { font-weight: 600; color: #111; }
+  .project-desc { color: #555; font-size: 8.5pt; }
+  .project-tech { color: #666; font-size: 8pt; font-style: italic; }
+  .project-link a { color: #2563eb; font-size: 8pt; text-decoration: none; }
+
+  /* ── EDUCATION ── */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 30px;
+  }
+  .edu-school { font-weight: 600; color: #111; font-size: 9.5pt; }
+  .edu-degree { color: #2563eb; font-size: 9pt; }
+  .edu-date { font-size: 8.5pt; color: #666; }
+  .edu-details { font-size: 8.5pt; color: #555; font-style: italic; }
+
+  /* ── FOOTER ROW ── */
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  .footer-col { flex: 1; }
+  .cert-item, .lang-item { font-size: 9pt; color: #333; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; padding: 0.3in 0.4in; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-row">
+      <div>
+        <div class="name">Humberto López Coronado</div>
+        <div class="subtitle">Full Stack Developer</div>
+      </div>
+      <div class="credentials">
+        <strong>Mechatronics Engineer</strong><br>
+        Certificate: 14864066
+      </div>
+    </div>
+    <div class="contact-row">
+      <span>📍 Hermosillo, Sonora, MX (Open to Remote)</span>
+      <span>📧 humbertolpzc.work@gmail.com</span>
+      <span>📱 +52 662 360 6250</span>
+      <a href="https://www.linkedin.com/in/humbertolópez-435b77216" target="_blank">🔗 LinkedIn</a>
+      <a href="https://github.com/Betunx" target="_blank">💻 GitHub</a>
+      <a href="https://humberto-fullstack-dev-website.vercel.app" target="_blank">🌐 Portfolio</a>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section">
+    <div class="section-title">Professional Summary</div>
+    <div class="summary">
+      Full Stack Developer with 5+ years of experience building web applications with Angular, React, TypeScript, Node.js, and NestJS. Proven track record designing RESTful APIs with JWT authentication, interactive UIs from Figma mockups, and full-stack platforms from architecture to deployment. Hands-on experience with Docker, PostgreSQL, Redis, Cloudflare Workers, and CI/CD pipelines with GitHub Actions. Currently integrating conversational AI (Claude) with HubSpot for HR-tech. Background spanning government, healthcare, automotive, and music-tech projects.
+    </div>
+  </div>
+
+  <!-- TECHNICAL SKILLS -->
+  <div class="section">
+    <div class="section-title">Technical Skills</div>
+    <div class="skills-grid">
+      <div class="skill-row">
+        <span class="skill-label">Front-End:</span>
+        <span class="skill-value">Angular, React, Vue.js, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, SCSS, Tailwind CSS, Bootstrap, Figma</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">Back-End:</span>
+        <span class="skill-value">Node.js, NestJS, Express.js, RESTful APIs, JWT Auth, Cloudflare Workers</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">Databases:</span>
+        <span class="skill-value">PostgreSQL, MongoDB, MySQL, TypeORM, Redis, Elasticsearch</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">Cloud & DevOps:</span>
+        <span class="skill-value">Vercel, AWS, Cloudflare (Pages/Workers/CDN), Docker, GitHub Actions, Git</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">Build Tools:</span>
+        <span class="skill-value">Webpack, Vite, Babel, PWA, code minification & cross-browser transpilation</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">Testing & QA:</span>
+        <span class="skill-value">Jest, Jasmine, Postman</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">Tools:</span>
+        <span class="skill-value">Jira, Trello, Slack, VS Code, Cursor, GitHub Copilot, HubSpot, Claude AI</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="section">
+    <div class="section-title">Professional Experience</div>
+
+    <!-- HIRABLY -->
+    <div class="job">
+      <div class="job-header">
+        <span class="job-company">Hirably</span>
+        <span class="job-date">2025 – Present</span>
+      </div>
+      <div class="job-title">Full Stack Developer</div>
+      <ul class="job-duties">
+        <li>Built the complete landing page from scratch for an HR-tech platform using Angular and Tailwind CSS</li>
+        <li>Integrated HubSpot chatbot with Claude AI capabilities, evaluating multiple integration architectures (widget, hybrid, custom) before implementation</li>
+        <li>Deployed and maintained production application on Vercel with continuous deployment workflows</li>
+        <li>Designed responsive, mobile-first interfaces and collaborated with stakeholders on product features</li>
+      </ul>
+      <div class="job-stack">Stack: Angular, TypeScript, Tailwind CSS, HubSpot, Claude AI, Vercel, Git</div>
+    </div>
+
+    <!-- BSTABS -->
+    <div class="job">
+      <div class="job-header">
+        <span class="job-company">BSTabs — Personal Project</span>
+        <span class="job-date">2025 – Present</span>
+      </div>
+      <div class="job-title">Full Stack Developer & Founder</div>
+      <ul class="job-duties">
+        <li>Architected and built a full-stack music tablature platform (bstabs.com) with Angular 18, NestJS, PostgreSQL, and Redis</li>
+        <li>Implemented search functionality with Elasticsearch, user authentication, and 4 theme modes (Light, Dark, Night Red, OLED)</li>
+        <li>Configured Docker containerization (docker-compose), Cloudflare Workers API, and CI/CD with GitHub Actions</li>
+        <li>Deployed on Cloudflare Pages with custom domain, CDN, and serverless backend — PWA-enabled for mobile install</li>
+      </ul>
+      <div class="job-stack">Stack: Angular 18, NestJS, TypeScript, PostgreSQL, TypeORM, Redis, Elasticsearch, Docker, Cloudflare, GitHub Actions</div>
+    </div>
+
+    <!-- ICATSON -->
+    <div class="job">
+      <div class="job-header">
+        <span class="job-company">Icatson — Government Institution</span>
+        <span class="job-date">2023 – 2024</span>
+      </div>
+      <div class="job-title">Web Developer</div>
+      <ul class="job-duties">
+        <li>Maintained and optimized the official government website, improving performance for thousands of users</li>
+        <li>Developed front-end modules with Joomla, HTML, CSS, and JavaScript; proposed UX improvements and new routes</li>
+        <li>Optimized codebase by cleaning boilerplate and improving memory usage</li>
+      </ul>
+      <div class="job-stack">Stack: JavaScript, Joomla, HTML/CSS, Git, Trello</div>
+    </div>
+
+    <!-- FREELANCE -->
+    <div class="job">
+      <div class="job-header">
+        <span class="job-company">Freelance Full Stack Developer</span>
+        <span class="job-date">2021 – Present</span>
+      </div>
+      <div class="job-title">Full Stack Developer</div>
+      <ul class="job-duties">
+        <li>Developed custom websites for clients using React, Vue.js, Angular, Node.js, and TypeScript — deployed to Vercel</li>
+        <li>Configured Webpack and Babel for cross-browser compatibility, code optimization, and production bundling</li>
+        <li>Delivered responsive, mobile-first designs with Tailwind CSS, SCSS, and Bootstrap</li>
+      </ul>
+      <div class="job-stack">Projects: Charly's Estética Canina, educational platforms, interactive web applications</div>
+    </div>
+
+    <!-- MARTINREA -->
+    <div class="job">
+      <div class="job-header">
+        <span class="job-company">Martinrea Automotive Structures</span>
+        <span class="job-date">2021 – 2022</span>
+      </div>
+      <div class="job-title">CNC Engineer</div>
+      <ul class="job-duties">
+        <li>Operated and optimized CNC machinery in automated production lines; performed maintenance and troubleshooting</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- KEY PROJECTS -->
+  <div class="section">
+    <div class="section-title">Key Projects</div>
+    <div class="projects-grid">
+      <div class="project">
+        <div class="project-name">GeriaCare — Master's Capstone</div>
+        <div class="project-desc">Healthcare management platform with role-based JWT auth, MongoDB aggregation pipelines, and RxJS real-time updates</div>
+        <div class="project-tech">Angular, Node.js, Express, MongoDB, Jest, Figma</div>
+      </div>
+      <div class="project">
+        <div class="project-name">BSTabs</div>
+        <div class="project-desc">Music tablature platform with PWA, 4 themes, search engine, and serverless API</div>
+        <div class="project-link"><a href="https://www.bstabs.com">bstabs.com</a></div>
+      </div>
+      <div class="project">
+        <div class="project-name">Personal Portfolio</div>
+        <div class="project-desc">Developer website with integrated CV route</div>
+        <div class="project-link"><a href="https://humberto-fullstack-dev-website.vercel.app">humberto-fullstack-dev-website.vercel.app</a></div>
+      </div>
+      <div class="project">
+        <div class="project-name">Charly's Estética Canina</div>
+        <div class="project-desc">Commercial website for pet grooming business</div>
+        <div class="project-link"><a href="https://charlys-estetica-canina-mgud.vercel.app">charlys-estetica-canina-mgud.vercel.app</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <div class="section-title">Education</div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-school">Universidad de La Rioja, Spain</div>
+        <div class="edu-degree">Master's in Full-Stack Development</div>
+        <div class="edu-date">2024 – 2025 (Completed — credential in process)</div>
+        <div class="edu-details">Docker, Jest, Angular, TypeScript, DevOps, MEAN Stack</div>
+      </div>
+      <div>
+        <div class="edu-school">Tecnológico Nacional de México</div>
+        <div class="edu-degree">B.Eng. Mechatronics Engineering</div>
+        <div class="edu-date">2017 – 2022</div>
+        <div class="edu-details">Specialization: Automation & Robotics</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CERTS + LANGUAGES -->
+  <div class="section">
+    <div class="footer-row">
+      <div class="footer-col">
+        <div class="section-title">Certifications</div>
+        <div class="cert-item">Scrum Agile Framework (SFPC)</div>
+      </div>
+      <div class="footer-col">
+        <div class="section-title">Languages</div>
+        <div class="lang-item">Spanish: Native &nbsp;|&nbsp; English: C1 (Advanced)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,7 +1,51 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InViewDirective } from '@core/directives/in-view.directive';
+import { LanguageService } from '@core/services/language.service';
+
+const CT = {
+  es: {
+    label: '05. // CONTACTO',
+    heading: 'Conectemos',
+    subtitle: '¿Tienes un proyecto en mente? Me encantaría escucharlo. Envíame un mensaje y te respondo lo antes posible.',
+    email: 'EMAIL',
+    location: 'UBICACIÓN',
+    locationVal: 'Hermosillo, Sonora, MX',
+    phone: 'TELÉFONO',
+    nameLabel: 'NOMBRE',
+    namePlaceholder: 'Tu nombre',
+    emailLabel: 'EMAIL',
+    emailPlaceholder: 'tu@email.com',
+    msgLabel: 'MENSAJE',
+    msgPlaceholder: 'Cuéntame sobre tu proyecto...',
+    send: 'ENVIAR',
+    sent: 'ENVIADO',
+    sentMsg: '> Mensaje enviado correctamente...',
+    sentSub: 'Te responderé a la brevedad posible.',
+    sendAnother: 'Enviar otro mensaje',
+  },
+  en: {
+    label: '05. // CONTACT',
+    heading: "Let's Connect",
+    subtitle: 'Have a project in mind? I\'d love to hear about it. Send me a message and I\'ll get back to you as soon as possible.',
+    email: 'EMAIL',
+    location: 'LOCATION',
+    locationVal: 'Hermosillo, Sonora, MX (Open to Remote)',
+    phone: 'PHONE',
+    nameLabel: 'NAME',
+    namePlaceholder: 'Your name',
+    emailLabel: 'EMAIL',
+    emailPlaceholder: 'you@email.com',
+    msgLabel: 'MESSAGE',
+    msgPlaceholder: 'Tell me about your project...',
+    send: 'SEND',
+    sent: 'SENT',
+    sentMsg: '> Message sent successfully...',
+    sentSub: "I'll get back to you shortly.",
+    sendAnother: 'Send another message',
+  },
+};
 
 interface FormState {
   name: string;
@@ -27,15 +71,15 @@ interface FormState {
           <p
             class="text-sm tracking-widest mb-3"
             style="font-family: 'JetBrains Mono', monospace; color: #00ff41;"
-          >05. // CONTACTO</p>
+          ><span style="color:#00e5ff;">05.</span> {{ t().label.substring(2) }}</p>
           <h2
             class="text-3xl sm:text-4xl font-bold mb-4"
             style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
-          >Conectemos</h2>
+          >{{ t().heading }}</h2>
           <p
             class="max-w-md mx-auto text-sm leading-relaxed"
             style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
-          >¿Tienes un proyecto en mente? Me encantaría escucharlo. Envíame un mensaje y te respondo lo antes posible.</p>
+          >{{ t().subtitle }}</p>
           <div class="mt-6 h-px w-24 mx-auto" style="background: linear-gradient(90deg, transparent, #00ff41, transparent);"></div>
         </div>
 
@@ -90,11 +134,11 @@ interface FormState {
                 <p
                   class="text-xs font-bold mb-1 tracking-widest"
                   style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
-                >UBICACIÓN</p>
+                >{{ t().location }}</p>
                 <p
                   class="text-sm"
                   style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
-                >Hermosillo, Sonora, MX</p>
+                >{{ t().locationVal }}</p>
               </div>
             </div>
 
@@ -112,7 +156,7 @@ interface FormState {
                 <p
                   class="text-xs font-bold mb-1 tracking-widest"
                   style="font-family: 'Orbitron', sans-serif; color: #c9d1d9;"
-                >TELÉFONO</p>
+                >{{ t().phone }}</p>
                 <p
                   class="text-sm"
                   style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
@@ -123,7 +167,7 @@ interface FormState {
             <!-- Social buttons -->
             <div class="flex gap-3 pt-2">
               <a
-                href="https://github.com/humbertolopez"
+                href="https://github.com/Betunx"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="flex items-center gap-2 px-4 py-2 rounded text-xs font-bold tracking-wider transition-all duration-200"
@@ -142,7 +186,7 @@ interface FormState {
                 GitHub
               </a>
               <a
-                href="https://linkedin.com/in/humbertolpz"
+                href="https://www.linkedin.com/in/humbertol%C3%B3pez-435b77216"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="flex items-center gap-2 px-4 py-2 rounded text-xs font-bold tracking-wider transition-all duration-200"
@@ -184,14 +228,14 @@ interface FormState {
                         for="name"
                         class="block text-xs font-bold mb-2 tracking-widest"
                         style="font-family: 'Orbitron', sans-serif; color: #8b949e;"
-                      >NOMBRE</label>
+                      >{{ t().nameLabel }}</label>
                       <input
                         id="name"
                         name="name"
                         type="text"
                         [(ngModel)]="formState.name"
                         required
-                        placeholder="Tu nombre"
+                        [placeholder]="t().namePlaceholder"
                         class="w-full px-4 py-3 rounded text-sm outline-none transition-all duration-200"
                         style="
                           font-family: 'JetBrains Mono', monospace;
@@ -237,14 +281,14 @@ interface FormState {
                       for="message"
                       class="block text-xs font-bold mb-2 tracking-widest"
                       style="font-family: 'Orbitron', sans-serif; color: #8b949e;"
-                    >MENSAJE</label>
+                    >{{ t().msgLabel }}</label>
                     <textarea
                       id="message"
                       name="message"
                       rows="5"
                       [(ngModel)]="formState.message"
                       required
-                      placeholder="Cuéntame sobre tu proyecto..."
+                      [placeholder]="t().msgPlaceholder"
                       class="w-full px-4 py-3 rounded text-sm outline-none resize-none transition-all duration-200"
                       style="
                         font-family: 'JetBrains Mono', monospace;
@@ -293,18 +337,18 @@ interface FormState {
                   <p
                     class="text-sm"
                     style="font-family: 'JetBrains Mono', monospace; color: #00ff41;"
-                  >&gt; Mensaje enviado correctamente...</p>
+                  >{{ t().sentMsg }}</p>
                   <p
                     class="text-xs mt-2"
                     style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
-                  >Te responderé a la brevedad posible.</p>
+                  >{{ t().sentSub }}</p>
                   <button
                     (click)="resetForm()"
                     class="mt-6 text-xs underline transition-colors duration-200"
                     style="font-family: 'JetBrains Mono', monospace; color: #8b949e;"
                     onmouseenter="this.style.color='#00ff41'"
                     onmouseleave="this.style.color='#8b949e'"
-                  >Enviar otro mensaje</button>
+                  >{{ t().sendAnother }}</button>
                 </div>
               }
             </div>
@@ -317,6 +361,9 @@ interface FormState {
   styles: []
 })
 export class ContactComponent {
+  private readonly langSvc = inject(LanguageService);
+  protected readonly t = computed(() => CT[this.langSvc.lang()]);
+
   formState: FormState = { name: '', email: '', message: '' };
   sent = false;
 

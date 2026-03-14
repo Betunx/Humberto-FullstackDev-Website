@@ -286,6 +286,7 @@
 }
 
 .download-btn {
+  display: inline-block;
   background: #3498db;
   color: white;
   border: none;
@@ -296,6 +297,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
+  text-decoration: none;
 
   &:hover {
     background: #2c3e50;

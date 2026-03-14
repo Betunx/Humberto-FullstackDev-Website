@@ -1,5 +1,5 @@
 import {
-  Component,
+  ChangeDetectionStrategy, Component,
   ViewChild,
   ElementRef,
   AfterViewInit,
@@ -25,6 +25,7 @@ interface Particle {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-minesweeper',
   standalone: true,
   imports: [CommonModule],
