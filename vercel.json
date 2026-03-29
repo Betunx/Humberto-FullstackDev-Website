@@ -1,5 +1,14 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist/portfolio-humberto/browser",
-  "framework": null
+  "framework": null,
+  "functions": {
+    "api/og.ts": {
+      "runtime": "edge"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/og", "destination": "/api/og" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
 }

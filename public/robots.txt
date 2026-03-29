@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://humberto-fullstack-dev-website.vercel.app/sitemap.xml

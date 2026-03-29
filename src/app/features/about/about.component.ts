@@ -2,56 +2,80 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { InViewDirective } from '@core/directives/in-view.directive';
 import { LanguageService } from '@core/services/language.service';
 
+interface JsonLine { indent: number; key?: string; value?: string; color?: string; punctuation?: string; }
+
 const T = {
   es: {
     label: '01. // SOBRE_MÍ',
-    heading: '¿Quién soy?',
-    p1: 'Full Stack Developer con +5 años de experiencia especializado en Angular, TypeScript, Node.js y NestJS. Experto en diseñar dashboards interactivos, interfaces intuitivas y APIs RESTful con autenticación JWT.',
-    p2: 'Habilidad para traducir diseños UI/UX de Figma a layouts responsivos y semánticos. Dominio de scaffolding de proyectos, configuración de build tools (Webpack, Vite, Babel) y optimización para producción.',
-    p3: 'Actualmente desarrollando integraciones de IA conversacional con HubSpot y Claude AI. Background en proyectos de gobierno, salud, HR-tech y música.',
-    cards: [
-      { title: 'Frontend', desc: 'Angular, React, Vue.js, Next.js, TypeScript' },
-      { title: 'Backend', desc: 'Node.js, NestJS, Express, RESTful APIs, JWT' },
-      { title: 'Bases de Datos', desc: 'PostgreSQL, MongoDB, MySQL, Redis' },
-      { title: 'Cloud & DevOps', desc: 'AWS, Cloudflare, Docker, Vercel, GitHub Actions' },
-      { title: 'Testing & QA', desc: 'Jest, Jasmine, Postman' },
-      { title: 'AI & Herramientas', desc: 'HubSpot, Claude AI, Jira, Figma' },
+    heading: 'Sobre mí',
+    fileLeft: 'profile.txt',
+    fileRight: 'config.json',
+    lines: [
+      'Full Stack Developer con +5 años construyendo',
+      'aplicaciones web de alto rendimiento.',
+      '',
+      'Especializado en Angular (17/18), TypeScript',
+      'y Node.js, con enfoque en seguridad (CSP, HSTS),',
+      'arquitectura escalable y Core Web Vitals.',
+      '',
+      'Habilidad para traducir diseños de Figma a',
+      'layouts responsivos. Dominio de build tools',
+      '(Webpack, Vite) y despliegue en cloud.',
+      '',
+      'Ing. Mecatrónico · Máster en Full-Stack Dev.',
+      'Background en gobierno, salud, HR-tech y música.',
+      'Actualmente liderando integraciones de IA',
+      'con Claude AI y arquitecturas serverless.',
+    ],
+    json: [
+      { indent: 0, punctuation: '{' },
+      { indent: 1, key: '"ubicacion"',     value: '"Hermosillo, Sonora, MX"',   color: '#a5d6ff' },
+      { indent: 1, key: '"remoto"',        value: 'true',                        color: '#79c0ff' },
+      { indent: 1, key: '"disponible"',    value: '"Abierto a oportunidades"',   color: '#a5d6ff' },
+      { indent: 1, key: '"idiomas"',       value: '["Español (Nativo)", "English (C1)"]', color: '#a5d6ff' },
+      { indent: 1, key: '"enfoque"',       value: '["Angular", "Seguridad", "IA", "Serverless"]', color: '#a5d6ff' },
+      { indent: 1, key: '"industrias"',    value: '["HR-tech", "Gobierno", "Música", "Salud"]', color: '#a5d6ff' },
+      { indent: 1, key: '"formacion"',     value: '["Ing. Mecatrónico", "Máster Full-Stack"]', color: '#a5d6ff' },
+      { indent: 1, key: '"certificacion"', value: '"Scrum Agile Framework (SFPC)"', color: '#a5d6ff' },
+      { indent: 0, punctuation: '}' },
     ],
   },
   en: {
     label: '01. // ABOUT_ME',
-    heading: 'Who Am I?',
-    p1: 'Full Stack Developer with 5+ years of experience specializing in Angular, TypeScript, Node.js & NestJS. Expert at designing interactive dashboards, intuitive UIs and RESTful APIs with JWT authentication.',
-    p2: 'Skilled at translating Figma UI/UX designs into responsive, semantic layouts. Proficient with project scaffolding, build tools (Webpack, Vite, Babel) and production optimization.',
-    p3: 'Currently building conversational AI integrations with HubSpot and Claude AI. Background across government, healthcare, HR-tech and music-tech projects.',
-    cards: [
-      { title: 'Frontend', desc: 'Angular, React, Vue.js, Next.js, TypeScript' },
-      { title: 'Backend', desc: 'Node.js, NestJS, Express, RESTful APIs, JWT' },
-      { title: 'Databases', desc: 'PostgreSQL, MongoDB, MySQL, Redis' },
-      { title: 'Cloud & DevOps', desc: 'AWS, Cloudflare, Docker, Vercel, GitHub Actions' },
-      { title: 'Testing & QA', desc: 'Jest, Jasmine, Postman' },
-      { title: 'AI & Tools', desc: 'HubSpot, Claude AI, Jira, Figma' },
+    heading: 'About me',
+    fileLeft: 'profile.txt',
+    fileRight: 'config.json',
+    lines: [
+      'Full Stack Developer with 5+ years building',
+      'high-performance web applications.',
+      '',
+      'Specialized in Angular (17/18), TypeScript',
+      'and Node.js, focused on security (CSP, HSTS),',
+      'scalable architecture and Core Web Vitals.',
+      '',
+      'Skilled at translating Figma designs into',
+      'responsive layouts. Proficient with build tools',
+      '(Webpack, Vite) and cloud deployment.',
+      '',
+      'Mechatronics Engineer · Master\'s in Full-Stack Dev.',
+      'Background in gov, healthcare, HR-tech & music.',
+      'Currently leading AI integrations with Claude AI',
+      'and serverless architectures.',
+    ],
+    json: [
+      { indent: 0, punctuation: '{' },
+      { indent: 1, key: '"location"',      value: '"Hermosillo, Sonora, MX"',     color: '#a5d6ff' },
+      { indent: 1, key: '"remote"',        value: 'true',                          color: '#79c0ff' },
+      { indent: 1, key: '"available"',     value: '"Open to opportunities"',       color: '#a5d6ff' },
+      { indent: 1, key: '"languages"',     value: '["Spanish (Native)", "English (C1)"]', color: '#a5d6ff' },
+      { indent: 1, key: '"focus"',         value: '["Angular", "Security", "AI", "Serverless"]', color: '#a5d6ff' },
+      { indent: 1, key: '"industries"',    value: '["HR-tech", "Government", "Music", "Healthcare"]', color: '#a5d6ff' },
+      { indent: 1, key: '"education"',     value: '["Mechatronics Eng.", "Master\'s Full-Stack"]', color: '#a5d6ff' },
+      { indent: 1, key: '"certification"', value: '"Scrum Agile Framework (SFPC)"', color: '#a5d6ff' },
+      { indent: 0, punctuation: '}' },
     ],
   },
 };
-
-const CARD_COLORS = ['#00ff41', '#00e5ff', '#a855f7', '#f59e0b', '#00e5ff', '#a855f7'];
-const CARD_BORDER_COLORS = [
-  'rgba(0,255,65,0.1)', 'rgba(0,229,255,0.1)', 'rgba(168,85,247,0.1)',
-  'rgba(245,158,11,0.1)', 'rgba(0,229,255,0.1)', 'rgba(168,85,247,0.1)',
-];
-const CARD_HOVER_COLORS = [
-  'rgba(0,255,65,0.4)', 'rgba(0,229,255,0.4)', 'rgba(168,85,247,0.4)',
-  'rgba(245,158,11,0.4)', 'rgba(0,229,255,0.4)', 'rgba(168,85,247,0.4)',
-];
-const CARD_ICONS = [
-  `<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>`,
-  `<rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>`,
-  `<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>`,
-  `<path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/>`,
-  `<path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5s-2.5-1.1-2.5-2.5V2"/><path d="M8.5 2h7"/><path d="M14.5 16h-5"/>`,
-  `<path d="M9.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 01-4.96-.46 2.5 2.5 0 01-1.07-3.43A3 3 0 016 12a2.5 2.5 0 01-.5-4.96V7a2.5 2.5 0 013-2.5z"/><path d="M14.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 004.96-.46 2.5 2.5 0 001.07-3.43A3 3 0 0118 12a2.5 2.5 0 00.5-4.96V7a2.5 2.5 0 00-3-2.5z"/>`,
-];
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,100 +83,106 @@ const CARD_ICONS = [
   standalone: true,
   imports: [InViewDirective],
   template: `
-    <section id="about" class="py-32 px-6" style="background-color: #0a0a0a;">
+    <section id="about" class="py-32 px-6" style="background-color:#0a0a0a; position:relative; z-index:1;">
       <div class="max-w-6xl mx-auto">
 
         <!-- Section header -->
-        <div appInView [inViewThreshold]="0.1" class="fade-up mb-16">
+        <div appInView [inViewThreshold]="0.1" class="fade-up mb-12">
           <p class="text-sm tracking-widest mb-3" style="font-family:'JetBrains Mono',monospace; color:#00ff41;">
-            <span style="color:#00e5ff;">{{ t().label.split('.')[0] }}.</span>{{ t().label.substring(t().label.indexOf('.') + 1) }}
+            <span style="color:#00e5ff;">01.</span> // ABOUT_ME
           </p>
           <h2 class="text-3xl sm:text-4xl font-bold" style="font-family:'Orbitron',sans-serif; color:#c9d1d9;">{{ t().heading }}</h2>
           <div class="mt-4 h-px w-24" style="background:linear-gradient(90deg,#00ff41,transparent);"></div>
         </div>
 
-        <!-- Two-column grid -->
-        <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <!-- Editor window -->
+        <div
+          appInView [inViewThreshold]="0.1" [inViewDelay]="100"
+          class="fade-up rounded-lg overflow-hidden"
+          style="border:1px solid rgba(255,255,255,0.08); box-shadow:0 8px 40px rgba(0,0,0,0.5);"
+        >
 
-          <!-- LEFT: Terminal card -->
-          <div appInView [inViewThreshold]="0.15" [inViewDelay]="100" class="fade-left">
-            <div class="rounded-lg overflow-hidden border" style="background-color:#0d1117; border-color:rgba(0,255,65,0.15);">
-              <!-- Terminal header bar -->
-              <div class="flex items-center gap-2 px-4 py-3 border-b" style="background-color:#161b22; border-color:rgba(0,255,65,0.1);">
-                <span class="w-3 h-3 rounded-full" style="background-color:#ff5f57;"></span>
-                <span class="w-3 h-3 rounded-full" style="background-color:#ffbd2e;"></span>
-                <span class="w-3 h-3 rounded-full" style="background-color:#28c840;"></span>
-                <span class="ml-3 text-xs" style="font-family:'JetBrains Mono',monospace; color:#8b949e;">~/about/humberto.md</span>
-              </div>
-              <!-- Terminal body -->
-              <div class="p-6 space-y-5">
-                <p style="font-family:'JetBrains Mono',monospace; color:#c9d1d9; line-height:1.8; font-size:0.875rem;">
-                  <span style="color:#00ff41;">&gt; </span>{{ t().p1 }}
-                </p>
-                <p style="font-family:'JetBrains Mono',monospace; color:#8b949e; line-height:1.8; font-size:0.875rem;">
-                  <span style="color:#00e5ff;">&gt; </span>{{ t().p2 }}
-                </p>
-                <p style="font-family:'JetBrains Mono',monospace; color:#8b949e; line-height:1.8; font-size:0.875rem;">
-                  <span style="color:#00e5ff;">&gt; </span>{{ t().p3 }}
-                </p>
-                <span class="inline-block w-2 h-4 align-middle" style="background-color:#00ff41; animation:blink-cursor 1s step-end infinite;"></span>
-              </div>
+          <!-- Title bar -->
+          <div class="flex items-center gap-2 px-4 py-2.5" style="background-color:#1a1a2e; border-bottom:1px solid rgba(255,255,255,0.06);">
+            <span class="w-3 h-3 rounded-full" style="background:#ff5f57;"></span>
+            <span class="w-3 h-3 rounded-full" style="background:#febc2e;"></span>
+            <span class="w-3 h-3 rounded-full" style="background:#28c840;"></span>
+            <!-- Tabs -->
+            <div class="flex ml-4 gap-1">
+              <span
+                class="px-4 py-1 text-xs rounded-t"
+                style="font-family:'JetBrains Mono',monospace; background:#0d1117; border:1px solid rgba(255,255,255,0.08); border-bottom:none; color:#00ff41;"
+              >{{ t().fileLeft }}</span>
+              <span
+                class="px-4 py-1 text-xs rounded-t"
+                style="font-family:'JetBrains Mono',monospace; background:#161b22; border:1px solid rgba(255,255,255,0.05); border-bottom:none; color:#8b949e;"
+              >{{ t().fileRight }}</span>
             </div>
           </div>
 
-          <!-- RIGHT: 2x3 highlight cards -->
-          <div appInView [inViewThreshold]="0.15" [inViewDelay]="200" class="fade-right">
-            <div class="grid grid-cols-2 gap-4">
-              @for (card of t().cards; track card.title; let i = $index) {
-                <div
-                  class="p-5 rounded-lg border transition-all duration-300"
-                  [style.backgroundColor]="'#0d1117'"
-                  [style.borderColor]="cardBorderColors[i]"
-                  (mouseenter)="onCardEnter($event, i)"
-                  (mouseleave)="onCardLeave($event, i)"
-                >
-                  <div class="mb-3">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                      [attr.stroke]="cardColors[i]"
-                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      [innerHTML]="cardIcons[i]">
-                    </svg>
+          <!-- Split panels -->
+          <div class="grid lg:grid-cols-2" style="min-height:340px;">
+
+            <!-- LEFT: profile.txt -->
+            <div style="background:#0d1117; border-right:1px solid rgba(255,255,255,0.06);">
+              <!-- Mini file header -->
+              <div class="px-4 py-2 flex items-center gap-2" style="background:#0d1117; border-bottom:1px solid rgba(255,255,255,0.04);">
+                <span style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#8b949e;">// plain text</span>
+              </div>
+              <div class="py-4">
+                @for (line of t().lines; track $index; let n = $index) {
+                  <div class="flex gap-4 px-4 py-0.5 hover-line" style="transition:background 0.1s;">
+                    <span class="select-none flex-shrink-0 text-right" style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#3c4454; width:1.6rem;">{{ n + 1 }}</span>
+                    <span style="font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:#c9d1d9; line-height:1.7; white-space:pre-wrap;">{{ line }}</span>
                   </div>
-                  <h3 class="font-bold mb-1 text-sm" style="font-family:'Orbitron',sans-serif; color:#c9d1d9;">{{ card.title }}</h3>
-                  <p class="text-xs leading-relaxed" style="font-family:'JetBrains Mono',monospace; color:#8b949e;">{{ card.desc }}</p>
+                }
+                <!-- blinking cursor on last line -->
+                <div class="flex gap-4 px-4 py-0.5">
+                  <span class="select-none flex-shrink-0 text-right" style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#3c4454; width:1.6rem;">{{ t().lines.length + 1 }}</span>
+                  <span class="cursor-blink" style="display:inline-block; width:8px; height:1rem; background:#00ff41;"></span>
                 </div>
-              }
+              </div>
             </div>
-          </div>
 
+            <!-- RIGHT: config.json -->
+            <div style="background:#161b22;">
+              <div class="px-4 py-2 flex items-center gap-2" style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                <span style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#8b949e;">// json</span>
+              </div>
+              <div class="py-4">
+                @for (row of t().json; track $index; let n = $index) {
+                  <div class="flex gap-4 px-4 py-0.5 hover-line" style="transition:background 0.1s;">
+                    <span class="select-none flex-shrink-0 text-right" style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#3c4454; width:1.6rem;">{{ n + 1 }}</span>
+                    <span style="font-family:'JetBrains Mono',monospace; font-size:0.78rem; line-height:1.75;">
+                      @if (row.punctuation) {
+                        <span style="color:#c9d1d9;">{{ row.punctuation }}</span>
+                      }
+                      @if (row.key) {
+                        <span style="padding-left:1rem;">
+                          <span style="color:#7ee787;">{{ row.key }}</span>
+                          <span style="color:#c9d1d9;">: </span>
+                          <span [style.color]="row.color">{{ row.value }}</span><span style="color:#c9d1d9;">,</span>
+                        </span>
+                      }
+                    </span>
+                  </div>
+                }
+              </div>
+            </div>
+
+          </div>
         </div>
+
       </div>
     </section>
   `,
   styles: [`
-    @keyframes blink-cursor {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
+    .hover-line:hover { background-color: rgba(255,255,255,0.03); }
+    .cursor-blink { animation: blink 1s step-end infinite; }
+    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
   `]
 })
 export class AboutComponent {
   private readonly langSvc = inject(LanguageService);
   protected readonly t = computed(() => T[this.langSvc.lang()]);
-
-  readonly cardColors = CARD_COLORS;
-  readonly cardBorderColors = CARD_BORDER_COLORS;
-  readonly cardIcons = CARD_ICONS;
-
-  onCardEnter(event: MouseEvent, i: number): void {
-    const el = event.currentTarget as HTMLElement;
-    el.style.borderColor = CARD_HOVER_COLORS[i];
-    el.style.boxShadow = `0 0 20px ${CARD_COLORS[i]}14`;
-  }
-
-  onCardLeave(event: MouseEvent, i: number): void {
-    const el = event.currentTarget as HTMLElement;
-    el.style.borderColor = CARD_BORDER_COLORS[i];
-    el.style.boxShadow = 'none';
-  }
 }

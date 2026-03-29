@@ -18,9 +18,9 @@ const T = {
       {
         role: 'Full Stack Developer',
         company: 'Hirably',
-        period: '2025 - Presente',
-        description: 'Construcción completa de la landing page corporativa con Angular y Tailwind CSS. Integración de chatbot HubSpot con Claude AI para interacciones automatizadas con clientes. Despliegue y mantenimiento del entorno de producción en Vercel con workflows de CI/CD.',
-        tech: ['Angular', 'TypeScript', 'Tailwind CSS', 'HubSpot', 'Claude AI', 'Vercel'],
+        period: 'Sep 2025 - Presente',
+        description: 'Angular 17 & Rendimiento: Arquitectura con Angular 17 implementando Control Flow y OnPush para maximizar la velocidad de renderizado. Booking & Serverless: Motor de reservas con la API de Cal.com y Vercel Serverless, eliminando el uso de iframes. Seguridad & IA: Configuración de hardening (CSP, HSTS) e integración de chatbot con Claude AI para automatizar el screening de candidatos. Growth: SEO dinámico y analítica avanzada con GA4/GTM para conversiones.',
+        tech: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Cal.com', 'Claude AI', 'Vercel', 'GA4/GTM'],
       },
       {
         role: 'Full Stack Developer & Fundador',
@@ -40,15 +40,15 @@ const T = {
         role: 'Web Developer',
         company: 'Icatson — Gobierno del Estado de Sonora',
         period: '2023 - 2024',
-        description: 'Mantenimiento y optimización del sitio web oficial del gobierno, mejorando el rendimiento para miles de usuarios. Desarrollo de módulos front-end con Joomla, HTML, CSS y JavaScript. Propuesta e integración de mejoras UX, nuevas rutas y optimización del codebase.',
-        tech: ['JavaScript', 'Joomla', 'HTML/CSS', 'Git', 'Trello'],
+        description: 'Liderazgo técnico en mantenimiento, mejora y optimización del sitio web oficial (icatson.sonora.gob.mx) y herramientas institucionales internas. Desarrollo Full Stack de nuevos módulos web y actualización de contenidos a través de Joomla!, gestionando frontend y backend del CMS. Optimización de rendimiento frontend, resolviendo problemas críticos de gestión de memoria en módulos JavaScript y mejorando tiempos de carga. Coordinación con equipos internos usando Jira y GitHub para control de versiones y despliegues.',
+        tech: ['JavaScript', 'Joomla', 'HTML/CSS', 'Git', 'Jira'],
       },
       {
         role: 'CNC Engineer',
         company: 'Martinrea Automotive Structures',
         period: '2021 - 2022',
-        description: 'Operación y optimización de maquinaria CNC en líneas de producción automatizadas. Mantenimiento y troubleshooting, fortaleciendo habilidades de resolución de problemas y trabajo en equipo.',
-        tech: ['Automatización', 'CNC', 'Manufactura', 'Problem Solving'],
+        description: 'Operación y optimización de maquinaria CNC en líneas de producción automatizadas de la industria automotriz, aplicando principios de ingeniería mecatrónica en diagnóstico de fallas, mantenimiento preventivo y mejora continua de procesos de manufactura.',
+        tech: ['Automatización', 'CNC', 'Manufactura', 'Mantenimiento Preventivo'],
       },
     ] as Experience[],
   },
@@ -59,9 +59,9 @@ const T = {
       {
         role: 'Full Stack Developer',
         company: 'Hirably',
-        period: '2025 - Present',
-        description: 'Built the complete corporate landing page from scratch with Angular and Tailwind CSS. Integrated HubSpot chatbot with Claude AI for automated client interactions. Deployed and maintained the production environment on Vercel with CI/CD workflows.',
-        tech: ['Angular', 'TypeScript', 'Tailwind CSS', 'HubSpot', 'Claude AI', 'Vercel'],
+        period: 'Sep 2025 - Present',
+        description: 'Angular 17 & Performance: Led architecture with Angular 17, implementing Control Flow and OnPush to maximize rendering speed. Custom Booking & Serverless: Developed a booking engine using the Cal.com API and Vercel Serverless, eliminating the use of iframes. Security & AI: Configured security hardening (CSP, HSTS) and integrated a chatbot with Claude AI to automate candidate screening. Growth: Optimized dynamic SEO and advanced analytics with GA4/GTM for conversion tracking.',
+        tech: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Cal.com', 'Claude AI', 'Vercel', 'GA4/GTM'],
       },
       {
         role: 'Full Stack Developer & Founder',
@@ -79,17 +79,17 @@ const T = {
       },
       {
         role: 'Web Developer',
-        company: 'Icatson — Government Institution',
+        company: 'Icatson — Government of Sonora',
         period: '2023 - 2024',
-        description: 'Maintained and optimized the official government website, improving performance for thousands of users. Developed front-end modules with Joomla, HTML, CSS and JavaScript. Proposed and integrated UX improvements, new routes and codebase optimization.',
-        tech: ['JavaScript', 'Joomla', 'HTML/CSS', 'Git', 'Trello'],
+        description: 'Technical leadership in the maintenance, improvement, and optimization of the official government website (icatson.sonora.gob.mx) and internal institutional tools. Full Stack development of new web modules and content updates through Joomla!, managing both frontend and backend of the CMS. Frontend performance optimization, resolving critical memory management issues in JavaScript modules and improving load times. Coordination with internal teams using Jira and GitHub for version control, task tracking, and deployment of updates.',
+        tech: ['JavaScript', 'Joomla', 'HTML/CSS', 'Git', 'Jira', 'Trello'],
       },
       {
         role: 'CNC Engineer',
         company: 'Martinrea Automotive Structures',
         period: '2021 - 2022',
-        description: 'Operated and optimized CNC machinery in automated production lines. Performed maintenance and troubleshooting, strengthening problem-solving skills and teamwork.',
-        tech: ['Automation', 'CNC', 'Manufacturing', 'Problem Solving'],
+        description: 'Operation and optimization of CNC machinery on automated production lines for the automotive industry, applying mechatronics engineering principles in fault diagnosis, preventive maintenance, and continuous improvement of manufacturing processes.',
+        tech: ['Automation', 'CNC', 'Manufacturing', 'Preventive Maintenance'],
       },
     ] as Experience[],
   },
@@ -101,7 +101,7 @@ const T = {
   standalone: true,
   imports: [InViewDirective],
   template: `
-    <section id="experience" class="py-32 px-6" style="background-color: #0a0a0a;">
+    <section id="experience" class="py-32 px-6" style="background-color:#0a0a0a; position:relative; z-index:1;">
       <div class="max-w-4xl mx-auto">
 
         <!-- Header -->

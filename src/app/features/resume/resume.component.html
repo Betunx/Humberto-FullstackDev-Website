@@ -1,177 +1,126 @@
 <section id="resume" class="resume-section">
   <div class="cv-wrapper">
     <div class="cv">
+
       <!-- HEADER -->
       <div class="header">
-        <div class="header-top">
-          <div class="name">Ing. Humberto López Coronado</div>
-          <div class="credentials">
-            <strong>Mechatronics Engineer</strong><br>
-            Certificate: 14864066
-          </div>
+        <div class="header-left">
+          <div class="name">HUMBERTO LÓPEZ CORONADO</div>
+          <div class="title1">{{ t().title1 }}</div>
+          <div class="title2">{{ t().title2 }}</div>
         </div>
-        <div class="title">Full Stack Developer</div>
-        <div class="contact">
-          <span>📍 Hermosillo, Sonora, MX (Remote)</span>
-          <span>📧 humbertolpzc.work&#64;gmail.com</span>
-          <span>📱 +52 662 360 6250</span>
-          <span>🔗 <a href="https://www.linkedin.com/in/humbertol%C3%B3pez-435b77216" target="_blank"
-              rel="noopener">LinkedIn</a></span>
-          <span>💻 <a href="https://github.com/Betunx" target="_blank" rel="noopener">GitHub</a></span>
-          <span>🌐 <a href="https://humberto-fullstack-dev-website.vercel.app" target="_blank"
-              rel="noopener">Portfolio</a></span>
+        <div class="header-contact">
+          <div class="contact-item">
+            <span class="contact-icon">✉</span>
+            <a href="mailto:humbertolpzc.work@gmail.com">humbertolpzc.work&#64;gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📱</span>
+            <span>+(52) 66 23 60 62 50</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📍</span>
+            <span>{{ t().location }} · {{ t().remote }}</span>
+          </div>
         </div>
       </div>
 
       <!-- SUMMARY -->
-      <div class="section">
-        <div class="section-title">Professional Summary</div>
-        <p class="summary">
-          Full Stack Developer with 5+ years of experience building web applications with <strong>Angular, React, TypeScript, Node.js,
-            and Express</strong>. Proven expertise designing interactive dashboards, intuitive user interfaces, and
-          RESTful APIs with JWT authentication. Skilled in translating UI/UX designs from Figma into responsive,
-          semantic layouts. Experience with containerization (Docker), testing (Jest, Jasmine), and cloud deployment
-          (Vercel, AWS). Currently developing conversational AI integrations with HubSpot. Background in government,
-          healthcare, and HR-tech projects.
-        </p>
+      <div class="section summary-section">
+        <div class="section-title">{{ t().summaryLabel }}</div>
+        <p class="summary">{{ t().summary }}</p>
       </div>
 
-      <!-- SKILLS -->
-      <div class="section">
-        <div class="section-title">Technical Skills</div>
-        <div class="skills-grid">
-          <div class="skill-row">
-            <span class="skill-label">Front-End:</span>
-            <span class="skill-items">Angular, React, Vue.js, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, SCSS,
-              Bootstrap, Tailwind CSS, Figma</span>
-          </div>
-          <div class="skill-row">
-            <span class="skill-label">Back-End:</span>
-            <span class="skill-items">Node.js, Express.js, RESTful APIs, JWT Authentication</span>
-          </div>
-          <div class="skill-row">
-            <span class="skill-label">Databases:</span>
-            <span class="skill-items">MongoDB, MySQL, MySQL Workbench</span>
-          </div>
-          <div class="skill-row">
-            <span class="skill-label">Cloud & DevOps:</span>
-            <span class="skill-items">Vercel, AWS, Docker, Git, GitHub, Webpack</span>
-          </div>
-          <div class="skill-row">
-            <span class="skill-label">Testing & QA:</span>
-            <span class="skill-items">Jest, Jasmine, Postman</span>
-          </div>
-          <div class="skill-row">
-            <span class="skill-label">Tools:</span>
-            <span class="skill-items">Jira, Trello, Slack, VS Code, Cursor, GitHub Copilot, HubSpot, Joomla</span>
-          </div>
-        </div>
-      </div>
+      <!-- TWO-COLUMN BODY -->
+      <div class="body-cols">
 
-      <!-- EXPERIENCE -->
-      <div class="section">
-        <div class="section-title">Professional Experience</div>
+        <!-- LEFT -->
+        <div class="col-left">
 
-        <!-- HIRABLY -->
-        <div class="job">
-          <div class="job-header">
-            <span class="job-company">Hirably</span>
-            <span class="job-date">2025 – Present</span>
+          <!-- EDUCATION -->
+          <div class="section">
+            <div class="section-title">{{ t().eduLabel }}</div>
+            @for (edu of t().education; track edu.degree) {
+              <div class="edu-entry">
+                <div class="edu-degree">{{ edu.degree }}</div>
+                <div class="edu-school">{{ edu.school }}</div>
+                <div class="edu-detail">{{ edu.detail }}</div>
+              </div>
+            }
           </div>
-          <div class="job-title">Full Stack Developer</div>
-          <ul class="job-duties">
-            <li>Built the complete landing page from scratch for an HR-tech platform using Angular and Tailwind CSS</li>
-            <li>Integrated HubSpot chatbot with AI capabilities (Claude) to automate user inquiries and improve
-              engagement</li>
-            <li>Deployed and configured web application on Vercel with continuous deployment workflows</li>
-            <li>Designed responsive, mobile-first interfaces following modern UI/UX patterns</li>
-            <li>Collaborated with stakeholders to define product features and technical requirements</li>
-          </ul>
-          <div class="job-tech">Stack: Angular, TypeScript, Tailwind CSS, HubSpot, Claude AI, Vercel, Git</div>
-        </div>
 
-        <!-- ICATSON -->
-        <div class="job">
-          <div class="job-header">
-            <span class="job-company">Icatson (Government Institution)</span>
-            <span class="job-date">2023 – 2024</span>
+          <!-- SKILLS -->
+          <div class="section">
+            <div class="section-title">{{ t().skillsLabel }}</div>
+            @for (sk of t().skills; track sk.label) {
+              <div class="skill-row">
+                <span class="skill-label">{{ sk.label }}:</span>
+                <span class="skill-value">{{ sk.value }}</span>
+              </div>
+            }
           </div>
-          <div class="job-title">Web Developer</div>
-          <ul class="job-duties">
-            <li>Maintained and optimized the official government website, improving performance for thousands of users
-            </li>
-            <li>Developed front-end modules using Joomla, HTML, CSS, and JavaScript</li>
-            <li>Proposed and integrated UX improvements, creating new routes and pages for site expansion</li>
-            <li>Managed tasks via Trello and collaborated with designers to implement UI components</li>
-            <li>Optimized codebase by cleaning boilerplate and improving memory usage</li>
-          </ul>
-          <div class="job-tech">Stack: JavaScript, Joomla, HTML/CSS, Git, Trello</div>
-        </div>
 
-
-
-        <!-- MARTINREA -->
-        <div class="job">
-          <div class="job-header">
-            <span class="job-company">Martinrea Automotive Structures</span>
-            <span class="job-date">2021 – 2022</span>
+          <!-- LANGUAGES -->
+          <div class="section">
+            <div class="section-title">{{ t().langsLabel }}</div>
+            <p class="small-text">{{ t().langs }}</p>
           </div>
-          <div class="job-title">CNC Engineer</div>
-          <ul class="job-duties">
-            <li>Operated and optimized CNC machinery in automated production lines</li>
-            <li>Performed maintenance and troubleshooting, enhancing problem-solving skills</li>
-            <li>Provided technical support, reinforcing teamwork and precision workflows</li>
-          </ul>
-        </div>
-      </div>
 
-      <!-- EDUCATION -->
-      <div class="section">
-        <div class="section-title">Education</div>
-        <div class="edu-grid">
-          <div>
-            <div class="edu-school">Universidad de La Rioja, Spain</div>
-            <div class="edu-degree">Master's in Full-Stack Development</div>
-            <div class="edu-date">2024 – 2025</div>
-            <div class="edu-details">Docker, Jest, Angular, TypeScript, DevOps</div>
+          <!-- CERTIFICATIONS -->
+          <div class="section">
+            <div class="section-title">{{ t().certsLabel }}</div>
+            <p class="small-text">{{ t().certs }}</p>
           </div>
-          <div>
-            <div class="edu-school">Tecnológico Nacional de México</div>
-            <div class="edu-degree">Mechatronics Engineering</div>
-            <div class="edu-date">2017 – 2021</div>
-            <div class="edu-details">Specialization: Automation & Robotics</div>
-          </div>
-        </div>
-      </div>
 
-      <!-- BOTTOM -->
-      <div class="section">
-        <div class="bottom-row">
-          <div>
-            <div class="section-title">Certifications</div>
-            <div class="cert-item">• Scrum Agile Framework (SFPC)</div>
-          </div>
-          <div>
-            <div class="section-title">Languages</div>
-            <div class="lang-item">• Spanish: Native</div>
-            <div class="lang-item">• English: C1</div>
-          </div>
-        </div>
-      </div>
+        </div><!-- /col-left -->
 
-      <!-- DOWNLOAD BUTTON -->
-      <div class="download-section">
-        <a
-          href="/cv-humberto-lopez-2026.html"
-          download="CV_Humberto_Lopez_2026.html"
-          class="download-btn"
-        >
-          📥 Download CV
+        <!-- RIGHT -->
+        <div class="col-right">
+
+          <!-- EXPERIENCE -->
+          <div class="section">
+            <div class="section-title">{{ t().expLabel }}</div>
+            @for (job of t().experience; track job.company) {
+              <div class="job">
+                <div class="job-header">
+                  <span class="job-company">{{ job.company }}</span>
+                  <span class="job-role">| {{ job.role }}</span>
+                  <span class="job-period">{{ job.period }}</span>
+                </div>
+                <ul class="job-bullets">
+                  @for (b of job.bullets; track b) {
+                    <li>{{ b }}</li>
+                  }
+                </ul>
+              </div>
+            }
+          </div>
+
+          <!-- PORTFOLIO -->
+          <div class="section">
+            <div class="section-title">{{ t().portfolioLabel }}</div>
+            <div class="portfolio-item">
+              LinkedIn: <a href="https://www.linkedin.com/in/humberto-lopez-fs-dev" target="_blank" rel="noopener">www.linkedin.com/in/humberto-lopez-fs-dev</a>
+            </div>
+            <div class="portfolio-item">
+              GitHub: <a href="https://github.com/Betunx" target="_blank" rel="noopener">github.com/Betunx</a>
+            </div>
+            <div class="portfolio-item">
+              Portfolio: <a href="https://humberto-fullstack-dev-website.vercel.app" target="_blank" rel="noopener">humberto-fullstack-dev-website.vercel.app</a>
+            </div>
+          </div>
+
+        </div><!-- /col-right -->
+
+      </div><!-- /body-cols -->
+
+      <!-- ACTIONS -->
+      <div class="actions">
+        <a class="btn-action btn-download" [href]="t().cvFile" [download]="t().cvFileName">
+          {{ t().downloadBtn }}
         </a>
-        <button class="download-btn" onclick="window.print()" style="margin-left:8px;">
-          🖨️ Print / PDF
-        </button>
       </div>
-    </div>
+
+    </div><!-- /cv -->
   </div>
 </section>

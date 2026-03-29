@@ -1,442 +1,343 @@
+// ── WRAPPER ───────────────────────────────────────────────
 .resume-section {
+  position: relative;
   min-height: 100vh;
-  padding: 6rem 0 0;
-  background-color: #f5f5f5;
+  padding: 6rem 1rem 3rem;
+  background-color: transparent;
 }
 
 .cv-wrapper {
-  max-width: 1200px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 0 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .cv {
-  max-width: 850px;
-  margin: 0 auto;
-  background: white;
-  padding: 40px 50px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-/* Header */
-.header {
-  margin-bottom: 28px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #e0e0e0;
-}
-
-.header-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.name {
-  font-size: 32px;
-  font-weight: 300;
-  color: #2c3e50;
-  margin: 0;
-}
-
-.credentials {
-  text-align: right;
-  font-size: 13px;
-  color: #555;
-
-  strong {
-    color: #2c3e50;
-    font-weight: 600;
-  }
-}
-
-.title {
-  font-size: 16px;
-  color: #3498db;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.contact {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 20px;
-  font-size: 13px;
-  color: #555;
-
-  a {
-    color: #3498db;
-    text-decoration: none;
-    transition: color 0.15s ease;
-
-    &:hover {
-      color: #2c3e50;
-      text-decoration: underline;
-    }
-  }
-}
-
-/* Sections */
-.section {
-  margin-bottom: 24px;
-  padding: 0;
-}
-
-.section-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: #1a1a1a;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 10px;
-}
-
-/* Summary */
-.summary {
-  text-align: justify;
-  color: #444;
-  font-size: 14px;
-  line-height: 1.5;
-
-  strong {
-    color: #2c3e50;
-    font-weight: 600;
-  }
-}
-
-/* Skills */
-.skills-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px 30px;
-  font-size: 13px;
-}
-
-.skill-row {
-  margin-bottom: 4px;
-}
-
-.skill-label {
-  font-weight: 600;
-  color: #2c3e50;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.skill-items {
-  color: #555;
+  background: #fff;
+  padding: 44px 52px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  border-radius: 10px;
+  border: 5px solid #111;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 9.5pt;
+  color: #2c2c2c;
   line-height: 1.4;
 }
 
-/* Experience */
-.job {
-  margin-bottom: 16px;
-}
-
-.job-header {
+// ── HEADER ────────────────────────────────────────────────
+.header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 4px;
-}
-
-.job-company {
-  font-weight: 600;
-  color: #2c3e50;
-  font-size: 15px;
-}
-
-.job-date {
-  font-size: 13px;
-  color: #7f8c8d;
-}
-
-.job-title {
-  font-weight: 600;
-  color: #3498db;
-  font-size: 14px;
-  margin-bottom: 8px;
-}
-
-.job-duties {
-  padding-left: 18px;
-  color: #444;
-  font-size: 13px;
-  list-style-type: disc;
-
-  li {
-    margin-bottom: 4px;
-    line-height: 1.4;
-  }
-}
-
-.job-tech {
-  font-size: 12px;
-  color: #7f8c8d;
-  margin-top: 8px;
-  font-style: italic;
-
-  strong {
-    color: #2c3e50;
-    font-weight: 600;
-  }
-}
-
-/* Projects */
-.projects-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.project {
-  padding: 12px;
-  background: #f8f9fa;
-  border-left: 3px solid #3498db;
-  border-radius: 4px;
-}
-
-.project-name {
-  font-weight: 600;
-  color: #2c3e50;
-  font-size: 13px;
-  margin-bottom: 4px;
-}
-
-.project-tech {
-  font-size: 12px;
-  color: #7f8c8d;
-  margin-bottom: 4px;
-}
-
-.project-link {
-  font-size: 12px;
-
-  a {
-    color: #3498db;
-    text-decoration: none;
-    transition: color 0.15s ease;
-
-    &:hover {
-      color: #2c3e50;
-      text-decoration: underline;
-    }
-  }
-}
-
-/* Education */
-.edu-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 2.5px solid #1a1a1a;
   gap: 20px;
 }
 
-.edu-school {
+.header-left {
+  flex: 1;
+}
+
+.name {
+  font-size: 22pt;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.title1 {
+  font-size: 11pt;
   font-weight: 600;
-  color: #2c3e50;
-  font-size: 14px;
-  margin-bottom: 2px;
+  color: #444;
+  letter-spacing: 1px;
+  line-height: 1.3;
+}
+
+.title2 {
+  font-size: 11pt;
+  font-weight: 600;
+  color: #444;
+  letter-spacing: 1px;
+}
+
+.header-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 8.5pt;
+  color: #444;
+
+  a {
+    color: #2563eb;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}
+
+.contact-icon {
+  font-size: 9pt;
+}
+
+// ── SUMMARY ───────────────────────────────────────────────
+.summary-section {
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+.summary {
+  font-size: 9pt;
+  color: #333;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+// ── TWO-COLUMN BODY ───────────────────────────────────────
+.body-cols {
+  display: grid;
+  grid-template-columns: 2.4in 1fr;
+  gap: 0 26px;
+  align-items: start;
+}
+
+// ── SECTIONS ──────────────────────────────────────────────
+.section {
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-size: 8.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  color: #1a1a1a;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 3px;
+  margin-bottom: 8px;
+}
+
+// ── EDUCATION ─────────────────────────────────────────────
+.edu-entry {
+  margin-bottom: 10px;
 }
 
 .edu-degree {
-  color: #3498db;
-  font-weight: 500;
-  font-size: 13px;
-  margin-bottom: 4px;
+  font-weight: 700;
+  font-size: 9pt;
+  color: #111;
+  line-height: 1.3;
 }
 
-.edu-date {
-  font-size: 12px;
-  color: #7f8c8d;
-  margin-bottom: 4px;
+.edu-school {
+  font-size: 8.5pt;
+  color: #444;
+  margin: 2px 0;
 }
 
-.edu-details {
-  font-size: 12px;
+.edu-detail {
+  font-size: 8pt;
   color: #666;
   font-style: italic;
 }
 
-/* Bottom */
-.bottom-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+// ── SKILLS ────────────────────────────────────────────────
+.skill-row {
+  display: flex;
+  gap: 5px;
+  font-size: 8.5pt;
+  margin-bottom: 5px;
+  line-height: 1.4;
+  align-items: baseline;
+}
 
-  .section-title {
-    margin-bottom: 8px;
+.skill-label {
+  font-weight: 700;
+  color: #1a1a1a;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.skill-value {
+  color: #444;
+}
+
+// ── MISC TEXT ─────────────────────────────────────────────
+.small-text {
+  font-size: 9pt;
+  color: #333;
+}
+
+// ── EXPERIENCE ────────────────────────────────────────────
+.job {
+  margin-bottom: 13px;
+}
+
+.job-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 5px;
+}
+
+.job-company {
+  font-weight: 700;
+  font-size: 9.5pt;
+  color: #111;
+}
+
+.job-role {
+  font-size: 9pt;
+  color: #2563eb;
+  font-weight: 500;
+}
+
+.job-period {
+  font-size: 8.5pt;
+  color: #666;
+  font-style: italic;
+  margin-left: auto;
+}
+
+.job-bullets {
+  padding-left: 14px;
+  font-size: 8.5pt;
+  color: #333;
+  list-style: disc;
+
+  li {
+    margin-bottom: 3px;
+    line-height: 1.45;
+    text-align: justify;
   }
 }
 
-.cert-item,
-.lang-item {
+// ── PORTFOLIO ─────────────────────────────────────────────
+.portfolio-item {
+  font-size: 8.5pt;
   color: #444;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
+
+  a {
+    color: #2563eb;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}
+
+// ── ACTIONS ───────────────────────────────────────────────
+.actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
   font-size: 13px;
-}
-
-/* Download Section */
-.download-section {
-  margin-top: 16px;
-  text-align: center;
-}
-
-.download-btn {
-  display: inline-block;
-  background: #3498db;
-  color: white;
-  border: none;
-  padding: 12px 28px;
-  font-size: 14px;
   font-weight: 600;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
+  font-family: inherit;
   text-decoration: none;
+  border: none;
+  transition: opacity 0.2s;
+
+  &:hover { opacity: 1; }
+}
+
+.btn-download {
+  background: #1a1a1a;
+  color: #fff;
+  border: 2px solid #1a1a1a;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
 
   &:hover {
-    background: #2c3e50;
-    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(0);
+    background: #fff;
+    color: #111;
+    border-color: #111;
+    opacity: 1;
   }
 }
 
-.download-hint {
-  margin-top: 12px;
-  font-size: 12px;
-  color: #7f8c8d;
-  font-style: italic;
+.btn-print {
+  background: #fff;
+  color: #1a1a1a;
+  border: 1.5px solid #ccc;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .resume-section {
-    padding: 5rem 0 3rem;
-  }
+// ── RESPONSIVE ────────────────────────────────────────────
+@media (max-width: 700px) {
+  .cv { padding: 28px 20px; }
 
-  .cv {
-    padding: 30px 25px;
-  }
-
-  .header-top {
+  .header {
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
   }
 
-  .credentials {
+  .header-contact {
     text-align: left;
+    align-items: flex-start;
   }
 
-  .name {
-    font-size: 26px;
-  }
+  .contact-item { justify-content: flex-start; }
 
-  .skills-grid,
-  .projects-grid,
-  .edu-grid,
-  .bottom-row {
+  .body-cols {
     grid-template-columns: 1fr;
   }
-
-  .contact {
-    flex-direction: column;
-    gap: 6px;
-  }
 }
 
-/* Print Styles */
+// ── PRINT ─────────────────────────────────────────────────
 @media print {
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
-  html,
-  body {
+  html, body {
     background: white !important;
     margin: 0 !important;
     padding: 0 !important;
-    height: auto !important;
   }
 
-  /* Ocultar navbar en impresión */
-  app-navbar,
-  .navbar,
-  nav {
+  app-navbar, app-footer, nav, .actions {
     display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-  }
-
-  main {
-    margin: 0 !important;
-    padding: 0 !important;
   }
 
   .resume-section {
     background: white;
     padding: 0 !important;
     min-height: auto;
-    margin: 0 !important;
   }
 
-  .cv-wrapper {
-    padding: 0;
-    max-width: 100%;
-  }
+  .cv-wrapper { padding: 0; max-width: 100%; }
 
   .cv {
     box-shadow: none;
-    padding: 40px 50px;
     border-radius: 0;
     max-width: 100%;
     margin: 0;
-  }
-
-  .download-section {
-    display: none;
-  }
-
-  .header {
-    margin-bottom: 28px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #e0e0e0;
-    page-break-after: avoid;
-  }
-
-  .section {
-    margin-bottom: 24px;
-    padding: 0;
-  }
-
-  .section-title {
-    page-break-after: avoid;
-  }
-
-  .job {
-    margin-bottom: 16px;
-    page-break-inside: avoid;
-  }
-
-  .edu-grid > div,
-  .bottom-row > div {
-    page-break-inside: avoid;
+    padding: 0.35in 0.45in;
   }
 
   @page {
-    margin: 0.5in;
+    margin: 0.4in;
     size: letter;
   }
 }

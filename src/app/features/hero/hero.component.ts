@@ -1,18 +1,18 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LanguageService } from '@core/services/language.service';
 
 const T = {
   es: {
-    subtitle: 'Ing. Mecatrónico • Hermosillo, Sonora, MX',
-    description: 'Full Stack Developer con +5 años de experiencia en Angular, TypeScript, Node.js y NestJS. Creando dashboards interactivos, APIs robustas e integraciones con IA.',
+    subtitle: 'Ing. Mecatrónico · Angular Specialist · Hermosillo, Sonora, MX',
+    description: 'Full Stack Developer con +5 años construyendo aplicaciones web de alto rendimiento. Especializado en Angular (17/18), TypeScript y Node.js — con enfoque actual en seguridad, arquitectura escalable y optimización Core Web Vitals. Capaz de liderar proyectos desde MVP hasta despliegue en entornos cloud modernos (Vercel/Cloudflare).',
     ctaCV: 'VER CV',
     ctaProjects: 'PROYECTOS',
   },
   en: {
-    subtitle: 'Mechatronics Engineer • Hermosillo, Sonora, MX',
-    description: 'Full Stack Developer with 5+ years of experience in Angular, TypeScript, Node.js & NestJS. Building interactive dashboards, robust APIs and AI integrations.',
+    subtitle: 'Mechatronics Engineer · Angular Specialist · Hermosillo, Sonora, MX',
+    description: 'Full Stack Developer with 5+ years building high-performance web applications. Specialized in Angular (17/18), TypeScript & Node.js — currently focused on security, scalable architecture and Core Web Vitals optimization. Capable of leading projects from MVP conception through deployment on modern cloud environments (Vercel/Cloudflare).',
     ctaCV: 'VIEW CV',
     ctaProjects: 'PROJECTS',
   },
@@ -91,7 +91,7 @@ const T = {
           <span
             class="text-xl sm:text-2xl"
             style="font-family: 'JetBrains Mono', monospace; color: #00e5ff;"
-          >{{ displayText }}</span>
+          >{{ displayText() }}</span>
           <span
             class="inline-block w-0.5 h-6 ml-0.5 align-middle"
             style="background-color: #00e5ff; animation: blink 1s step-end infinite;"
@@ -160,7 +160,7 @@ const T = {
 
           <!-- LinkedIn -->
           <a
-            href="https://www.linkedin.com/in/humbertol%C3%B3pez-435b77216"
+            href="https://www.linkedin.com/in/humberto-lopez-fs-dev"
             target="_blank"
             rel="noopener noreferrer"
             class="w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300"
@@ -228,7 +228,7 @@ export class HeroComponent implements OnInit, OnDestroy {
     'Cloud & DevOps',
   ];
 
-  displayText = '';
+  readonly displayText = signal('');
 
   private roleIndex = 0;
   private charIndex = 0;
@@ -247,7 +247,7 @@ export class HeroComponent implements OnInit, OnDestroy {
     const current = this.roles[this.roleIndex];
 
     if (!this.isDeleting) {
-      this.displayText = current.substring(0, this.charIndex + 1);
+      this.displayText.set(current.substring(0, this.charIndex + 1));
       this.charIndex++;
 
       if (this.charIndex === current.length) {
@@ -256,7 +256,7 @@ export class HeroComponent implements OnInit, OnDestroy {
         return;
       }
     } else {
-      this.displayText = current.substring(0, this.charIndex - 1);
+      this.displayText.set(current.substring(0, this.charIndex - 1));
       this.charIndex--;
 
       if (this.charIndex === 0) {

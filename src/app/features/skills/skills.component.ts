@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy, Component,
-  AfterViewInit,
-  ViewChild,
-  ElementRef,
-  OnDestroy,
-  computed,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { InViewDirective } from '@core/directives/in-view.directive';
 import { LanguageService } from '@core/services/language.service';
 
@@ -15,51 +7,24 @@ const T = {
   en: { label: '02. // TECH_STACK', heading: 'Skills & Technologies' },
 };
 
-interface Skill { name: string; level: number; }
-interface Category { id: string; label: string; color: string; skills: Skill[]; animated: boolean; }
+interface Category { id: string; label: string; cmd: string; color: string; glow: string; skills: string[]; }
 
 const CATEGORIES: Category[] = [
   {
-    id: 'frontend', label: 'Frontend', color: '#00ff41', animated: false,
-    skills: [
-      { name: 'Angular', level: 95 },
-      { name: 'React', level: 80 },
-      { name: 'Vue.js / Next.js', level: 70 },
-      { name: 'TypeScript / ES6+', level: 92 },
-      { name: 'HTML5 / CSS3 / SCSS', level: 95 },
-      { name: 'Tailwind CSS / Bootstrap', level: 90 },
-    ],
+    id: 'frontend', label: 'Frontend', cmd: 'frontend.stack', color: '#00ff41', glow: 'rgba(0,255,65,0.15)',
+    skills: ['Angular 17/18', 'TypeScript / ES6+', 'React / Next.js', 'Vue.js', 'RxJS / NgRx', 'HTML5 / CSS3 / SCSS', 'Tailwind CSS / Bootstrap'],
   },
   {
-    id: 'backend', label: 'Backend', color: '#00e5ff', animated: false,
-    skills: [
-      { name: 'Node.js', level: 90 },
-      { name: 'NestJS', level: 82 },
-      { name: 'Express.js', level: 88 },
-      { name: 'RESTful APIs / JWT', level: 90 },
-      { name: 'Cloudflare Workers', level: 72 },
-    ],
+    id: 'backend', label: 'Backend', cmd: 'backend.stack', color: '#00e5ff', glow: 'rgba(0,229,255,0.15)',
+    skills: ['Node.js', 'NestJS', 'Express.js', 'RESTful APIs / JWT', 'Cloudflare Workers'],
   },
   {
-    id: 'data', label: 'Data & Tools', color: '#a855f7', animated: false,
-    skills: [
-      { name: 'PostgreSQL / TypeORM', level: 78 },
-      { name: 'MongoDB', level: 80 },
-      { name: 'MySQL', level: 75 },
-      { name: 'Redis', level: 70 },
-      { name: 'Elasticsearch', level: 65 },
-      { name: 'Webpack / Vite / Babel', level: 82 },
-    ],
+    id: 'data', label: 'Data & Tools', cmd: 'data.stack', color: '#a855f7', glow: 'rgba(168,85,247,0.15)',
+    skills: ['PostgreSQL / TypeORM', 'MongoDB', 'MySQL', 'Redis', 'Elasticsearch', 'Webpack / Vite / Babel'],
   },
   {
-    id: 'devops', label: 'DevOps & QA', color: '#f59e0b', animated: false,
-    skills: [
-      { name: 'Docker', level: 78 },
-      { name: 'GitHub Actions / CI-CD', level: 75 },
-      { name: 'AWS / Vercel / Cloudflare', level: 78 },
-      { name: 'Git / GitHub', level: 93 },
-      { name: 'Jest / Jasmine / Postman', level: 76 },
-    ],
+    id: 'devops', label: 'DevOps & QA', cmd: 'devops.stack', color: '#f59e0b', glow: 'rgba(245,158,11,0.15)',
+    skills: ['Docker', 'GitHub Actions / CI-CD', 'AWS / Vercel / Cloudflare', 'Git / GitHub', 'Jest / Jasmine / Playwright', 'Postman / Figma'],
   },
 ];
 
@@ -69,7 +34,7 @@ const CATEGORIES: Category[] = [
   standalone: true,
   imports: [InViewDirective],
   template: `
-    <section id="skills" #skillsSection class="py-32 px-6" style="background-color:#0a0a0a;">
+    <section id="skills" class="py-32 px-6" style="background-color:#0a0a0a; position:relative; z-index:1;">
       <div class="max-w-6xl mx-auto">
 
         <!-- Header -->
@@ -84,40 +49,49 @@ const CATEGORIES: Category[] = [
         </div>
 
         <!-- Category cards grid -->
-        <div class="grid md:grid-cols-2 gap-8">
+        <div class="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
           @for (cat of categories; track cat.id; let i = $index) {
             <div appInView [inViewThreshold]="0.15" [inViewDelay]="i * 100" class="fade-up">
-              <div class="p-6 rounded-lg border h-full" style="background-color:#0d1117; border-color:rgba(255,255,255,0.06);">
-                <!-- Card header -->
-                <div class="flex items-center gap-3 mb-6">
+              <div class="rounded-lg overflow-hidden h-full" style="background-color:#0d1117; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 32px rgba(0,0,0,0.4);">
+
+                <!-- Editor title bar -->
+                <div class="flex items-center gap-2 px-4 py-2.5" style="background-color:#1a1a2e; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                  <span class="w-3 h-3 rounded-full" style="background:#ff5f57;"></span>
+                  <span class="w-3 h-3 rounded-full" style="background:#febc2e;"></span>
+                  <span class="w-3 h-3 rounded-full" style="background:#28c840;"></span>
                   <span
-                    class="w-3 h-3 rounded-full flex-shrink-0"
-                    [style.backgroundColor]="cat.color"
-                    [style.boxShadow]="'0 0 8px ' + cat.color"
-                  ></span>
-                  <h3 class="font-bold text-sm tracking-widest uppercase" style="font-family:'Orbitron',sans-serif; color:#c9d1d9;">{{ cat.label }}</h3>
+                    class="ml-3 text-xs px-3 py-0.5 rounded-t"
+                    style="font-family:'JetBrains Mono',monospace; background-color:#0d1117; border: 1px solid rgba(255,255,255,0.08); border-bottom:none;"
+                    [style.color]="cat.color"
+                  >{{ cat.cmd }}.ts</span>
                 </div>
 
-                <!-- Skill bars -->
-                <div class="space-y-4">
-                  @for (skill of cat.skills; track skill.name) {
-                    <div>
-                      <div class="flex justify-between items-center mb-1.5">
-                        <span class="text-xs" style="font-family:'JetBrains Mono',monospace; color:#c9d1d9;">{{ skill.name }}</span>
-                        <span class="text-xs font-bold" [style.color]="cat.color" style="font-family:'JetBrains Mono',monospace;">{{ skill.level }}%</span>
-                      </div>
-                      <div class="h-1.5 rounded-full w-full overflow-hidden" style="background-color:rgba(255,255,255,0.06);">
-                        <div
-                          class="h-full rounded-full"
-                          [style.width]="cat.animated ? skill.level + '%' : '0%'"
-                          [style.backgroundColor]="cat.color"
-                          [style.boxShadow]="cat.animated ? '0 0 8px ' + cat.color : 'none'"
-                          [style.transition]="'width 1.2s ease-out'"
-                        ></div>
-                      </div>
+                <!-- Editor body -->
+                <div class="p-4" style="background-color:#0d1117;">
+                  <!-- Comment header -->
+                  <div class="mb-3" style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#8b949e;">
+                    <span>// </span><span [style.color]="cat.color">{{ cat.label }}</span><span> stack</span>
+                  </div>
+
+                  <!-- Code lines -->
+                  @for (skill of cat.skills; track skill; let n = $index) {
+                    <div class="flex items-baseline gap-2 py-0.5 rounded px-1 hover-line" style="transition: background 0.15s;">
+                      <span
+                        class="text-xs select-none w-4 text-right flex-shrink-0"
+                        style="font-family:'JetBrains Mono',monospace; color:#3c4454;"
+                      >{{ n + 1 }}</span>
+                      <span style="font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:#c9d1d9;">
+                        &nbsp;&nbsp;<span [style.color]="cat.color">'</span>{{ skill }}<span [style.color]="cat.color">'</span>
+                      </span>
                     </div>
                   }
+
+                  <!-- Closing line -->
+                  <div class="mt-1 flex items-baseline gap-3 px-1">
+                    <span class="text-xs select-none w-4 text-right" style="font-family:'JetBrains Mono',monospace; color:#3c4454;">{{ cat.skills.length + 1 }}</span>
+                  </div>
                 </div>
+
               </div>
             </div>
           }
@@ -126,38 +100,14 @@ const CATEGORIES: Category[] = [
       </div>
     </section>
   `,
-  styles: []
+  styles: [`
+    .hover-line:hover {
+      background-color: rgba(255,255,255,0.03);
+    }
+  `]
 })
-export class SkillsComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('skillsSection') skillsSectionRef!: ElementRef<HTMLElement>;
-
+export class SkillsComponent {
   private readonly langSvc = inject(LanguageService);
   protected readonly t = computed(() => T[this.langSvc.lang()]);
-
-  categories: Category[] = CATEGORIES.map(c => ({ ...c, animated: false }));
-
-  private sectionObserver!: IntersectionObserver;
-
-  ngAfterViewInit(): void {
-    this.sectionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.categories.forEach((cat, idx) => {
-              setTimeout(() => { cat.animated = true; }, idx * 150);
-            });
-            this.sectionObserver.disconnect();
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (this.skillsSectionRef?.nativeElement) {
-      this.sectionObserver.observe(this.skillsSectionRef.nativeElement);
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.sectionObserver?.disconnect();
-  }
+  protected readonly categories = CATEGORIES;
 }

@@ -20,6 +20,7 @@ const CT = {
     msgLabel: 'MENSAJE',
     msgPlaceholder: 'Cuéntame sobre tu proyecto...',
     send: 'ENVIAR',
+    sending: 'ENVIANDO...',
     sent: 'ENVIADO',
     sentMsg: '> Mensaje enviado correctamente...',
     sentSub: 'Te responderé a la brevedad posible.',
@@ -40,6 +41,7 @@ const CT = {
     msgLabel: 'MESSAGE',
     msgPlaceholder: 'Tell me about your project...',
     send: 'SEND',
+    sending: 'SENDING...',
     sent: 'SENT',
     sentMsg: '> Message sent successfully...',
     sentSub: "I'll get back to you shortly.",
@@ -53,13 +55,16 @@ interface FormState {
   message: string;
 }
 
+// Replace YOUR_FORMSPREE_ID with your form ID from https://formspree.io
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORMSPREE_ID';
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-contact',
   standalone: true,
   imports: [CommonModule, FormsModule, InViewDirective],
   template: `
-    <section id="contact" class="py-32 px-6" style="background-color: #0a0a0a;">
+    <section id="contact" class="py-32 px-6" style="background-color:#0a0a0a; position:relative; z-index:1;">
       <div class="max-w-4xl mx-auto">
 
         <!-- Header (centered) -->
@@ -186,7 +191,7 @@ interface FormState {
                 GitHub
               </a>
               <a
-                href="https://www.linkedin.com/in/humbertol%C3%B3pez-435b77216"
+                href="https://www.linkedin.com/in/humberto-lopez-fs-dev"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="flex items-center gap-2 px-4 py-2 rounded text-xs font-bold tracking-wider transition-all duration-200"
@@ -302,9 +307,14 @@ interface FormState {
                   </div>
 
                   <!-- Submit -->
+                  @if (error) {
+                    <p class="mb-4 text-xs" style="font-family:'JetBrains Mono',monospace; color:#ff5f57;">
+                      > Error al enviar. Intenta de nuevo o escríbeme directo a humbertolpzc.work&#64;gmail.com
+                    </p>
+                  }
                   <button
                     type="submit"
-                    [disabled]="contactForm.invalid"
+                    [disabled]="contactForm.invalid || sending"
                     class="flex items-center gap-2 px-8 py-3 text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
                     style="
                       font-family: 'Orbitron', sans-serif;
@@ -318,7 +328,7 @@ interface FormState {
                       <line x1="22" y1="2" x2="11" y2="13"/>
                       <polygon points="22 2 15 22 11 13 2 9 22 2"/>
                     </svg>
-                    ENVIAR
+                    {{ sending ? t().sending : t().send }}
                   </button>
                 </form>
               }
@@ -360,22 +370,47 @@ interface FormState {
   `,
   styles: []
 })
+
 export class ContactComponent {
   private readonly langSvc = inject(LanguageService);
   protected readonly t = computed(() => CT[this.langSvc.lang()]);
 
   formState: FormState = { name: '', email: '', message: '' };
   sent = false;
+  sending = false;
+  error = false;
 
   handleSubmit(): void {
     if (!this.formState.name || !this.formState.email || !this.formState.message) return;
-    // In production: call an API or email service here
-    console.log('Contact form submitted:', this.formState);
-    this.sent = true;
+    this.sending = true;
+    this.error = false;
+
+    fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: this.formState.name,
+        email: this.formState.email,
+        message: this.formState.message,
+      }),
+    })
+      .then(res => {
+        this.sending = false;
+        if (res.ok) {
+          this.sent = true;
+        } else {
+          this.error = true;
+        }
+      })
+      .catch(() => {
+        this.sending = false;
+        this.error = true;
+      });
   }
 
   resetForm(): void {
     this.formState = { name: '', email: '', message: '' };
     this.sent = false;
+    this.error = false;
   }
 }

@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, HostListener, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map, startWith } from 'rxjs';
 import { LanguageService } from '@core/services/language.service';
 
 const T = {
@@ -36,7 +38,7 @@ const T = {
   template: `
     <nav
       class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      [class]="scrolled
+      [class]="(scrolled || !isHomePage())
         ? 'bg-[#0a0a0a]/90 backdrop-blur-md border-b border-[#00ff41]/20 shadow-[0_0_20px_rgba(0,255,65,0.1)]'
         : 'bg-transparent'"
       style="animation: slideDown 0.6s ease-out both;"
@@ -148,6 +150,15 @@ export class NavbarComponent {
   protected readonly langSvc = inject(LanguageService);
   protected readonly lang = this.langSvc.lang;
   protected readonly t = computed(() => T[this.lang()]);
+
+  protected readonly isHomePage = toSignal(
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      map(e => (e as NavigationEnd).urlAfterRedirects === '/'),
+      startWith(this.router.url === '/')
+    ),
+    { initialValue: this.router.url === '/' }
+  );
 
   scrolled = false;
   mobileOpen = false;

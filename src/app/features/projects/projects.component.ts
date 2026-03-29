@@ -62,7 +62,7 @@ const ACTIVE_PROJECTS: Project[] = [
     liveUrl: 'https://humberto-fullstack-dev-website.vercel.app',
     githubUrl: 'https://github.com/Betunx',
     status: 'active',
-    statusLabel: 'Iterando',
+    statusLabel: 'En mantenimiento',
   },
 ];
 
@@ -80,7 +80,7 @@ const ACTIVE_PROJECTS_EN: Project[] = [
   {
     ...ACTIVE_PROJECTS[2],
     description: 'This very website with Matrix/Tron theme. Immersive design with matrix rain, animations, downloadable interactive CV and EN/ES language toggle.',
-    statusLabel: 'Iterating',
+    statusLabel: 'Maintained',
   },
 ];
 
@@ -91,14 +91,6 @@ const COMPLETED_PROJECTS: Project[] = [
     tech: ['Angular', 'TypeScript', 'Node.js', 'Docker', 'Jest', 'MongoDB'],
     status: 'completed',
     statusLabel: 'Proyecto académico',
-  },
-  {
-    title: "Charly's Estética Canina",
-    description: 'Sitio web comercial para negocio de estética canina. Diseño responsive y mobile-first, optimizado para SEO local y desplegado en Vercel.',
-    tech: ['React', 'TypeScript', 'Tailwind CSS', 'Vercel'],
-    liveUrl: 'https://charlys-estetica-canina-mgud.vercel.app',
-    status: 'completed',
-    statusLabel: 'Entregado',
   },
   {
     title: 'Icatson — Sitio Oficial',
@@ -117,11 +109,6 @@ const COMPLETED_PROJECTS_EN: Project[] = [
   },
   {
     ...COMPLETED_PROJECTS[1],
-    description: 'Commercial website for a pet grooming business. Responsive mobile-first design, optimized for local SEO and deployed on Vercel.',
-    statusLabel: 'Delivered',
-  },
-  {
-    ...COMPLETED_PROJECTS[2],
     description: "Maintenance and optimization of Sonora's official government website. UX improvements, new routes and performance optimization.",
     statusLabel: 'Delivered',
   },
@@ -133,7 +120,7 @@ const COMPLETED_PROJECTS_EN: Project[] = [
   standalone: true,
   imports: [InViewDirective, NgTemplateOutlet],
   template: `
-    <section id="projects" class="py-32 px-6" style="background-color: #0a0a0a;">
+    <section id="projects" class="py-32 px-6" style="background-color:#0a0a0a; position:relative; z-index:1;">
       <div class="max-w-6xl mx-auto">
 
         <!-- Header -->
@@ -238,10 +225,7 @@ const COMPLETED_PROJECTS_EN: Project[] = [
         </div>
 
         <!-- ── COMPLETED header ── -->
-        <div appInView [inViewThreshold]="0.1" class="fade-up flex items-center gap-3 mb-10">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-          </svg>
+        <div appInView [inViewThreshold]="0.1" class="fade-up flex justify-center mb-10">
           <h3 class="font-bold tracking-widest text-base" style="font-family:'Orbitron',sans-serif; color:#c9d1d9;">{{ t().completed }}</h3>
         </div>
 
