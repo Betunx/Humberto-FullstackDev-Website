@@ -16,12 +16,24 @@ const T = {
       { label: 'Educación', href: '#education' },
       { label: 'Contacto', href: '#contact' },
     ],
+    tabletLinks: [
+      { label: 'Experiencia', href: '#experience' },
+      { label: 'Proyectos', href: '#projects' },
+      { label: 'Educación', href: '#education' },
+      { label: 'Contacto', href: '#contact' },
+    ],
   },
   en: {
     links: [
       { label: 'Home', href: '#hero' },
       { label: 'About', href: '#about' },
       { label: 'Skills', href: '#skills' },
+      { label: 'Experience', href: '#experience' },
+      { label: 'Projects', href: '#projects' },
+      { label: 'Education', href: '#education' },
+      { label: 'Contact', href: '#contact' },
+    ],
+    tabletLinks: [
       { label: 'Experience', href: '#experience' },
       { label: 'Projects', href: '#projects' },
       { label: 'Education', href: '#education' },
@@ -57,8 +69,34 @@ const T = {
           </span>
         </button>
 
-        <!-- Desktop links -->
-        <div class="hidden md:flex items-center gap-6">
+        <!-- Tablet links (972px↓ a 768px↑): solo secciones clave -->
+        <div class="hidden md:flex tablet:hidden items-center gap-4">
+          @for (link of t().tabletLinks; track link.href) {
+            <button
+              (click)="scrollTo(link.href)"
+              class="text-[#8b949e] hover:text-[#00ff41] transition-colors cursor-pointer relative group border-none bg-transparent"
+              style="font-family:'JetBrains Mono',monospace; font-size:0.78rem; font-weight:500; letter-spacing:0.04em;"
+            >
+              {{ link.label }}
+              <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#00ff41] group-hover:w-full transition-all duration-300 shadow-[0_0_4px_#00ff41]"></span>
+            </button>
+          }
+          <button
+            (click)="langSvc.toggle()"
+            class="px-2.5 py-1 text-xs font-bold tracking-widest border cursor-pointer transition-all duration-200"
+            style="font-family:'Orbitron',sans-serif; color:#00e5ff; border-color:rgba(0,229,255,0.35); background:transparent;"
+            onmouseenter="this.style.background='rgba(0,229,255,0.1)'"
+            onmouseleave="this.style.background='transparent'"
+          >{{ lang() === 'es' ? 'EN' : 'ES' }}</button>
+          <button
+            (click)="goToCV()"
+            class="px-3 py-1.5 text-xs font-bold tracking-widest uppercase cursor-pointer border-none"
+            style="font-family:'Orbitron',sans-serif; background-color:#00ff41; color:#0a0a0a; box-shadow:0 0 12px rgba(0,255,65,0.3);"
+          >CV</button>
+        </div>
+
+        <!-- Desktop links (972px+): todos -->
+        <div class="hidden tablet:flex items-center gap-6">
           @for (link of t().links; track link.href) {
             <button
               (click)="scrollTo(link.href)"
@@ -69,8 +107,6 @@ const T = {
               <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#00ff41] group-hover:w-full transition-all duration-300 shadow-[0_0_4px_#00ff41]"></span>
             </button>
           }
-
-          <!-- EN/ES toggle -->
           <button
             (click)="langSvc.toggle()"
             class="px-3 py-1 text-xs font-bold tracking-widest border cursor-pointer transition-all duration-200"
@@ -78,7 +114,6 @@ const T = {
             onmouseenter="this.style.background='rgba(0,229,255,0.1)'; this.style.borderColor='rgba(0,229,255,0.7)'"
             onmouseleave="this.style.background='transparent'; this.style.borderColor='rgba(0,229,255,0.35)'"
           >{{ lang() === 'es' ? 'EN' : 'ES' }}</button>
-
           <button
             (click)="goToCV()"
             class="px-4 py-1.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 cursor-pointer border-none"
@@ -88,7 +123,7 @@ const T = {
           >CV</button>
         </div>
 
-        <!-- Mobile right side -->
+        <!-- Mobile right side (<768px) -->
         <div class="md:hidden flex items-center gap-3">
           <button
             (click)="langSvc.toggle()"

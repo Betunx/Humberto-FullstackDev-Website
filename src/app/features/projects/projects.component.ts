@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { InViewDirective } from '@core/directives/in-view.directive';
 import { LanguageService } from '@core/services/language.service';
@@ -52,6 +52,7 @@ const ACTIVE_PROJECTS: Project[] = [
     description: 'Lideré la arquitectura frontend con Angular 17, aplicando Control Flow y OnPush para optimizar el renderizado. Desarrollé un motor de reservas custom integrando la API de Cal.com con funciones serverless de Vercel, reemplazando iframes. Implementé hardening de seguridad (CSP, HSTS) y un chatbot con Claude AI para automatizar el screening inicial de candidatos. Configuré SEO dinámico con meta tags OG y analítica de conversiones con GA4/GTM.',
     tech: ['Angular', 'TypeScript', 'Tailwind CSS', 'Cal.com', 'Claude AI', 'Vercel', 'GA4', 'GTM'],
     image: '/hirably-preview.jpg',
+    liveUrl: 'https://hirablystaffing.com/',
     status: 'active',
     statusLabel: 'Producción',
   },
@@ -135,7 +136,7 @@ const COMPLETED_PROJECTS_EN: Project[] = [
         </div>
 
         <!-- ── ACTIVE header ── -->
-        <div appInView [inViewThreshold]="0.1" class="fade-up flex items-center gap-3 mb-10 mt-10">
+        <div appInView [inViewThreshold]="0.1" class="fade-up flex items-center gap-3 mb-8 mt-10">
           <div class="relative flex items-center justify-center w-3 h-3">
             <span class="absolute w-full h-full rounded-full" style="background-color:#00ff41; opacity:0.4; animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></span>
             <span class="relative w-2 h-2 rounded-full" style="background-color:#00ff41; box-shadow:0 0 8px #00ff41;"></span>
@@ -143,98 +144,132 @@ const COMPLETED_PROJECTS_EN: Project[] = [
           <h3 class="font-bold tracking-widest text-base" style="font-family:'Orbitron',sans-serif; color:#c9d1d9;">{{ t().active }}</h3>
         </div>
 
-        <!-- ── Featured: BS Tabs ── -->
-        <div appInView [inViewThreshold]="0.1" [inViewDelay]="100" class="fade-up mb-8">
-          <div class="grid lg:grid-cols-2 gap-8 items-center">
-            <!-- Image -->
-            <a
-              href="https://www.bstabs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="relative group overflow-hidden rounded-lg border transition-all duration-500 block"
-              style="border-color:rgba(0,255,65,0.2);"
-              onmouseenter="this.style.borderColor='rgba(0,255,65,0.5)'"
-              onmouseleave="this.style.borderColor='rgba(0,255,65,0.2)'"
-            >
-              <div class="relative overflow-hidden" style="aspect-ratio:16/9; background-color:#0d1117; min-height:200px;">
-                <img
-                  src="https://images.unsplash.com/photo-1602821485286-4a6520cca299?w=800&q=70"
-                  alt="BS Tabs"
-                  class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-                  style="opacity:0.5;"
-                />
-                <div class="absolute inset-0" style="background:linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.3) 50%, transparent 100%);"></div>
-                <div class="absolute inset-0" style="background-color:#00ff41; mix-blend-mode:color; opacity:0.3;"></div>
-                <div class="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full border" style="background-color:rgba(10,10,10,0.8); border-color:rgba(0,255,65,0.3);">
-                  <span class="relative flex" style="width:8px;height:8px;">
-                    <span class="absolute w-full h-full rounded-full" style="background-color:#00ff41; opacity:0.75; animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></span>
-                    <span class="relative w-full h-full rounded-full" style="background-color:#00ff41;"></span>
-                  </span>
-                  <span style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#00ff41; letter-spacing:0.1em;">EN DESARROLLO</span>
-                </div>
-                <div class="absolute bottom-4 left-4 flex items-center gap-2" style="opacity:0;" onmouseenter="this.style.opacity='1'" onmouseleave="this.style.opacity='0'">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-                  </svg>
-                  <span style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#00ff41;">bstabs.com</span>
-                </div>
-              </div>
-            </a>
+        <!-- ═══ MOBILE / TABLET: carousel 3D (oculto en lg+) ═══ -->
+        <div class="lg:hidden mb-10 relative select-none"
+             (touchstart)="onTouchStart($event)"
+             (touchmove)="onTouchMove($event)"
+             (touchend)="onTouchEnd($event)">
 
-            <!-- Info -->
-            <div>
-              <div class="flex items-center gap-3 mb-3">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 8px rgba(0,255,65,0.5));">
-                  <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
-                </svg>
-                <p style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#00e5ff;">{{ t().featured }} &bull; {{ activeProjects[0].statusLabel }}</p>
+          <!-- Stage 3D -->
+          <div style="position:relative; perspective:1200px; overflow:hidden;">
+            @for (project of activeProjects; track project.title; let i = $index) {
+              <div
+                style="position:absolute; left:0; top:0; width:100%; height:100%;
+                       transition:transform 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s ease;"
+                [style.transform]="getCarouselTransform(i)"
+                [style.opacity]="getCarouselOpacity(i)"
+                [style.zIndex]="getCarouselZIndex(i)"
+                (click)="activeSlide() !== i ? (i < activeSlide() ? carouselPrev() : carouselNext()) : null"
+              >
+                <ng-container *ngTemplateOutlet="projectCard; context: { project: project }"></ng-container>
               </div>
-              <h3 class="text-2xl font-bold mb-4" style="font-family:'Orbitron',sans-serif; color:#c9d1d9;">BS Tabs</h3>
-              <div class="p-5 rounded-lg border mb-5" style="background-color:#0d1117; border-color:rgba(0,255,65,0.1);">
-                <p class="text-justify" style="font-family:'JetBrains Mono',monospace; font-size:0.82rem; color:#c9d1d9; line-height:1.8;">{{ activeProjects[0].description }}</p>
-              </div>
-              <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs mb-5" style="font-family:'JetBrains Mono',monospace; color:#00ff41;">
-                <span style="opacity:0.5;">{{ '{' }}</span>
-                @for (tag of activeProjects[0].tech; track tag; let last = $last) {
-                  <span>{{ tag }}</span>
-                  @if (!last) { <span style="opacity:0.35;">·</span> }
-                }
-                <span style="opacity:0.5;">{{ '}' }}</span>
-              </div>
+            }
+            <!-- spacer para que el stage tome la altura del card activo -->
+            <div style="visibility:hidden; pointer-events:none;">
+              <ng-container *ngTemplateOutlet="projectCard; context: { project: activeProjects[activeSlide()] }"></ng-container>
+            </div>
+          </div>
+
+          <!-- Flechas -->
+          <button (click)="carouselPrev()"
+                  class="absolute left-0 z-20 flex items-center justify-center w-8 h-8 transition-opacity duration-200"
+                  style="top:240px; color:#00ff41; opacity:0.65; background:none; border:none; cursor:pointer;"
+                  onmouseenter="this.style.opacity='1'" onmouseleave="this.style.opacity='0.65'">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button (click)="carouselNext()"
+                  class="absolute right-0 z-20 flex items-center justify-center w-8 h-8 transition-opacity duration-200"
+                  style="top:240px; color:#00ff41; opacity:0.65; background:none; border:none; cursor:pointer;"
+                  onmouseenter="this.style.opacity='1'" onmouseleave="this.style.opacity='0.65'">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+
+          <!-- Dots -->
+          <div class="flex justify-center items-center gap-2 mt-2">
+            @for (project of activeProjects; track project.title; let i = $index) {
+              <button
+                (click)="activeSlide.set(i)"
+                style="border:none; cursor:pointer; padding:0; transition:all 0.3s ease;"
+                [style.width]="activeSlide() === i ? '20px' : '6px'"
+                [style.height]="'6px'"
+                [style.borderRadius]="'3px'"
+                [style.background]="activeSlide() === i ? '#00ff41' : 'rgba(0,255,65,0.25)'"
+                [style.boxShadow]="activeSlide() === i ? '0 0 6px rgba(0,255,65,0.6)' : 'none'"
+              ></button>
+            }
+          </div>
+        </div>
+
+        <!-- ═══ DESKTOP: layout existente (oculto bajo lg) ═══ -->
+        <div class="hidden lg:block">
+
+          <!-- Featured: BS Tabs -->
+          <div appInView [inViewThreshold]="0.1" [inViewDelay]="100" class="fade-up mb-8">
+            <div class="grid lg:grid-cols-2 gap-8 items-center">
               <a
                 href="https://www.bstabs.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 transition-colors duration-200"
-                style="font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:#00ff41;"
-                onmouseenter="this.style.color='#c9d1d9'"
-                onmouseleave="this.style.color='#00ff41'"
+                class="relative group overflow-hidden rounded-lg border transition-all duration-500 block"
+                style="border-color:rgba(0,255,65,0.2);"
+                onmouseenter="this.style.borderColor='rgba(0,255,65,0.5)'"
+                onmouseleave="this.style.borderColor='rgba(0,255,65,0.2)'"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
-                {{ t().visitSite }}
+                <div class="relative overflow-hidden" style="aspect-ratio:16/9; background-color:#0d1117; min-height:200px;">
+                  <img src="https://images.unsplash.com/photo-1602821485286-4a6520cca299?w=800&q=70" alt="BS Tabs"
+                       class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" style="opacity:0.5;" />
+                  <div class="absolute inset-0" style="background:linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.3) 50%, transparent 100%);"></div>
+                  <div class="absolute inset-0" style="background-color:#00ff41; mix-blend-mode:color; opacity:0.3;"></div>
+                  <div class="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full border" style="background-color:rgba(10,10,10,0.8); border-color:rgba(0,255,65,0.3);">
+                    <span class="relative flex" style="width:8px;height:8px;">
+                      <span class="absolute w-full h-full rounded-full" style="background-color:#00ff41; opacity:0.75; animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></span>
+                      <span class="relative w-full h-full rounded-full" style="background-color:#00ff41;"></span>
+                    </span>
+                    <span style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#00ff41; letter-spacing:0.1em;">EN DESARROLLO</span>
+                  </div>
+                </div>
               </a>
+              <div>
+                <div class="flex items-center gap-3 mb-3">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 8px rgba(0,255,65,0.5));">
+                    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+                  </svg>
+                  <p style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#00e5ff;">{{ t().featured }} &bull; {{ activeProjects[0].statusLabel }}</p>
+                </div>
+                <h3 class="text-2xl font-bold mb-4" style="font-family:'Orbitron',sans-serif; color:#c9d1d9;">BS Tabs</h3>
+                <div class="p-5 rounded-lg border mb-5" style="background-color:#0d1117; border-color:rgba(0,255,65,0.1);">
+                  <p class="text-justify" style="font-family:'JetBrains Mono',monospace; font-size:0.82rem; color:#c9d1d9; line-height:1.8;">{{ activeProjects[0].description }}</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs mb-5" style="font-family:'JetBrains Mono',monospace; color:#00ff41;">
+                  <span style="opacity:0.5;">{{ '{' }}</span>
+                  @for (tag of activeProjects[0].tech; track tag; let last = $last) {
+                    <span>{{ tag }}</span>
+                    @if (!last) { <span style="opacity:0.35;">·</span> }
+                  }
+                  <span style="opacity:0.5;">{{ '}' }}</span>
+                </div>
+                <a href="https://www.bstabs.com/" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 transition-colors duration-200"
+                   style="font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:#00ff41;"
+                   onmouseenter="this.style.color='#c9d1d9'" onmouseleave="this.style.color='#00ff41'">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                  {{ t().visitSite }}
+                </a>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Row 1: active label -->
-        <div appInView [inViewThreshold]="0.1" class="fade-up flex items-center gap-3 mb-5">
-          <div class="relative flex items-center justify-center w-3 h-3">
-            <span class="absolute w-full h-full rounded-full" style="background-color:#00ff41; opacity:0.4; animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></span>
-            <span class="relative w-2 h-2 rounded-full" style="background-color:#00ff41; box-shadow:0 0 8px #00ff41;"></span>
+          <!-- Hirably + Portfolio -->
+          <div class="grid md:grid-cols-2 gap-4 mb-10">
+            @for (project of activeProjects.slice(1); track project.title; let i = $index) {
+              <div appInView [inViewThreshold]="0.1" [inViewDelay]="i * 80" class="fade-up">
+                <ng-container *ngTemplateOutlet="projectCard; context: { project: project }"></ng-container>
+              </div>
+            }
           </div>
-          <h3 class="font-bold tracking-widest text-sm" style="font-family:'Orbitron',sans-serif; color:#c9d1d9;">{{ t().active }}</h3>
-        </div>
 
-        <!-- Row 1: Hirably + Portfolio -->
-        <div class="grid md:grid-cols-2 gap-4 mb-10">
-          @for (project of activeProjects.slice(1); track project.title; let i = $index) {
-            <div appInView [inViewThreshold]="0.1" [inViewDelay]="i * 80" class="fade-up">
-              <ng-container *ngTemplateOutlet="projectCard; context: { project: project }"></ng-container>
-            </div>
-          }
         </div>
 
         <!-- Row 2: completed label -->
@@ -324,9 +359,71 @@ const COMPLETED_PROJECTS_EN: Project[] = [
   `]
 })
 export class ProjectsComponent {
-  private readonly langSvc = inject(LanguageService);
-  protected readonly t = computed(() => T[this.langSvc.lang()]);
+  private readonly langSvc  = inject(LanguageService);
 
+  protected readonly t      = computed(() => T[this.langSvc.lang()]);
+
+  // ── Carousel ──────────────────────────────────────────
+  readonly activeSlide = signal(0);
+
+  private readonly TOTAL    = 3;
+  private startX            = 0;
+  private startY            = 0;
+  private dragging          = false;
+  private axis: 'h' | 'v' | null = null;
+  private readonly THRESHOLD = 50;
+
+  getCarouselTransform(i: number): string {
+    const d = i - this.activeSlide();
+    if (d === 0)  return 'translateX(0) scale(1)';
+    if (d === -1 || (this.activeSlide() === 0 && i === this.TOTAL - 1))
+                  return 'translateX(-108%) scale(0.92)';
+    if (d === 1  || (this.activeSlide() === this.TOTAL - 1 && i === 0))
+                  return 'translateX(108%) scale(0.92)';
+    return 'translateX(0) scale(0.8)';
+  }
+
+  getCarouselOpacity(i: number): number {
+    return i === this.activeSlide() ? 1 : 0.5;
+  }
+
+  getCarouselZIndex(i: number): number {
+    return i === this.activeSlide() ? 3 : 1;
+  }
+
+  carouselPrev(): void {
+    this.activeSlide.set((this.activeSlide() - 1 + this.TOTAL) % this.TOTAL);
+  }
+
+  carouselNext(): void {
+    this.activeSlide.set((this.activeSlide() + 1) % this.TOTAL);
+  }
+
+  onTouchStart(e: TouchEvent): void {
+    this.dragging = true;
+    this.axis     = null;
+    this.startX   = e.touches[0].clientX;
+    this.startY   = e.touches[0].clientY;
+  }
+
+  onTouchMove(e: TouchEvent): void {
+    if (!this.dragging) return;
+    const dx = Math.abs(e.touches[0].clientX - this.startX);
+    const dy = Math.abs(e.touches[0].clientY - this.startY);
+    if (!this.axis) this.axis = dx > dy ? 'h' : 'v';
+    if (this.axis === 'h') e.preventDefault();
+  }
+
+  onTouchEnd(e: TouchEvent): void {
+    if (!this.dragging || this.axis !== 'h') { this.dragging = false; return; }
+    this.dragging = false;
+    const diff = e.changedTouches[0].clientX - this.startX;
+    if (Math.abs(diff) > this.THRESHOLD) {
+      diff < 0 ? this.carouselNext() : this.carouselPrev();
+    }
+  }
+
+  // ── Cards ──────────────────────────────────────────────
   get activeProjects(): Project[] {
     return this.langSvc.lang() === 'en' ? ACTIVE_PROJECTS_EN : ACTIVE_PROJECTS;
   }
@@ -338,14 +435,14 @@ export class ProjectsComponent {
   onCardEnter(event: MouseEvent, status: string): void {
     const el = event.currentTarget as HTMLElement;
     el.style.borderColor = status === 'active' ? 'rgba(0,255,65,0.4)' : 'rgba(0,229,255,0.4)';
-    el.style.transform = 'translateY(-4px)';
-    el.style.boxShadow = '0 12px 30px rgba(0,0,0,0.3)';
+    el.style.transform   = 'translateY(-4px)';
+    el.style.boxShadow   = '0 12px 30px rgba(0,0,0,0.3)';
   }
 
   onCardLeave(event: MouseEvent, status: string): void {
     const el = event.currentTarget as HTMLElement;
     el.style.borderColor = status === 'active' ? 'rgba(0,255,65,0.15)' : 'rgba(0,229,255,0.15)';
-    el.style.transform = 'translateY(0)';
-    el.style.boxShadow = 'none';
+    el.style.transform   = 'translateY(0)';
+    el.style.boxShadow   = 'none';
   }
 }

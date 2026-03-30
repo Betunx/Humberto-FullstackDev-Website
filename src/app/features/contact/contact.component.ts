@@ -26,6 +26,8 @@ const CT = {
     sentSub: 'Te responderé a la brevedad posible.',
     sendAnother: 'Enviar otro mensaje',
     errorMsg: '> Error al enviar. Intenta de nuevo o escríbeme directo a humbertolpzc.work@gmail.com',
+    rateLimitMsg: '> Mensaje ya enviado recientemente. Espera unos minutos antes de intentar de nuevo.',
+    spamMsg: '> Mensaje no válido. Asegúrate de escribir al menos 20 caracteres.',
   },
   en: {
     label: '05. // CONTACT',
@@ -48,6 +50,8 @@ const CT = {
     sentSub: "I'll get back to you shortly.",
     sendAnother: 'Send another message',
     errorMsg: '> Failed to send. Try again or reach me directly at humbertolpzc.work@gmail.com',
+    rateLimitMsg: '> Message already sent recently. Please wait a few minutes before trying again.',
+    spamMsg: '> Invalid message. Please write at least 20 characters.',
   },
 };
 
@@ -307,10 +311,23 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/maqloavv';
                     ></textarea>
                   </div>
 
+                  <!-- Honeypot: invisible for humans, bots fill it and Formspree discards the submission -->
+                  <input type="text" name="_gotcha" [(ngModel)]="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; opacity:0; pointer-events:none;" />
+
                   <!-- Submit -->
                   @if (error) {
                     <p class="mb-4 text-xs" style="font-family:'JetBrains Mono',monospace; color:#ff5f57;">
                       {{ t().errorMsg }}
+                    </p>
+                  }
+                  @if (rateLimited) {
+                    <p class="mb-4 text-xs" style="font-family:'JetBrains Mono',monospace; color:#ff9500;">
+                      {{ t().rateLimitMsg }}
+                    </p>
+                  }
+                  @if (spam) {
+                    <p class="mb-4 text-xs" style="font-family:'JetBrains Mono',monospace; color:#ff9500;">
+                      {{ t().spamMsg }}
                     </p>
                   }
                   <button
@@ -377,14 +394,38 @@ export class ContactComponent {
   protected readonly t = computed(() => CT[this.langSvc.lang()]);
 
   formState: FormState = { name: '', email: '', message: '' };
+  honeypot = '';
   sent = false;
   sending = false;
   error = false;
+  rateLimited = false;
+  spam = false;
+
+  private isRateLimited(): boolean {
+    const last = localStorage.getItem('contact_last_sent');
+    if (!last) return false;
+    return Date.now() - parseInt(last, 10) < 5 * 60 * 1000;
+  }
+
+  private isSpam(): boolean {
+    const msg = this.formState.message.trim();
+    if (msg.length < 20) return true;
+    const urlCount = (msg.match(/https?:\/\//gi) ?? []).length;
+    return urlCount >= 3;
+  }
 
   handleSubmit(): void {
     if (!this.formState.name || !this.formState.email || !this.formState.message) return;
-    this.sending = true;
+    if (this.honeypot) return;
+
     this.error = false;
+    this.rateLimited = false;
+    this.spam = false;
+
+    if (this.isRateLimited()) { this.rateLimited = true; return; }
+    if (this.isSpam()) { this.spam = true; return; }
+
+    this.sending = true;
 
     fetch(FORMSPREE_ENDPOINT, {
       method: 'POST',
@@ -393,12 +434,14 @@ export class ContactComponent {
         name: this.formState.name,
         email: this.formState.email,
         message: this.formState.message,
+        _gotcha: this.honeypot,
       }),
     })
       .then(res => {
         this.sending = false;
         if (res.ok) {
           this.sent = true;
+          localStorage.setItem('contact_last_sent', Date.now().toString());
         } else {
           this.error = true;
         }
@@ -411,7 +454,10 @@ export class ContactComponent {
 
   resetForm(): void {
     this.formState = { name: '', email: '', message: '' };
+    this.honeypot = '';
     this.sent = false;
     this.error = false;
+    this.rateLimited = false;
+    this.spam = false;
   }
 }

@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        tablet: '972px',
+      },
       fontFamily: {
         orbitron: ['Orbitron', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],

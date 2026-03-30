@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { InViewDirective } from '@core/directives/in-view.directive';
 import { LanguageService } from '@core/services/language.service';
 
@@ -107,25 +107,35 @@ const T = {
             <span class="w-3 h-3 rounded-full" style="background:#ff5f57;"></span>
             <span class="w-3 h-3 rounded-full" style="background:#febc2e;"></span>
             <span class="w-3 h-3 rounded-full" style="background:#28c840;"></span>
-            <!-- Tabs -->
+            <!-- Tabs — clickable on mobile, decorative on desktop -->
             <div class="flex ml-4 gap-1">
-              <span
-                class="px-4 py-1 text-xs rounded-t"
-                style="font-family:'JetBrains Mono',monospace; background:#0d1117; border:1px solid rgba(255,255,255,0.08); border-bottom:none; color:#00ff41;"
-              >{{ t().fileLeft }}</span>
-              <span
-                class="px-4 py-1 text-xs rounded-t"
-                style="font-family:'JetBrains Mono',monospace; background:#161b22; border:1px solid rgba(255,255,255,0.05); border-bottom:none; color:#8b949e;"
-              >{{ t().fileRight }}</span>
+              <button
+                (click)="activeTab.set('left')"
+                class="px-4 py-1 text-xs rounded-t transition-all duration-200"
+                [style]="activeTab() === 'left'
+                  ? 'font-family:JetBrains Mono,monospace; background:#0d1117; border:1px solid rgba(0,255,65,0.4); border-bottom:2px solid #00ff41; color:#00ff41; text-shadow:0 0 8px rgba(0,255,65,0.6);'
+                  : 'font-family:JetBrains Mono,monospace; background:#161b22; border:1px solid rgba(255,255,255,0.05); border-bottom:none; color:#8b949e;'"
+              >{{ t().fileLeft }}</button>
+              <button
+                (click)="activeTab.set('right')"
+                class="px-4 py-1 text-xs rounded-t transition-all duration-200"
+                [style]="activeTab() === 'right'
+                  ? 'font-family:JetBrains Mono,monospace; background:#161b22; border:1px solid rgba(0,255,65,0.4); border-bottom:2px solid #00ff41; color:#00ff41; text-shadow:0 0 8px rgba(0,255,65,0.6);'
+                  : 'font-family:JetBrains Mono,monospace; background:#0d1117; border:1px solid rgba(255,255,255,0.05); border-bottom:none; color:#8b949e;'"
+              >{{ t().fileRight }}</button>
             </div>
           </div>
 
           <!-- Split panels -->
-          <div class="grid lg:grid-cols-2" style="min-height:340px;">
+          <div class="grid lg:grid-cols-2 lg:min-h-[340px]">
 
-            <!-- LEFT: profile.txt -->
-            <div style="background:#0d1117; border-right:1px solid rgba(255,255,255,0.06);">
-              <!-- Mini file header -->
+            <!-- LEFT: profile.txt — always visible on lg, toggled on mobile -->
+            <div
+              [class]="activeTab() === 'left' ? 'block' : 'hidden lg:block'"
+              [style]="activeTab() === 'left'
+                ? 'background:#0d1117; border-right:1px solid rgba(255,255,255,0.06); border-top:2px solid #00ff41; transition:opacity 0.2s;'
+                : 'background:#0d1117; border-right:1px solid rgba(255,255,255,0.06); border-top:2px solid transparent; opacity:0.45; transition:opacity 0.2s;'"
+            >
               <div class="px-4 py-2 flex items-center gap-2" style="background:#0d1117; border-bottom:1px solid rgba(255,255,255,0.04);">
                 <span style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#8b949e;">// plain text</span>
               </div>
@@ -136,7 +146,6 @@ const T = {
                     <span style="font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:#c9d1d9; line-height:1.7; white-space:pre-wrap;">{{ line }}</span>
                   </div>
                 }
-                <!-- blinking cursor on last line -->
                 <div class="flex gap-4 px-4 py-0.5">
                   <span class="select-none flex-shrink-0 text-right" style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#3c4454; width:1.6rem;">{{ t().lines.length + 1 }}</span>
                   <span class="cursor-blink" style="display:inline-block; width:8px; height:1rem; background:#00ff41;"></span>
@@ -144,8 +153,13 @@ const T = {
               </div>
             </div>
 
-            <!-- RIGHT: config.json -->
-            <div style="background:#161b22;">
+            <!-- RIGHT: config.json — always visible on lg, toggled on mobile -->
+            <div
+              [class]="activeTab() === 'right' ? 'block' : 'hidden lg:block'"
+              [style]="activeTab() === 'right'
+                ? 'background:#161b22; border-top:2px solid #00ff41; transition:opacity 0.2s;'
+                : 'background:#161b22; border-top:2px solid transparent; opacity:0.45; transition:opacity 0.2s;'"
+            >
               <div class="px-4 py-2 flex items-center gap-2" style="border-bottom:1px solid rgba(255,255,255,0.04);">
                 <span style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#8b949e;">// json</span>
               </div>
@@ -185,4 +199,5 @@ const T = {
 export class AboutComponent {
   private readonly langSvc = inject(LanguageService);
   protected readonly t = computed(() => T[this.langSvc.lang()]);
+  protected readonly activeTab = signal<'left' | 'right'>('left');
 }
