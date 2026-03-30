@@ -26,15 +26,8 @@ const T = {
         role: 'Full Stack Developer & Fundador',
         company: 'BSTabs — Proyecto Personal',
         period: '2025 - Presente',
-        description: 'Arquitectura y desarrollo de una plataforma de tablaturas musicales (bstabs.com) con Angular 18, NestJS, PostgreSQL y Redis. Búsqueda con Elasticsearch, autenticación de usuarios y 4 modos de tema. Docker, Cloudflare Workers y CI/CD con GitHub Actions.',
+        description: 'Diseñé y desarrollé desde cero una plataforma de tablaturas musicales (bstabs.com) con Angular 18 y NestJS. Implementé búsqueda full-text con Elasticsearch, sistema de autenticación, caché con Redis y base de datos en PostgreSQL. Desplegué la infraestructura con Docker y Cloudflare Workers/Pages, con pipeline de CI/CD automatizado vía GitHub Actions. La app incluye PWA y 4 modos de tema.',
         tech: ['Angular 18', 'NestJS', 'PostgreSQL', 'Redis', 'Elasticsearch', 'Docker', 'Cloudflare', 'GitHub Actions'],
-      },
-      {
-        role: 'Full Stack Developer',
-        company: 'Freelance',
-        period: '2021 - Presente',
-        description: 'Desarrollo de sitios web personalizados para clientes usando React, Vue.js, Angular, Node.js y TypeScript. Configuración de Webpack y Babel para compatibilidad cross-browser. Diseños responsive mobile-first con Tailwind CSS, SCSS y Bootstrap.',
-        tech: ['React', 'Vue.js', 'Angular', 'Node.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],
       },
       {
         role: 'Web Developer',
@@ -42,6 +35,13 @@ const T = {
         period: '2023 - 2024',
         description: 'Liderazgo técnico en mantenimiento, mejora y optimización del sitio web oficial (icatson.sonora.gob.mx) y herramientas institucionales internas. Desarrollo Full Stack de nuevos módulos web y actualización de contenidos a través de Joomla!, gestionando frontend y backend del CMS. Optimización de rendimiento frontend, resolviendo problemas críticos de gestión de memoria en módulos JavaScript y mejorando tiempos de carga. Coordinación con equipos internos usando Jira y GitHub para control de versiones y despliegues.',
         tech: ['JavaScript', 'Joomla', 'HTML/CSS', 'Git', 'Jira'],
+      },
+      {
+        role: 'Full Stack Developer',
+        company: 'Freelance',
+        period: '2021 - Presente',
+        description: 'Desarrollo de sitios web personalizados para clientes usando React, Vue.js, Angular, Node.js y TypeScript. Configuración de Webpack y Babel para compatibilidad cross-browser. Diseños responsive mobile-first con Tailwind CSS, SCSS y Bootstrap.',
+        tech: ['React', 'Vue.js', 'Angular', 'Node.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],
       },
       {
         role: 'CNC Engineer',
@@ -67,15 +67,8 @@ const T = {
         role: 'Full Stack Developer & Founder',
         company: 'BSTabs — Personal Project',
         period: '2025 - Present',
-        description: 'Architected and built a music tablature platform (bstabs.com) with Angular 18, NestJS, PostgreSQL and Redis. Elasticsearch search, user authentication and 4 theme modes. Docker containerization, Cloudflare Workers API and CI/CD with GitHub Actions.',
+        description: 'Designed and built from scratch a music tablature platform (bstabs.com) with Angular 18 and NestJS. Implemented full-text search with Elasticsearch, authentication system, Redis cache and PostgreSQL database. Deployed infrastructure with Docker and Cloudflare Workers/Pages, with automated CI/CD pipeline via GitHub Actions. The app includes PWA support and 4 theme modes.',
         tech: ['Angular 18', 'NestJS', 'PostgreSQL', 'Redis', 'Elasticsearch', 'Docker', 'Cloudflare', 'GitHub Actions'],
-      },
-      {
-        role: 'Full Stack Developer',
-        company: 'Freelance',
-        period: '2021 - Present',
-        description: 'Custom websites for clients using React, Vue.js, Angular, Node.js and TypeScript deployed to Vercel. Configured Webpack and Babel for cross-browser compatibility and production bundling. Responsive mobile-first designs with Tailwind CSS, SCSS and Bootstrap.',
-        tech: ['React', 'Vue.js', 'Angular', 'Node.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],
       },
       {
         role: 'Web Developer',
@@ -83,6 +76,13 @@ const T = {
         period: '2023 - 2024',
         description: 'Technical leadership in the maintenance, improvement, and optimization of the official government website (icatson.sonora.gob.mx) and internal institutional tools. Full Stack development of new web modules and content updates through Joomla!, managing both frontend and backend of the CMS. Frontend performance optimization, resolving critical memory management issues in JavaScript modules and improving load times. Coordination with internal teams using Jira and GitHub for version control, task tracking, and deployment of updates.',
         tech: ['JavaScript', 'Joomla', 'HTML/CSS', 'Git', 'Jira', 'Trello'],
+      },
+      {
+        role: 'Full Stack Developer',
+        company: 'Freelance',
+        period: '2021 - Present',
+        description: 'Custom websites for clients using React, Vue.js, Angular, Node.js and TypeScript deployed to Vercel. Configured Webpack and Babel for cross-browser compatibility and production bundling. Responsive mobile-first designs with Tailwind CSS, SCSS and Bootstrap.',
+        tech: ['React', 'Vue.js', 'Angular', 'Node.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],
       },
       {
         role: 'CNC Engineer',
@@ -163,13 +163,18 @@ const T = {
                   </div>
 
                   <!-- Description -->
-                  <p class="text-sm leading-relaxed mb-5" style="font-family:'JetBrains Mono',monospace; color:#8b949e;">{{ exp.description }}</p>
+                  <p class="text-sm leading-relaxed mb-5 text-justify" style="font-family:'JetBrains Mono',monospace; color:#8b949e;">{{ exp.description }}</p>
 
                   <!-- Tech tags -->
-                  <div class="flex flex-wrap gap-2">
-                    @for (tag of exp.tech; track tag) {
-                      <span class="px-2 py-1 text-xs rounded" style="font-family:'JetBrains Mono',monospace; background-color:rgba(0,255,65,0.07); color:#00ff41; border:1px solid rgba(0,255,65,0.2);">{{ tag }}</span>
+                  <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs" style="font-family:'JetBrains Mono',monospace; color:#00ff41;">
+                    <span style="opacity:0.5;">{{ '{' }}</span>
+                    @for (tag of exp.tech; track tag; let last = $last) {
+                      <span>{{ tag }}</span>
+                      @if (!last) {
+                        <span style="opacity:0.35;">·</span>
+                      }
                     }
+                    <span style="opacity:0.5;">{{ '}' }}</span>
                   </div>
                 </div>
               </div>

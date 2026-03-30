@@ -7,12 +7,6 @@ import { ProjectsComponent } from '@features/projects/projects.component';
 import { EducationComponent } from '@features/education/education.component';
 import { ContactComponent } from '@features/contact/contact.component';
 
-const DIVIDER = `
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="h-px bg-gradient-to-r from-transparent via-[#00ff41]/30 to-transparent"></div>
-  </div>
-`;
-
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-home-page',

@@ -49,18 +49,19 @@ const ACTIVE_PROJECTS: Project[] = [
   },
   {
     title: 'Hirably — Landing Page',
-    description: 'Landing page corporativa construida desde cero para startup de HR-tech. Integración de chatbot HubSpot con Claude AI. Arquitectura de routing, pipelines de build y despliegue en producción.',
-    tech: ['Angular', 'TypeScript', 'Tailwind CSS', 'HubSpot', 'Claude AI', 'Vercel'],
-    image: 'https://images.unsplash.com/photo-1758873268663-5a362616b5a7?w=800&q=70',
+    description: 'Lideré la arquitectura frontend con Angular 17, aplicando Control Flow y OnPush para optimizar el renderizado. Desarrollé un motor de reservas custom integrando la API de Cal.com con funciones serverless de Vercel, reemplazando iframes. Implementé hardening de seguridad (CSP, HSTS) y un chatbot con Claude AI para automatizar el screening inicial de candidatos. Configuré SEO dinámico con meta tags OG y analítica de conversiones con GA4/GTM.',
+    tech: ['Angular', 'TypeScript', 'Tailwind CSS', 'Cal.com', 'Claude AI', 'Vercel', 'GA4', 'GTM'],
+    image: '/hirably-preview.jpg',
     status: 'active',
     statusLabel: 'Producción',
   },
   {
     title: 'Portfolio Personal',
-    description: 'Este mismo sitio web con temática Matrix/Tron. Diseño inmersivo con lluvia de código, animaciones, CV interactivo descargable y toggle EN/ES.',
+    description: 'Diseñé y desarrollé este portfolio desde cero con Angular y Tailwind CSS bajo una estética Matrix/Tron. Implementé animaciones de entrada con Intersection Observer, lluvia de código generativa en canvas y sistema de internacionalización EN/ES sin librerías externas. Arquitectura con componentes standalone, OnPush y signals. SEO completo con meta tags Open Graph, sitemap y robots.txt. CV descargable en dos idiomas y despliegue continuo en Vercel.',
     tech: ['Angular', 'TypeScript', 'Tailwind CSS', 'Vercel'],
     liveUrl: 'https://humberto-fullstack-dev-website.vercel.app',
     githubUrl: 'https://github.com/Betunx',
+    image: '/hldev-preview.jpg',
     status: 'active',
     statusLabel: 'En mantenimiento',
   },
@@ -74,12 +75,12 @@ const ACTIVE_PROJECTS_EN: Project[] = [
   },
   {
     ...ACTIVE_PROJECTS[1],
-    description: 'Corporate landing page built from scratch for an HR-tech startup. HubSpot chatbot with Claude AI integration. Routing architecture, build pipelines and production deployment.',
+    description: 'Led frontend architecture with Angular 17, applying Control Flow and OnPush strategy to optimize rendering. Built a custom booking engine integrating the Cal.com API with Vercel serverless functions, replacing iframes. Implemented security hardening (CSP, HSTS) and a Claude AI chatbot to automate initial candidate screening. Configured dynamic SEO with OG meta tags and conversion analytics with GA4/GTM.',
     statusLabel: 'Production',
   },
   {
     ...ACTIVE_PROJECTS[2],
-    description: 'This very website with Matrix/Tron theme. Immersive design with matrix rain, animations, downloadable interactive CV and EN/ES language toggle.',
+    description: 'Designed and built this portfolio from scratch with Angular and Tailwind CSS under a Matrix/Tron aesthetic. Implemented scroll-triggered animations with Intersection Observer, generative code rain on canvas and an EN/ES internationalization system without external libraries. Architecture with standalone components, OnPush and signals. Full SEO with Open Graph meta tags, sitemap and robots.txt. Downloadable CV in two languages and continuous deployment on Vercel.',
     statusLabel: 'Maintained',
   },
 ];
@@ -190,12 +191,15 @@ const COMPLETED_PROJECTS_EN: Project[] = [
               </div>
               <h3 class="text-2xl font-bold mb-4" style="font-family:'Orbitron',sans-serif; color:#c9d1d9;">BS Tabs</h3>
               <div class="p-5 rounded-lg border mb-5" style="background-color:#0d1117; border-color:rgba(0,255,65,0.1);">
-                <p style="font-family:'JetBrains Mono',monospace; font-size:0.82rem; color:#c9d1d9; line-height:1.8;">{{ activeProjects[0].description }}</p>
+                <p class="text-justify" style="font-family:'JetBrains Mono',monospace; font-size:0.82rem; color:#c9d1d9; line-height:1.8;">{{ activeProjects[0].description }}</p>
               </div>
-              <div class="flex flex-wrap gap-2 mb-5">
-                @for (tag of activeProjects[0].tech; track tag) {
-                  <span class="px-2.5 py-1 rounded text-xs" style="font-family:'JetBrains Mono',monospace; background-color:rgba(0,255,65,0.08); border:1px solid rgba(0,255,65,0.2); color:#00ff41;">{{ tag }}</span>
+              <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs mb-5" style="font-family:'JetBrains Mono',monospace; color:#00ff41;">
+                <span style="opacity:0.5;">{{ '{' }}</span>
+                @for (tag of activeProjects[0].tech; track tag; let last = $last) {
+                  <span>{{ tag }}</span>
+                  @if (!last) { <span style="opacity:0.35;">·</span> }
                 }
+                <span style="opacity:0.5;">{{ '}' }}</span>
               </div>
               <a
                 href="https://www.bstabs.com/"
@@ -215,8 +219,17 @@ const COMPLETED_PROJECTS_EN: Project[] = [
           </div>
         </div>
 
-        <!-- Other active -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-20">
+        <!-- Row 1: active label -->
+        <div appInView [inViewThreshold]="0.1" class="fade-up flex items-center gap-3 mb-5">
+          <div class="relative flex items-center justify-center w-3 h-3">
+            <span class="absolute w-full h-full rounded-full" style="background-color:#00ff41; opacity:0.4; animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></span>
+            <span class="relative w-2 h-2 rounded-full" style="background-color:#00ff41; box-shadow:0 0 8px #00ff41;"></span>
+          </div>
+          <h3 class="font-bold tracking-widest text-sm" style="font-family:'Orbitron',sans-serif; color:#c9d1d9;">{{ t().active }}</h3>
+        </div>
+
+        <!-- Row 1: Hirably + Portfolio -->
+        <div class="grid md:grid-cols-2 gap-4 mb-10">
           @for (project of activeProjects.slice(1); track project.title; let i = $index) {
             <div appInView [inViewThreshold]="0.1" [inViewDelay]="i * 80" class="fade-up">
               <ng-container *ngTemplateOutlet="projectCard; context: { project: project }"></ng-container>
@@ -224,13 +237,14 @@ const COMPLETED_PROJECTS_EN: Project[] = [
           }
         </div>
 
-        <!-- ── COMPLETED header ── -->
-        <div appInView [inViewThreshold]="0.1" class="fade-up flex justify-center mb-10">
-          <h3 class="font-bold tracking-widest text-base" style="font-family:'Orbitron',sans-serif; color:#c9d1d9;">{{ t().completed }}</h3>
+        <!-- Row 2: completed label -->
+        <div appInView [inViewThreshold]="0.1" class="fade-up flex items-center gap-3 mb-5">
+          <div class="w-2.5 h-2.5 rounded-full" style="background-color:#00e5ff; box-shadow:0 0 8px #00e5ff;"></div>
+          <h3 class="font-bold tracking-widest text-sm" style="font-family:'Orbitron',sans-serif; color:#c9d1d9;">{{ t().completed }}</h3>
         </div>
 
-        <!-- Completed grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Row 2: GeriaCare + Icatson -->
+        <div class="grid md:grid-cols-2 gap-4">
           @for (project of completedProjects; track project.title; let i = $index) {
             <div appInView [inViewThreshold]="0.1" [inViewDelay]="i * 80" class="fade-up">
               <ng-container *ngTemplateOutlet="projectCard; context: { project: project }"></ng-container>
@@ -286,17 +300,19 @@ const COMPLETED_PROJECTS_EN: Project[] = [
 
         @if (project.image) {
           <div class="relative overflow-hidden rounded mb-4 border border-[#00ff41]/10" style="aspect-ratio:16/9;">
-            <img [src]="project.image" [alt]="project.title" class="w-full h-full object-cover" style="opacity:0.5;" />
-            <div class="absolute inset-0" [style.backgroundColor]="project.status === 'active' ? '#00ff41' : '#00e5ff'" style="mix-blend-mode:color; opacity:0.25;"></div>
+            <img [src]="project.image" [alt]="project.title" class="w-full h-full object-cover" />
           </div>
         }
 
         <h4 class="font-bold mb-3" style="font-family:'Orbitron',sans-serif; color:#c9d1d9; font-size:0.95rem;">{{ project.title }}</h4>
-        <p class="text-xs leading-relaxed mb-4 flex-1" style="font-family:'JetBrains Mono',monospace; color:#8b949e; line-height:1.75;">{{ project.description }}</p>
-        <div class="flex flex-wrap gap-2 mt-auto pt-3 border-t" style="border-color:rgba(255,255,255,0.05);">
-          @for (tag of project.tech; track tag) {
-            <span class="text-xs" style="font-family:'JetBrains Mono',monospace; color:#8b949e;">{{ tag }}</span>
+        <p class="text-xs leading-relaxed mb-4 flex-1 text-justify" style="font-family:'JetBrains Mono',monospace; color:#8b949e; line-height:1.75;">{{ project.description }}</p>
+        <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-auto pt-3 border-t text-xs" style="border-color:rgba(255,255,255,0.05); font-family:'JetBrains Mono',monospace; color:#8b949e;">
+          <span style="opacity:0.5;">{{ '{' }}</span>
+          @for (tag of project.tech; track tag; let last = $last) {
+            <span>{{ tag }}</span>
+            @if (!last) { <span style="opacity:0.35;">·</span> }
           }
+          <span style="opacity:0.5;">{{ '}' }}</span>
         </div>
       </div>
     </ng-template>

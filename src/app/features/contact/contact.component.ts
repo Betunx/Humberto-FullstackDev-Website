@@ -25,6 +25,7 @@ const CT = {
     sentMsg: '> Mensaje enviado correctamente...',
     sentSub: 'Te responderé a la brevedad posible.',
     sendAnother: 'Enviar otro mensaje',
+    errorMsg: '> Error al enviar. Intenta de nuevo o escríbeme directo a humbertolpzc.work@gmail.com',
   },
   en: {
     label: '05. // CONTACT',
@@ -46,6 +47,7 @@ const CT = {
     sentMsg: '> Message sent successfully...',
     sentSub: "I'll get back to you shortly.",
     sendAnother: 'Send another message',
+    errorMsg: '> Failed to send. Try again or reach me directly at humbertolpzc.work@gmail.com',
   },
 };
 
@@ -309,7 +311,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORMSPREE_ID';
                   <!-- Submit -->
                   @if (error) {
                     <p class="mb-4 text-xs" style="font-family:'JetBrains Mono',monospace; color:#ff5f57;">
-                      > Error al enviar. Intenta de nuevo o escríbeme directo a humbertolpzc.work&#64;gmail.com
+                      {{ t().errorMsg }}
                     </p>
                   }
                   <button
