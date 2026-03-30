@@ -57,8 +57,7 @@ interface FormState {
   message: string;
 }
 
-// Replace YOUR_FORMSPREE_ID with your form ID from https://formspree.io
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORMSPREE_ID';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/maqloavv';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
