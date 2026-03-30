@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InViewDirective } from '@core/directives/in-view.directive';
@@ -391,7 +391,8 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/maqloavv';
 
 export class ContactComponent {
   private readonly langSvc = inject(LanguageService);
-  protected readonly t = computed(() => CT[this.langSvc.lang()]);
+  private readonly cdr     = inject(ChangeDetectorRef);
+  protected readonly t     = computed(() => CT[this.langSvc.lang()]);
 
   formState: FormState = { name: '', email: '', message: '' };
   honeypot = '';
@@ -445,10 +446,12 @@ export class ContactComponent {
         } else {
           this.error = true;
         }
+        this.cdr.markForCheck();
       })
       .catch(() => {
         this.sending = false;
         this.error = true;
+        this.cdr.markForCheck();
       });
   }
 
