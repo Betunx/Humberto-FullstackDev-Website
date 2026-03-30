@@ -62,6 +62,9 @@ interface FormState {
 }
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/maqloavv';
+const RECAPTCHA_SITE_KEY = '6LeDmZ4sAAAAADUI2ZXfvTusW5HfXFUIg5m4PTEx';
+
+declare const grecaptcha: { ready: (cb: () => void) => void; execute: (key: string, opts: { action: string }) => Promise<string> };
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -428,31 +431,36 @@ export class ContactComponent {
 
     this.sending = true;
 
-    fetch(FORMSPREE_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: this.formState.name,
-        email: this.formState.email,
-        message: this.formState.message,
-        _gotcha: this.honeypot,
-      }),
-    })
-      .then(res => {
-        this.sending = false;
-        if (res.ok) {
-          this.sent = true;
-          localStorage.setItem('contact_last_sent', Date.now().toString());
-        } else {
-          this.error = true;
-        }
-        this.cdr.markForCheck();
-      })
-      .catch(() => {
-        this.sending = false;
-        this.error = true;
-        this.cdr.markForCheck();
+    grecaptcha.ready(() => {
+      grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'contact' }).then((token: string) => {
+        fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: this.formState.name,
+            email: this.formState.email,
+            message: this.formState.message,
+            _gotcha: this.honeypot,
+            'g-recaptcha-response': token,
+          }),
+        })
+          .then(res => {
+            this.sending = false;
+            if (res.ok) {
+              this.sent = true;
+              localStorage.setItem('contact_last_sent', Date.now().toString());
+            } else {
+              this.error = true;
+            }
+            this.cdr.markForCheck();
+          })
+          .catch(() => {
+            this.sending = false;
+            this.error = true;
+            this.cdr.markForCheck();
+          });
       });
+    });
   }
 
   resetForm(): void {
